@@ -1,0 +1,19 @@
+---
+layout: post
+title: welcome
+category: posts
+---
+
+Welcome to my new blog!
+
+You can see my previous posts on [coffeebean](http://coffeebean.loicdescotte.com).
+
+---
+
+## Test
+
+Sample code : 
+
+```scala
+val hello = "hello"
+```

@@ -1,0 +1,12 @@
+markdown: rdiscount
+permalink: /posts/:title
+rdiscount:
+  extensions: [smart]
+
+gems:
+  - jekyll-sitemap
+
+name: Loic Descotte
+url: http://loicdescotte.github.com
+description: A blog about Scala, Java and other coding stuffs
+twitter: loic_d
