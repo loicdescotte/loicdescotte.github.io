@@ -7,7 +7,7 @@ body {
 a {
   color: #227ce8; }
 
-p code {word-wrap:normal;}
+pre code {word-wrap:break-word;}
 
 .sidebar {
   position: fixed;
