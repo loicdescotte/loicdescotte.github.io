@@ -10,8 +10,3 @@ name: Loïc Descotte
 url: http://loicdescotte.github.com
 description: A blog about Scala, Java and other coding stuffs
 twitter: loic_d
-
-analytics :
-  provider : google 
-  google : 
-      tracking_id : 'UA-51829653-1'
