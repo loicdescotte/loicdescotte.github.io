@@ -7,7 +7,10 @@ body {
 a {
   color: #227ce8; }
 
-pre code {word-wrap:break-word;}
+pre code {
+  white-space: pre-wrap;
+  word-wrap: normal;
+}
 
 .sidebar {
   position: fixed;
