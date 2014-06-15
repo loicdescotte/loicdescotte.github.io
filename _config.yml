@@ -6,7 +6,7 @@ rdiscount:
 gems:
   - jekyll-sitemap
 
-name: Loïc Descotte
-url: http://loicdescotte.github.com
+name: Loïc's Blog
+url: http://loicdescotte.github.io
 description: A blog about Scala, Java and other coding stuffs
 twitter: loic_d
