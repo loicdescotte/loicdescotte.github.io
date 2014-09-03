@@ -12,17 +12,17 @@ Gen is a kind of macro tool that generate new structs from your models, with col
 
 You just need to add a `+gen` annotation comment on your models :
 
-```golang
+{% highlight golang %} 
 // +gen
 type Message struct {
 	author, text string
 }
-```
+{% endhighlight %}
 
 Then, after running `go get github.com/clipperhouse/gen`, you will be able to generate some Go code with the `gen` command. 
 Finally, the new generated types can be used as follow, for example to filter a list of messages : 
 
-```golang
+{% highlight golang %} 
 func main() {
 
 	messages := make(Messages, 3)
@@ -39,6 +39,6 @@ func main() {
 	}
 
 }
-```
+{% endhighlight %}
 
 It only remains to integrate the generation step in your build tool.
