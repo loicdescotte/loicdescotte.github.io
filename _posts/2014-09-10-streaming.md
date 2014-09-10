@@ -28,7 +28,7 @@ def  transform = Action {
          newChunk.getBytes //<-- stream file
      }
                
-     Ok.stream(fileStream.through(transfo))            
+     Ok.chunked(fileStream.through(transfo))            
 }
 {% endhighlight %}
 
@@ -50,7 +50,7 @@ def  transform = Action {
          newLine.getBytes
      }
                
-    Ok.stream(fileStream.through(transfo)) 
+    Ok.chunked(fileStream.through(transfo)) 
 }
 {% endhighlight %}
 
@@ -106,3 +106,5 @@ WS.url accepts a `WSResponseHeaders => Iteratee` function to consume the data fr
 In the `consumer` method we feed the promise with the enumerator (stream) created from the WS result. Then we can stream a response from the enumerator.
 
 (*) This example is inspired by an example from Yann Simon on Github 
+
+If you want to mix several data sources, you can look at [this example](https://gist.github.com/loicdescotte/3266376), the post is a bit old but the principle remains the same.
