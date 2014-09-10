@@ -4,7 +4,7 @@ title: Streaming and proxying with Play
 category: play
 ---
 
-You'll find bellow a few streaming examples with Play Framework, a kind of streaming/proxying cheat sheet :)
+You'll find bellow a few streaming examples with Play Framework, a kind of small streaming/proxying cheat sheet :)
 
 This examples use the Iteratee API. The main elements from this API are the iteratees (data consumers) and the enumerators (data producers).
 If you want to learn more about this API I recommend to read [this post](http://mandubian.com/2012/08/27/understanding-play2-iteratees-for-normal-humans/).
