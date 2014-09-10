@@ -15,6 +15,8 @@ If you want to learn more about this API I recommend to read [this post](http://
 
 {% highlight scala %} 
 def  transform = Action {
+
+     import play.api.libs.iteratee._
     
      val fileStream: Enumerator[Array[Byte]] = {
          Enumerator.fromFile(new File("data.txt"))
@@ -36,6 +38,9 @@ def  transform = Action {
 
 {% highlight scala %} 
 def  transform = Action {
+
+    import play.api.libs.iteratee._
+
     lazy val bufferedReader =  new BufferedReader(new InputStreamReader(new FileInputStream("data.txt")))
      
      val fileStream : Enumerator[String] = Enumerator.generateM[String] {
