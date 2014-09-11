@@ -9,4 +9,8 @@ gems:
 name: Loïc's Blog
 url: http://loicdescotte.github.io
 description: A blog about Scala, Java and other coding stuffs
+keywords: - Programming
+- Scala
+- Java
+- Play Framework
 twitter: loic_d

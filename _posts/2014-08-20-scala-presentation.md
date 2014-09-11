@@ -1,7 +1,8 @@
 ---
 layout: post
 title: Quick introduction on Scala and Functional Programming
-tags: Scala FP
+tags:  - FP
+- Scala
 ---
 
 Here is a quick introduction about Scala and Functional Programming I made at Kelkoo. Maybe it can be useful for other people :)

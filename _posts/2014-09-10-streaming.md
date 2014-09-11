@@ -1,7 +1,9 @@
 ---
 layout: post
 title: Streaming and proxying with Play
-tags: Play Scala
+tags: - Play
+- Scala
+- Streaming
 ---
 
 You'll find bellow a few streaming examples with Play Framework, a kind of small streaming/proxying cheat sheet :)
