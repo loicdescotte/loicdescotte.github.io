@@ -1,7 +1,7 @@
 ---
 layout: post
 title: No generics in Golang, but...
-category: golang
+tags: Go
 ---
 
 Everyone knows that Go is a great language but that it does not support generics (yet?).
