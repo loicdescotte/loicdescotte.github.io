@@ -2,7 +2,7 @@
 layout: post
 title: Streaming and proxying with Play
 tags:
- - Play
+ - Play Framework
  - Scala
  - Streaming
 ---
