@@ -120,6 +120,29 @@ In the `consumer` method we feed the promise with the enumerator (stream) create
 
 Update : Since Play 2.3, WS provides a `getStream` method returning a `Future[(WSResponseHeaders, Enumerator[Array[Byte]])]`.
 
+So it's a little easier to use : 
+
+val resultFuture = WS.url("http://dumps.wikimedia.org/simplewiki/latest/simplewiki-latest-pages-articles.xml.bz2").getStream
+
+//val dataEnumeratorFuture = resultFuture.map(stream => stream._2)
+//dataEnumeratorFuture.map(Ok.chunked(_))
+
+//OR   
+resultFuture.map {
+  case (rs, stream) =>
+    Result(
+      header = ResponseHeader(
+        status = OK,
+        headers = Map(
+          CONTENT_LENGTH -> rs.headers.get("Content-Length").map(_.head).get,
+          CONTENT_DISPOSITION -> s"""attachment; filename="wikipedia.xml.bz2"""",
+          CONTENT_TYPE -> rs.headers.get("Content-Type").map(_.head).getOrElse("binary/octet-stream"))
+      ),
+      body = stream
+    )
+}
+
+
 (Thanks Martin for the comment)
 
 ----------------
