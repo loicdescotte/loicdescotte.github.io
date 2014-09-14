@@ -122,6 +122,7 @@ Update : Since Play 2.3, WS provides a `getStream` method returning a `Future[(W
 
 So it's a little easier to use : 
 
+{% highlight scala %} 
 val resultFuture = WS.url("http://dumps.wikimedia.org/simplewiki/latest/simplewiki-latest-pages-articles.xml.bz2").getStream
 
 //val dataEnumeratorFuture = resultFuture.map(stream => stream._2)
@@ -141,7 +142,7 @@ resultFuture.map {
       body = stream
     )
 }
-
+{% endhighlight %}
 
 (Thanks Martin for the comment)
 
