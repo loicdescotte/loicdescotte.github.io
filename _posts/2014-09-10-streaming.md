@@ -120,7 +120,7 @@ In the `consumer` method we feed the promise with the enumerator (stream) create
 
 Update : Since Play 2.3, WS provides a `getStream` method returning a `Future[(WSResponseHeaders, Enumerator[Array[Byte]])]`.
 
-(Thanks Martin for the comment).
+(Thanks Martin for the comment)
 
 ----------------
 
