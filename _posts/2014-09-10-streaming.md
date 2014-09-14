@@ -108,11 +108,18 @@ def streamFromWS = Action.async { request =>
 
 {% endhighlight %}
 
+
 This one deserves an explanation. `Concurrent.joined` creates an iteratee/enumerator tuple. According to the documentation, "When the enumerator is applied to an iteratee, the iteratee subsequently consumes whatever the iteratee in the pair is applied to. Consequently the enumerator is "one shot", applying it to subsequent iteratees will throw an exception.".
 
 WS.url accepts a `WSResponseHeaders => Iteratee` function to consume the data from the remote service.
 In the `consumer` method we feed the promise with the enumerator (stream) created from the WS result. Then we can stream a response from the enumerator.
 
 (*) This example is inspired by an example from Yann Simon on Github 
+
+----------------
+
+Update : Since Play 2.3, WS provides a `getStream` method returning what we're trying to achieve, i.e. a `Future[(WSResponseHeaders, Enumerator[Array[Byte]])]`. (Thanks Martin for the comment).
+
+----------------
 
 If you want to mix several data sources, you can look at [this example](https://gist.github.com/loicdescotte/3266376), the post is a bit old but the principle remains the same.
