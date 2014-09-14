@@ -66,6 +66,40 @@ def  transform = Action {
 
 In this proxying example we will call an external service in streaming from a Play server, and stream the response to our HTTP clients.
 
+----------------
+
+Update : Since Play 2.3, WS provides a `getStream` method returning a `Future[(WSResponseHeaders, Enumerator[Array[Byte]])]`.
+
+So it's a little easier to use : 
+
+{% highlight scala %} 
+val resultFuture = WS.url("http://dumps.wikimedia.org/simplewiki/latest/simplewiki-latest-pages-articles.xml.bz2").getStream
+
+//val dataEnumeratorFuture = resultFuture.map(stream => stream._2)
+//dataEnumeratorFuture.map(Ok.chunked(_))
+
+//OR   
+resultFuture.map {
+  case (rs, stream) =>
+    Result(
+      header = ResponseHeader(
+        status = OK,
+        headers = Map(
+          CONTENT_LENGTH -> rs.headers.get("Content-Length").map(_.head).get,
+          CONTENT_DISPOSITION -> s"""attachment; filename="wikipedia.xml.bz2"""",
+          CONTENT_TYPE -> rs.headers.get("Content-Type").map(_.head).getOrElse("binary/octet-stream"))
+      ),
+      body = stream
+    )
+}
+{% endhighlight %}
+
+(Thanks Martin for the comment)
+
+----------------
+
+Previous solution :
+
 {% highlight scala %}
 
 def streamFromWS = Action.async { request =>
@@ -116,36 +150,7 @@ In the `consumer` method we feed the promise with the enumerator (stream) create
 
 (*) This example is inspired by an example from Yann Simon on Github 
 
-----------------
 
-Update : Since Play 2.3, WS provides a `getStream` method returning a `Future[(WSResponseHeaders, Enumerator[Array[Byte]])]`.
-
-So it's a little easier to use : 
-
-{% highlight scala %} 
-val resultFuture = WS.url("http://dumps.wikimedia.org/simplewiki/latest/simplewiki-latest-pages-articles.xml.bz2").getStream
-
-//val dataEnumeratorFuture = resultFuture.map(stream => stream._2)
-//dataEnumeratorFuture.map(Ok.chunked(_))
-
-//OR   
-resultFuture.map {
-  case (rs, stream) =>
-    Result(
-      header = ResponseHeader(
-        status = OK,
-        headers = Map(
-          CONTENT_LENGTH -> rs.headers.get("Content-Length").map(_.head).get,
-          CONTENT_DISPOSITION -> s"""attachment; filename="wikipedia.xml.bz2"""",
-          CONTENT_TYPE -> rs.headers.get("Content-Type").map(_.head).getOrElse("binary/octet-stream"))
-      ),
-      body = stream
-    )
-}
-{% endhighlight %}
-
-(Thanks Martin for the comment)
-
-----------------
+----
 
 If you want to mix several data sources, you can look at [this example](https://gist.github.com/loicdescotte/3266376), the post is a bit old but the principle remains the same.
