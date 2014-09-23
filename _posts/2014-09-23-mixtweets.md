@@ -12,14 +12,15 @@ tags:
 
 I've updated a POC I made two years ago, about mixing and streaming some Twitter searches with Play Framework.
 
-The new version uses the Twitter streaming API with OAuth authentication. The number of Twitter search queries is dynamic and the results are pushed through Server Sent Events.
+The new version handles Twitter authentication through OAuth. The number of Twitter search queries is dynamic and the results are pushed through Server Sent Events.
+Instead of using the Play WS API to call the Twitter REST API, this versions uses Twitter4J and the Twitter Streaming API.
 
 ## MixedTweets
 
 We will see how to mix several searches from the Twitter streaming API and push the results to the browser in real time using SSE.
 
 All the code is available in this [mini project](https://github.com/loicdescotte/MixedTweets-2014).
-
+The old version using Play WS API is available [here](https://github.com/loicdescotte/Play2-MixedTweets).
 
 ###Controller
 
@@ -44,7 +45,7 @@ def stream(query: String) = Action {
 For each query, we create a stream (an Enumerator in the Iteratee API). Then we can `reduce` the streams into only one mixed stream using the `interleave` method.
 The two last lines will be explained later.
 
-In the `TwitterStreamListener` class, we create an Enumerator from a Twitter search. We use Twitter4J to handle authentication and Twitter searches : 
+In the `TwitterStreamListener` class, we create an Enumerator from a Twitter search. We use Twitter4J to handle authentication and Twitter searches (via the Twitter streaming API) : 
 
 {% highlight scala %}
 class TwitterStreamListener(searchQuery: String, config: Configuration) {
@@ -61,8 +62,8 @@ class TwitterStreamListener(searchQuery: String, config: Configuration) {
     val statusListener = new StatusListener() {
  
       override def onStatus(status: TwitterStatus) = {      
-       Logger.debug(status.getText)  
-       channel push (searchQuery, status)
+        Logger.debug(status.getText)  
+        channel push (searchQuery, status)
       }
 
     //...
@@ -77,7 +78,9 @@ class TwitterStreamListener(searchQuery: String, config: Configuration) {
 }
 {% endhighlight %}
 
-`Concurrent.broadcast` is useful to feed an Enumerator via an input channel. The resulting Enumerator contains tuples of search queries and Twitter status.
+`Concurrent.broadcast` is useful to feed an Enumerator via an input channel. 
+When a new message arrives, we push the Twitter status into the channel (see `onStatus` method).
+The resulting Enumerator contains tuples of search queries and Twitter status.
 
 #### Adapt the content with an enumeratee
 
