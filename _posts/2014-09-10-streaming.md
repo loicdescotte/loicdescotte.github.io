@@ -150,7 +150,5 @@ In the `consumer` method we feed the promise with the enumerator (stream) create
 
 (*) This example is inspired by an example from Yann Simon on Github 
 
-
-----
-
-If you want to mix several data sources, you can look at [this example](https://gist.github.com/loicdescotte/3266376), the post is a bit old but the principle remains the same.
+---
+If you want to mix several sources, you can read the following post : [Playing with Twitter streams](http://loicdescotte.github.io/posts/mixtweets/)

@@ -100,4 +100,19 @@ Ok.chunked(jsonMixStreams through EventSource()).as("text/event-stream")
 
 Now we just have to make the stream alive on the browser (see `index.scala.html`).
 
+Note : To configure the Twitter API client you need to declare an application on the [Twitter apps page](https://apps.twitter.com/).
+Then use your credentials as follows : 
+
+{% highlight scala %}
+val cb = new ConfigurationBuilder()
+cb.setDebugEnabled(true)
+  .setOAuthConsumerKey("xxx")
+  .setOAuthConsumerSecret("xxx")
+  .setOAuthAccessToken("xxx")
+  .setOAuthAccessTokenSecret("xxx")
+
+val config = cb.build 
+{% endhighlight %}
+
+
 Enjoy!!
