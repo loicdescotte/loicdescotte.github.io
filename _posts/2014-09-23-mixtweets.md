@@ -82,7 +82,7 @@ class TwitterStreamListener(searchQuery: String, config: Configuration) {
 When a new message arrives, we push the Twitter status into the channel (see `onStatus` method).
 The resulting Enumerator contains tuples of search queries and Twitter status.
 
-### Adapt the content with an enumeratee
+### Adapt the content with an Enumeratee
 
 An Enumeratee is a kind of adapter in the Iteratee API. We will use it to transform the results sent to the browser.
 The results will be converted into JSON values, with upper case messages :
