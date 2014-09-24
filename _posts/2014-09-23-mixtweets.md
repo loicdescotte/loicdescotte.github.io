@@ -12,8 +12,8 @@ tags:
 
 I've updated a POC I made two years ago, about mixing and streaming some Twitter searches with Play Framework.
 
-The new version handles Twitter authentication through OAuth. The number of Twitter search queries is dynamic and the results are pushed to the browser in real time through Server Sent Events.
-Instead of using the Play Web Service API to call the Twitter REST API, this versions uses Twitter4J and the Twitter Streaming API (the connection stays open to retrieve new arriving Tweets).
+The new version handles Twitter authentication through OAuth. The number of parallel Twitter search queries is dynamic and the results are pushed to the browser in real time through Server Sent Events.
+Instead of using the Play Web Service API to call the Twitter REST API, this version uses Twitter4J and the Twitter Streaming API (the connection stays open to retrieve new arriving Tweets).
 
 ## MixedTweets github project
 
