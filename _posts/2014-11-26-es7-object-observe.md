@@ -38,4 +38,4 @@ $("#ok").click(function(){
 [See this JsFiddle for the full example](http://jsfiddle.net/u52qvrfL/14/)
 
 (*) Note : for the delete event, I didn't manage to find the index of the delete event in the array.  
-While `change.name` gives me the index for an add event, it keeps giving the last index of the array when any index is deleted. I would be interested if you find a solution for this problem. 
+While `change.name` gives me the index for an add event, it keeps giving the last index of the array when any index is deleted. I would be interested if you know a solution for this problem (remember, JS dummy :) 
