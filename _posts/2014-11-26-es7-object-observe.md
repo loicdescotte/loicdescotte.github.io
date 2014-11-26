@@ -11,6 +11,7 @@ I'm really not a JavaScript expert but today I wanted to try the new Object.obse
 In my example I want to observe an array of names, and update an HTML list according to the events occurring on this array (add or delete).
 
 {% highlight javascript %}
+var names = ['joe', 'bob']
 Object.observe(names, function(changes){
     changes.forEach(function(change) {        
         var index = change.name;
