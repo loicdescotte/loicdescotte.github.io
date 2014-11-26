@@ -16,7 +16,7 @@ Object.observe(names, function(changes){
         var index = change.name;
         if(change.type == "add"){
            var elem = names[index];
-           addLine(elem, index); //simple jQuery function to add elements           
+           addLine(elem, index); //simple jQuery function to add markup elements           
         }
         else if(change.type == "delete"){
            $('li[id='+index+']').remove();
