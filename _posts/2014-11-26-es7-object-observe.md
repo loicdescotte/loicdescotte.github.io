@@ -17,10 +17,10 @@ Object.observe(names, function(changes){
         var index = change.name;
         if(change.type == "add"){
            var elem = names[index];
-           addLine(elem, index); //simple jQuery function to add markup elements           
+           $('#list ul').append(...) //add element in markup
         }
         else if(change.type == "delete"){
-           $('li[id='+index+']').remove();
+          //refresh the list (*)
         }     
     });  
 }); 
@@ -36,3 +36,6 @@ $("#ok").click(function(){
 {% endhighlight %}
 
 [See this JsFiddle for the full example](http://jsfiddle.net/u52qvrfL/14/)
+
+(*) Note : for the delete event, I didn't manage to find the index of the delete event in the array.  
+While `change.name` gives me the index for an add event, it keeps giving the last index of the array when any index is deleted. I would be interested if you find a solution for this problem. 
