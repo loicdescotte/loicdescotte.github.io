@@ -35,4 +35,4 @@ $("#ok").click(function(){
 });
 {% endhighlight %}
 
-[See this JsFiddle for the full example](http://jsfiddle.net/heb1cbs9/)
+[See this JsFiddle for the full example](http://jsfiddle.net/bw8e2jaj/)
