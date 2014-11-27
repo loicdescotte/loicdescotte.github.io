@@ -33,4 +33,4 @@ $("#ok").click(function(){
 });
 {% endhighlight %}
 
-[See this JsFiddle for the full example](http://jsfiddle.net/j2wdns09/)
+[See this JsFiddle for the full example](http://jsfiddle.net/d2ycq1zn/)
