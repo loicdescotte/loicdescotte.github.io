@@ -8,18 +8,22 @@ tags:
 ---
 
 I'm really not a JavaScript expert but today I wanted to try the new Object.observe API that will be part of ECMAScript 7 and that is already supported in Chrome.  
-In my example I want to observe an array of names, and update an HTML list according to the events occurring on this array (e.g. add or delete).
+In my example I want to observe an array of names, and update an HTML list according to the events occurring on this array (e.g. add or delete). To achieve this, the appropriate function is Array.observe.
 
 {% highlight javascript %}
-var names = ['joe', 'bob']
-Object.observe(names, function(changes){
-    changes.forEach(function(change) {        
-        var index = change.name;
-        if(change.type == "add"){
-           var elem = names[index];
-           $('#list ul').append('<li>...</li>') //add element in markup
+Array.observe(users, function(changes){
+    changes.forEach(function(change) {  
+        if(change.type == "splice"){
+            if(change.addedCount){
+                var index = change.index;
+                var user = users[index];
+                $('#list ul').append('<li>...</li>') //add element in markup
+            }
+            else{
+                var id = change.removed[0].id;
+                $('li[id='+id+']').remove();
+            }
         }
-        //...
     });  
 }); 
 {% endhighlight %}
@@ -29,8 +33,11 @@ Of course, it is also possible to have 2 ways binding, for example we can add an
 
 {% highlight javascript %}
 $("#ok").click(function(){
-    names.push($("#in").val());
+    lastId +=1;
+    var name = $("#in").val();
+    var user = {name: name,id: lastId};
+    users.push(user);
 });
 {% endhighlight %}
 
-[See this JsFiddle for the full example](http://jsfiddle.net/d2ycq1zn/)
+[See this JsFiddle for the full example](http://jsfiddle.net/7abdtp8r/)
