@@ -8,9 +8,11 @@ tags:
 ---
 
 I'm really not a JavaScript expert but today I wanted to try the new Object.observe API that will be part of ECMAScript 7 and that is already supported in Chrome.  
-In my example I want to observe an array of names, and update an HTML list according to the events occurring on this array (e.g. add or delete). To achieve this, the appropriate function is Array.observe.
+In my example I want to observe an array of user names, and update an HTML list according to the events occurring on this array (e.g. add or delete). To achieve this, the appropriate function is Array.observe.
 
 {% highlight javascript %}
+var users = [{name: 'joe',id: 0}, {name: 'bob',id: 1}, {name: 'loic',id: 2}];
+
 Array.observe(users, function(changes){
     changes.forEach(function(change) {  
         if(change.type == "splice"){
@@ -28,7 +30,7 @@ Array.observe(users, function(changes){
 }); 
 {% endhighlight %}
 
-This is very simple and handy, even for a backend developper like me to automatically udpate the view from the model.  
+This is very simple and handy, even for a backend developper like me, to automatically udpate the view from the model.  
 Of course, it is also possible to have 2 ways binding, for example we can add an element in the array using an input field. Then the list will be automatically updated, thanks to the array observer.
 
 {% highlight javascript %}
