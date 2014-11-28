@@ -40,7 +40,6 @@ $("#ok").click(function(){
 });
 {% endhighlight %}
 
-
 We can also delete elements in the HTML list : 
 
 {% highlight javascript %}
@@ -50,6 +49,5 @@ $("#list").on("click", ".del", function(event) {
     users.splice(index, 1);
 });
 {% endhighlight %}
-
 
 [See this JsFiddle for the full example](http://jsfiddle.net/7abdtp8r/)
