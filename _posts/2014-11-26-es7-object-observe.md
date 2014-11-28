@@ -40,4 +40,15 @@ $("#ok").click(function(){
 });
 {% endhighlight %}
 
+We can also delete elements in the HTML list : 
+
+{% highlight javascript %}
+$("#list").on("click", ".del", function(event) {   
+    $("#filter").val("");
+    var id = parseInt($(this).parent().attr('id'),10);
+    var index = users.map(function(x) {return x.id; }).indexOf(id);
+    users.splice(index, 1);
+});
+{% endhighlight %}
+
 [See this JsFiddle for the full example](http://jsfiddle.net/7abdtp8r/)
