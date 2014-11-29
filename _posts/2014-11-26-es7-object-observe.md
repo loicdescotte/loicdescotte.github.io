@@ -8,7 +8,7 @@ tags:
 ---
 
 I'm really not a JavaScript expert but today I wanted to try the new Object.observe API that will be part of ECMAScript 7 and that is already supported in Chrome.  
-In my example I want to observe an array of user names, and update an HTML list according to the events occurring on this array (e.g. add or delete). To achieve this, the appropriate function is Array.observe.
+In my example I want to observe an array of user names, and update an HTML list according to the events occurring on this array (add, delete or update). To achieve this, the appropriate function is Array.observe.
 
 {% highlight javascript %}
 var users = [{name: 'joe',id: 0}, {name: 'bob',id: 1}, {name: 'loic',id: 2}];
@@ -52,4 +52,4 @@ $("#list").on("click", ".del", function(event) {
 });
 {% endhighlight %}
 
-[See this JsFiddle for the full example](http://jsfiddle.net/7abdtp8r/)
+[See this JsFiddle for the full example](http://jsfiddle.net/Ljxbo0s2/)
