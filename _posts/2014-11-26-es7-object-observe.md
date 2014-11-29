@@ -5,6 +5,7 @@ tags:
  - ES7
  - JavaScript
  - Object.observe
+ - 2 ways databinding
 ---
 
 I'm really not a JavaScript expert but today I wanted to try the new Object.observe API that will be part of ECMAScript 7 and that is already supported in Chrome.  
@@ -36,7 +37,7 @@ This is very simple and handy, even for a backend developper like me, to automat
 
 ## View to Model
 
-Of course, it is also possible to have 2 ways binding, for example we can add an element in the array using an input field. Then the list will be automatically updated, thanks to the array observer.
+Of course, it is also possible to have 2 ways databinding, for example we can add an element in the array using an input field. Then the list will be automatically updated, thanks to the array observer.
 
 {% highlight javascript %}
 $("#ok").click(function(){
