@@ -9,4 +9,4 @@ tags:
 
 Here is a quick introduction about Scala and Functional Programming I made at Kelkoo. Maybe it can be useful for other people :)
 
-<iframe src="//www.slideshare.net/slideshow/embed_code/42175404" width="476" height="400" frameborder="0" marginwidth="0" marginheight="0" scrolling="no"></iframe>
+<iframe src="http://docs.google.com/viewer?url=https%3A%2F%2Fdocs.google.com%2Fpresentation%2Fd%2F1SsSip1Kw1qFy3W4hoX7u2QTV_wiblSuFdJhgMablkME%2Fedit%3Fusp%3Dsharing&embedded=true" width="600" height="780" style="border: none;"></iframe>
