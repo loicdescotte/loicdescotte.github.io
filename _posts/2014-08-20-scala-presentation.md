@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Quick introduction on Scala and Functional Programming
+title: Introduction on Scala and Functional Programming
 tags:
  - Functional Programming
  - Scala
