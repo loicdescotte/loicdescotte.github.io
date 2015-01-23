@@ -95,10 +95,10 @@ case class FutureO[+A](future: Future[Option[A]]) extends AnyVal {
 Then you can use a simple for comprehension form :
 
 {% highlight scala %}
-val composedAB2: Future[Option[String]] = for {
+val composedAB2: Future[Option[String]] = (for {
   a <- FutureO(foa)
   b <- FutureO(fob(a))
-}yield b
+}yield b).future
 {% endhighlight %}
 
 Or, with `flatMap` :
