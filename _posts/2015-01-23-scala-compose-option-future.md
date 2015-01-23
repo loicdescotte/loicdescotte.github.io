@@ -71,7 +71,7 @@ This is an idea and an implementation from [Edofic's blog](http://www.edofic.com
 
 You can create a custom `FutureO` monad that will compose well with other `FutureO` instances.
 
-You just need to define a constructor and `flatMap` (plus `map` if you want to use for comprehension syntactic sugar) : 
+You just need to define a constructor and `flatMap` (plus `map` as it's used by for comprehension syntactic sugar) : 
 
 {% highlight scala %}
 case class FutureO[+A](future: Future[Option[A]]) extends AnyVal {
