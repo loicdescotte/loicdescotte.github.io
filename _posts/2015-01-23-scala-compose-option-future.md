@@ -24,12 +24,12 @@ It's also easy to compose futures,  in a non blocking way :
 
 {% highlight scala %}
 def fa: Future[String] = Future("a")
-def fb: Future[String] = Future("b")
+def fb(a: String): Future[String] = Future(a+"b")
 
 val fab : Future[String] = for{
   a <- fa
-  b <- fb
-} yield a+b
+  ab <- fb(a)
+} yield ab
 {% endhighlight %}
 
 But is it easy to compose several Future[Option[A]]? It's a common problem if you call sequentially several external resources, that can give you one or zero value.
@@ -42,8 +42,8 @@ def fob(a: String): Future[Option[String]] = Future(Some(a+"b"))
 val composedAB = for {
   optA <-foa
   a <- optA // option instead of Future
-  b <- fob(a)
-}yield b
+  ab <- fob(a)
+}yield ab
 */
 {% endhighlight %}
 
@@ -97,14 +97,14 @@ Then you can use a simple for comprehension form :
 {% highlight scala %}
 val composedAB2: Future[Option[String]] = (for {
   a <- FutureO(foa)
-  b <- FutureO(fob(a))
-}yield b).future
+  ab <- FutureO(fob(a))
+}yield ab).future
 {% endhighlight %}
 
 Or, with `flatMap` :
 
 {% highlight scala %}
-val noSugarComposedAB2 = FutureO(foa).flatMap(a => FutureO(fob(a)))
+val noSugarComposedAB2 = FutureO(foa).flatMap(a => FutureO(fob(a))).future
 {% endhighlight %}
 
 ### Using a Scalaz monad transformer
@@ -120,7 +120,7 @@ import scalaz.OptionT._
 
 val composedAB3: Future[Option[String]] = (for {
   a <- optionT(foa)
-  b <- optionT(fob(a))
-}yield b).run
+  ab <- optionT(fob(a))
+}yield ab).run
 
 {% endhighlight %}
