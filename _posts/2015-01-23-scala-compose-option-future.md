@@ -20,6 +20,8 @@ val oab : Option[String] = for{
 } yield a+b
 {% endhighlight %}
 
+Note : you can read [my helper](https://gist.github.com/loicdescotte/4044169) about for comprehension translation to `map/flatMap`.
+
 It's also easy to compose futures,  in a non blocking way :
 
 {% highlight scala %}
