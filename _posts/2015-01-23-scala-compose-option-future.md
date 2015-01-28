@@ -69,7 +69,7 @@ Doing this, you can compose result from `foa` and `fob` and keep consistent type
 
 ## Using a custom FutureO monad
 
-This is an idea and from [Edofic's blog](http://www.edofic.com/posts/2014-03-07-practical-future-option.html). It allows more natural composition of Option and Future types.
+This is an idea from [Edofic's blog](http://www.edofic.com/posts/2014-03-07-practical-future-option.html). It allows more natural composition of Option and Future types.
 
 You can create a custom `FutureO` monad that will compose well with other `FutureO` instances.
 
