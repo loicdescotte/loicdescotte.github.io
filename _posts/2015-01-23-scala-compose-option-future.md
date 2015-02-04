@@ -60,7 +60,7 @@ You can solve this with pattern matching :
 {% highlight scala %}
 val composedAB: Future[Option[String]] = foa.flatMap {
   case Some(a) => fob(a) //(*)
-  case None => Future(None)
+  case None => Future.successful(None)
 }
 {% endhighlight %}
 
