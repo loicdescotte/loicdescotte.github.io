@@ -98,7 +98,7 @@ class ControllerSpec extends Specification with Mockito {
 }
 {% endhighlight %}
 
-To be able to do test the routes direclty with our real services, e.g. for integration tests, we need to define our own 'WithApplication' helper : 
+To be able to test the routes directly with our real services, e.g. for integration tests, we need to define our own 'WithApplication' helper : 
 
 {% highlight scala %}
 class WithDepsApplication extends WithApplicationLoader(new SimpleApplicationLoader)
