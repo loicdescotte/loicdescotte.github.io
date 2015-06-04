@@ -9,13 +9,13 @@ tags:
 ---
 
 Play Framework, in its new version, provides a lot of new stuff to handle dependency injection at runtime, using Guice.  
-With Scala, I always prefer using compile time dependency injection, as it allows to see errors as soon as possible. I must also admit that I find compile time DI a lot more elegant at it needs no container or proxy at runtime!
+With Scala, I always prefer using compile time dependency injection, as it allows to see errors as soon as possible. I must also admit that I find compile time DI a lot more elegant as it needs no container or proxy at runtime!
 
 Fortunately, Play team also added the ability to control the way routes, controllers and other components are binded together at compile time.
 
 ## Controller and service
 
-In this example, we have a controller that take a `LinkService` dependency.  
+In this example, we have a controller that takes a `LinkService` dependency.  
 We want to be able to mock this service in our controller tests.
 
 {% highlight scala %}
