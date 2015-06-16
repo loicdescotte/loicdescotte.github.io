@@ -37,7 +37,7 @@ def stream(query: String) = Action {
 
   val mixStreams = streams.reduce((s1,s2) => s1 interleave s2)
 
-  val jsonMixStreams = mixStreams through upperCaseJson
+  val jsonMixStreams = mixStreams through toJson
   Ok.chunked(jsonMixStreams through EventSource()).as("text/event-stream")  
 } 
 {% endhighlight %}
@@ -85,10 +85,10 @@ The resulting Enumerator contains tuples of search queries and Twitter status.
 ### Adapt the content with an Enumeratee
 
 An Enumeratee is a kind of adapter in the Iteratee API. We will use it to transform the results sent to the browser.
-The results will be converted into JSON values, with upper case messages :
+The results will be converted into JSON values :
 
 {% highlight scala %}
-val upperCaseJson : Enumeratee[(String, TwitterStatus), JsValue] = Enumeratee.map[(String,TwitterStatus)] { case (searchQuery, status) =>
+val toJson : Enumeratee[(String, TwitterStatus), JsValue] = Enumeratee.map[(String,TwitterStatus)] { case (searchQuery, status) =>
   Json.obj("message" -> s"$searchQuery : ${status.getText}", "author" -> status.getUser.getName)
 }
 {% endhighlight %}
@@ -96,7 +96,7 @@ val upperCaseJson : Enumeratee[(String, TwitterStatus), JsValue] = Enumeratee.ma
 Finally we can stream the result over SSE using an `EventSource` Enumeratee, with a `text/event-stream` Content-Type :
 
 {% highlight scala %}
-val jsonMixStreams = mixStreams through upperCaseJson
+val jsonMixStreams = mixStreams through toJson
 Ok.chunked(jsonMixStreams through EventSource()).as("text/event-stream")  
 {% endhighlight %}
 
