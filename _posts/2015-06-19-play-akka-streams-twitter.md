@@ -98,7 +98,7 @@ We would also push new elements into the channel to feed the enumerator (i.e the
 
 As we're merging several Twitter searches, we have in result several sources. We will use a merge to have a single stream, containing all messages, so we can consume them more easily.
 
-{% endhighlight %}
+{% highlight scala %}
 // get an Array of Source from an array of Twitter search queries
 val streams = queries.map { query => 
     val twitterStreamListener = new TwitterStreamListener(query, config)
