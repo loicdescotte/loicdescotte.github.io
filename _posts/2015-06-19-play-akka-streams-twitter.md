@@ -20,7 +20,7 @@ Akka Streams is still tagged as "experimental", but the 1.0 version is close. Wi
 
 ## MixTweets, updated
 
-In a [previous post](http://loicdescotte.github.io/posts/mixtweets/), we've seen how to handle Twitter message streams reactively, how to merge several Twitter searches in a unique stream and push this into an EventSource (Server Sent Event) output with the Iteratee API.  
+In a [previous post](http://loicdescotte.github.io/posts/mixtweets/), we've seen how to handle Twitter message streams reactively, how to merge several Twitter searches in a unique stream, transform them into JSON and push this into an EventSource (Server Sent Event) output with the Iteratee API.  
 Now, we will do the same with Akka Streams and compare this two solutions.  
 
 ### How to define a source
