@@ -13,7 +13,7 @@ A lot of big actors are involved in this initiative, like Typesafe, Netflix, Piv
 Its goal is to "provide a standard for asynchronous stream processing with non-blocking back pressure".  
 In a few words, back pressure is the ability for a data producer to adapt the data transmission rate depending on the speed of the consumer, to avoid overwhelming it.
 
-This article will focus on Akka Streams, which is an implementation of Reactive-Streams that relies on Akka actors andu provides an higher level API on top of them.
+This article will focus on Akka Streams, which is an implementation of Reactive-Streams that relies on Akka actors and provides an higher level API on top of them.
 
 Play 3 will rely on Akka-Streams under the hood, and it will also allow to benefit from it to to handle data streams reactively, like we are doing today with Play 2 and the Iteratee API.  
 Akka Streams is still tagged as "experimental", but the 1.0 version is close. With Play 2.4, it's already possible to use it, via Reactive-Streams to Iteratee and Iteratee to Reactive-Streams conversions.
