@@ -5,7 +5,7 @@ tags:
  - Play Framework
  - Scala
  - Reactive-Streams
- - Akka treams
+ - Akka streams
 ---
 
 You may have heard of [Reactive-Streams](http://www.reactive-streams.org/), a specification inspired by the [Reactive Manifesto](http://reactivemanifesto.org/).  
