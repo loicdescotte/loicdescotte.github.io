@@ -182,6 +182,6 @@ Iteratee
 ++ Very good for this use case (broadcast and channel are very handy, merge is very easy)
 -- Low level / complex cases can be more difficult  
 
-Both are very good stream processing libraries, with high level API and good capabilities to handle backpressure.
+Both are very good stream processing libraries, with high level API and good capabilities to handle back pressure.
 
 Note that I'm just beginning with Akka Streams, if you find better ideas to achieve this, please tell me :)  
