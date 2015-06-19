@@ -18,7 +18,7 @@ This article will focus on Akka Streams, which is an implementation of Reactive-
 Play 3 will rely on Akka-Streams under the hood, and it will also allow to benefit from it to to handle data streams reactively, like we are doing today with Play 2 and the Iteratee API.  
 Akka Streams is still tagged as "experimental", but the 1.0 version is close. With Play 2.4, it's already possible to use it, via Reactive-Streams to Iteratee and Iteratee to Reactive-Streams conversions.
 
-## MixTWeets, updated
+## MixTweets, updated
 
 In a [previous post](http://loicdescotte.github.io/posts/mixtweets/), we've seen how to handle Twitter message streams reactively, how to merge several Twitter searches in a unique stream and push this into an EventSource (Server Sent Event) output with the Iteratee API.  
 Now, we will do the same with Akka Streams and compare this two solutions.  
