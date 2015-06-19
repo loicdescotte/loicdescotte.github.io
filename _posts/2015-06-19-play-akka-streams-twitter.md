@@ -20,7 +20,7 @@ Akka Streams is still tagged as "experimental", but the 1.0 version is close. Wi
 
 ## MixTweets, updated
 
-In a [previous post](http://loicdescotte.github.io/posts/mixtweets/), we've seen how to handle Twitter message streams reactively, how to merge several Twitter searches in a unique stream, transform them into JSON and push this into an EventSource (Server Sent Event) output with the Iteratee API.  
+In a [previous post](http://loicdescotte.github.io/posts/mixtweets/), we've seen how to handle streams of Twitter messages reactively, how to merge several Twitter searches in a unique stream, transform them into JSON and push this into an EventSource (Server Sent Event) output with the Iteratee API.  
 Now, we will do the same with Akka Streams and compare this two solutions.  
 
 ### How to define a source
@@ -59,7 +59,7 @@ The first line creates an actor reference and a publisher. Now we can keep refer
 
 Note that we need to materialize the source before being able to use the actor behind it.  
 The source is materialized into a publisher, and then we need to redefine a source from this publisher.  
-This trick is helps us to solve a problem that is specific to our use case : we don't want to consume the source right now because we want to keep it for later, and merge it with other sources. Fortunately, this kind of use case should be simplified in future versions of Akka streams (an issue is opened in Github to address this).
+This trick helps us to solve a problem that is specific to our use case : we don't want to consume the source right now because we must keep it for later, and merge it with other sources. Fortunately, this kind of use case should be simplified in future versions of Akka streams (an issue is opened in Github to address this).
 
 In simpler cases, you can just declare a `Source`, a `Flow` (i.e. a bridge that takes an input a produces an output) and define a way to consume the data in the same time. Using directly a `Sink`, the source will be materialized so you can get a reference to an actor.  
 
