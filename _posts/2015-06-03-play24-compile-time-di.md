@@ -8,6 +8,8 @@ tags:
  - Compile time
 ---
 
+**Update 23/07/2015 : How to add stop hooks for your modules, how to inject play modules (WSClient, I18n, Cache, ...)**
+
 Play Framework, in its new version, provides a lot of new stuff to handle dependency injection at runtime, using Guice.  
 With Scala, I always prefer using compile time dependency injection, as it allows to see errors as soon as possible. I must also admit that I find compile time DI a lot more elegant as it needs no container or proxy at runtime!
 
@@ -52,13 +54,11 @@ class SimpleApplicationLoader extends ApplicationLoader {
   }
 }
 
-object ControllerDependencies {
+class ApplicationComponents(context: Context) extends BuiltInComponentsFromContext(context) {  
   lazy val logService = new LogService
   lazy val linkService = new LinkService(logService)
-}
 
-class ApplicationComponents(context: Context) extends BuiltInComponentsFromContext(context) {  
-  lazy val applicationController = new controllers.Application(ControllerDependencies.linkService)
+  lazy val applicationController = new controllers.Application(linkService)
   lazy val assets = new controllers.Assets(httpErrorHandler)
   override lazy val router = new Routes(httpErrorHandler, applicationController, assets)
 }
@@ -126,9 +126,69 @@ class ApplicationSpec extends Specification {
 }{% endhighlight %}
 
 
-You can find all the sources in [this Github project](https://github.com/loicdescotte/play24SimpleDI).
-
 Note that you can also use macwire macros to wire automatically services, controllers and routes. A good example can be found [here](https://github.com/gmethvin/play-macwire-di).
 
 
+## How to inject Play modules
+
+As Ryan pointed out in the comments, it is possible to inject modules provided by Play APIs.
+The `BuiltInComponentsFromContext` can be mixed with several traits, provided by the framework.  
+Let's consider that our link service needs to use the Web service client API : 
+
+{% highlight scala %}
+class LinkService(logService: LogService, wsClient: WSClient){
+
+  def findLinks(query: String) = {
+    val duckDuckUrl = Play.current.configuration.getString("duckduck.url").getOrElse("http://api.duckduckgo.com/?format=json&q=") + query
+    wsClient.url(duckDuckUrl).get().map{ response =>
+      val results = response.json \\ "FirstURL"
+      //take first result if exists
+      val result =results.mkString(", ")
+      logService.log("found links : " + result)
+      result
+    }
+  }
+
+  def cleanup = Logger.info("cleanup") // we will use this later
+}
+{% endhighlight %}
+
+To inject an instance of WS client in your controller, you have to mix `BuiltInComponentsFromContext` with the `NingWSComponents` trait and then pass the `wsClient` to your service : 
+
+{% highlight scala %}
+class ApplicationComponents(context: Context) extends BuiltInComponentsFromContext(context) with NingWSComponents {  
+  lazy val logService = new LogService
+  lazy val linkService = new LinkService(logService, wsClient)  
+
+  lazy val applicationController = new controllers.Application(linkService)
+  lazy val assets = new controllers.Assets(httpErrorHandler)
+  override lazy val router = new Routes(httpErrorHandler, applicationController, assets)
+}
+{% endhighlight %}
+
+You can use other traits like the [Cache API](https://www.playframework.com/documentation/2.4.0-RC3/api/scala/index.html#play.api.cache.EhCacheComponents), the [I18n API](https://www.playframework.com/documentation/2.4.0-RC3/api/scala/index.html#play.api.i18n.I18nComponents), etc.
+
+
+## How to add stop hooks for your modules
+
+You may need to add some behavior to your dependencies when your application is stopped.  
+`BuiltInComponentsFromContext` contains an `applicationLifecycle` value, which is a [DefaultApplicationLifecycle](https://www.playframework.com/documentation/2.4.x/api/scala/index.html#play.api.inject.DefaultApplicationLifecycle).
+This class provides an `addStopHook` method. You can pass an asynchronous function to this method, that will be executed when your application will be stopped.  
+
+In this example, `LinkService` has a cleanup method : 
+
+{% highlight scala %}
+class ApplicationComponents(context: Context) extends BuiltInComponentsFromContext(context) with NingWSComponents {  
+  lazy val logService = new LogService
+  lazy val linkService = new LinkService(logService, wsClient)
+
+  lazy val applicationController = new controllers.Application(linkService)  
+  applicationLifecycle.addStopHook(() => Future.successful(linkService.cleanup))
+  lazy val assets = new controllers.Assets(httpErrorHandler)
+  override lazy val router = new Routes(httpErrorHandler, applicationController, assets)
+}
+{% endhighlight}
+
+
+You can find the sources of this examples in [this Github project](https://github.com/loicdescotte/play24SimpleDI).
 Next time we will see another new feature of Play 2.4, its (experimental) integration with Akka-Streams!
