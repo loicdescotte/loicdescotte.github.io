@@ -123,7 +123,8 @@ class ApplicationSpec extends Specification {
     }
   }
   
-}{% endhighlight %}
+}
+{% endhighlight %}
 
 
 Note that you can also use macwire macros to wire automatically services, controllers and routes. A good example can be found [here](https://github.com/gmethvin/play-macwire-di).
