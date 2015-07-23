@@ -142,11 +142,7 @@ class LinkService(logService: LogService, wsClient: WSClient){
   def findLinks(query: String) = {
     val duckDuckUrl = Play.current.configuration.getString("duckduck.url").getOrElse("http://api.duckduckgo.com/?format=json&q=") + query
     wsClient.url(duckDuckUrl).get().map{ response =>
-      val results = response.json \\ "FirstURL"
-      //take first result if exists
-      val result =results.mkString(", ")
-      logService.log("found links : " + result)
-      result
+      //...
     }
   }
 
@@ -176,15 +172,16 @@ You may need to add some behavior to your dependencies when your application is 
 `BuiltInComponentsFromContext` contains an `applicationLifecycle` value, which is a [DefaultApplicationLifecycle](https://www.playframework.com/documentation/2.4.x/api/scala/index.html#play.api.inject.DefaultApplicationLifecycle).
 This class provides an `addStopHook` method. You can pass an asynchronous function to this method, that will be executed when your application will be stopped.  
 
-In this example, `LinkService` has a cleanup method : 
+In this example, we are using LinkService `cleanup` method in the stop hook : 
 
 {% highlight scala %}
 class ApplicationComponents(context: Context) extends BuiltInComponentsFromContext(context) with NingWSComponents {  
   lazy val logService = new LogService
   lazy val linkService = new LinkService(logService, wsClient)
-
   lazy val applicationController = new controllers.Application(linkService)  
-  applicationLifecycle.addStopHook(() => Future.successful(linkService.cleanup))
+
+  applicationLifecycle.addStopHook(() => Future.successful(linkService.cleanup)) // <-- stop hook
+
   lazy val assets = new controllers.Assets(httpErrorHandler)
   override lazy val router = new Routes(httpErrorHandler, applicationController, assets)
 }
