@@ -188,7 +188,7 @@ class ApplicationComponents(context: Context) extends BuiltInComponentsFromConte
   lazy val assets = new controllers.Assets(httpErrorHandler)
   override lazy val router = new Routes(httpErrorHandler, applicationController, assets)
 }
-{% endhighlight}
+{% endhighlight %}
 
 
 You can find the sources of this examples in [this Github project](https://github.com/loicdescotte/play24SimpleDI).
