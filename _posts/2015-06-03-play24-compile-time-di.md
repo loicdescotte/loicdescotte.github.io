@@ -187,6 +187,7 @@ class ApplicationComponents(context: Context) extends BuiltInComponentsFromConte
 }
 {% endhighlight %}
 
+`Important note : stop hooks are called in the reverse order they have been added in applicationLifecycle.`
 
 You can find the sources of this examples in [this Github project](https://github.com/loicdescotte/play24SimpleDI).
 Next time we will see another new feature of Play 2.4, its (experimental) integration with Akka-Streams!
