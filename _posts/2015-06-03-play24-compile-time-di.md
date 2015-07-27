@@ -76,7 +76,7 @@ And this line in build.sbt :
 
 ## How to test it
 
-To test our controller, we can easily wire a mock linkService = 
+To test our controller, we can easily wire a mocked linkService : 
 
 {% highlight scala %}
 class ControllerSpec extends Specification with Mockito {
