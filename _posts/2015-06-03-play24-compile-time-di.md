@@ -106,7 +106,9 @@ To be able to test the routes directly with our real services, e.g. for integrat
 class WithDepsApplication extends WithApplicationLoader(new SimpleApplicationLoader)
 {% endhighlight %}
 
-Then, we can use it in our tests : 
+Of course if you want your router to use controllers with mocked services, you can define a new ApplicationLoader for tests instead of our `SimpleApplicationLoader`.
+
+Then, we can use `WithDepsApplication` in our tests : 
 
 {% highlight scala %}
 @RunWith(classOf[JUnitRunner])
