@@ -32,11 +32,12 @@ class Application(linkService: LinkService) extends Controller {
 {% endhighlight %}
 
 
-The route to this controller is defined as follows : 
+The routes file is defined as follows : 
 
 {% highlight scala %}
 # Home page
 GET     /                           controllers.Application.findLinks(query: String)
+GET     /assets/*file               controllers.Assets.at(path="/public", file)
 {% endhighlight %}
 
 
