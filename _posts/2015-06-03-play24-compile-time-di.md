@@ -77,6 +77,7 @@ And this line in build.sbt :
 
 ## How to test it
 
+In this example, the tests will be written using Specs2.  
 To test our controller, we can easily wire a mocked linkService : 
 
 {% highlight scala %}
