@@ -9,6 +9,7 @@ tags:
 ---
 
 **Update 23/07/2015 : How to add stop hooks for your modules, how to inject play modules (WSClient, I18n, Cache, ...)**
+**Update 15/12/2015 : How to configure Play logs and Http filters**
 
 Play Framework, in its new version, provides a lot of new stuff to handle dependency injection at runtime, using Guice.  
 With Scala, I always prefer using compile time dependency injection, as it allows to see errors as soon as possible. I must also admit that I find compile time DI a lot more elegant as it needs no container or proxy at runtime!
@@ -195,3 +196,48 @@ class ApplicationComponents(context: Context) extends BuiltInComponentsFromConte
 
 You can find the sources of this examples in [this Github project](https://github.com/loicdescotte/play24SimpleDI).
 Next time we will see another new feature of Play 2.4, its (experimental) integration with Akka-Streams!
+
+## More tips
+
+When you're using compile time dependency injection with Play, some basic stuff that used to work out of the box don't work anymore. 
+
+To activate Play logs, you need to add this line in the ApplicationLoader : 
+
+{% highlight scala %}
+Logger.configure(context.environment)
+{% endhighlight %}
+
+So the `SimpleApplicationLoader` definition looks like :
+
+{% highlight scala %}
+class SimpleApplicationLoader extends ApplicationLoader {
+  def load(context: Context) = {
+    Logger.configure(context.environment)
+    new ApplicationComponents(context).application
+  }
+}
+{% endhighlight %}
+
+To activate Http filters (or essential filters), you need to override a value from BuiltInComponentsFromContext : 
+
+{% highlight scala %}
+val myFilter = new MyFilter(configuration)
+override lazy val httpFilters = Seq(myFilter)
+{% endhighlight %}
+  
+ So the `ApplicationComponents` definition looks like :
+ 
+ {% highlight scala %}
+class ApplicationComponents(context: Context) extends BuiltInComponentsFromContext(context) with NingWSComponents {  
+  lazy val logService = new LogService
+  lazy val linkService = new LinkService(logService, wsClient)
+  lazy val applicationController = new controllers.Application(linkService)  
+
+  applicationLifecycle.addStopHook(() => Future.successful(linkService.cleanup)) // <-- stop hook
+
+  lazy val assets = new controllers.Assets(httpErrorHandler)
+  override lazy val router = new Routes(httpErrorHandler, applicationController, assets)
+  val myFilter = new MyFilter(configuration)
+  override lazy val httpFilters = Seq(myFilter)
+}
+ {% endhighlight %}
