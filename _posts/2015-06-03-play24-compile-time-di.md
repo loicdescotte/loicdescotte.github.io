@@ -207,7 +207,7 @@ To activate Play logs, you need to add this line in the ApplicationLoader :
 Logger.configure(context.environment)
 {% endhighlight %}
 
-
+<br/>
 So the `SimpleApplicationLoader` definition looks like :
 
 {% highlight scala %}
@@ -219,7 +219,7 @@ class SimpleApplicationLoader extends ApplicationLoader {
 }
 {% endhighlight %}
 
-
+<br/>
 To activate Http filters (or essential filters), you need to override a value from BuiltInComponentsFromContext : 
 
 {% highlight scala %}
@@ -227,7 +227,7 @@ val myFilter = new MyFilter(configuration)
 override lazy val httpFilters = Seq(myFilter)
 {% endhighlight %}
   
-  
+ <br/> 
  So the `ApplicationComponents` definition looks like :
  
  {% highlight scala %}
