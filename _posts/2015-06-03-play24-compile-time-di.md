@@ -8,7 +8,7 @@ tags:
  - Compile time
 ---
 
-**Update 23/07/2015 : How to add stop hooks for your modules, how to inject play modules (WSClient, I18n, Cache, ...)**
+**Update 23/07/2015 : How to add stop hooks for your modules, how to inject play modules (WSClient, I18n, Cache, ...)**  
 **Update 15/12/2015 : How to configure Play logs and Http filters**
 
 Play Framework, in its new version, provides a lot of new stuff to handle dependency injection at runtime, using Guice.  
