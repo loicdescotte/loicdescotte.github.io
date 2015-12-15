@@ -236,7 +236,7 @@ class ApplicationComponents(context: Context) extends BuiltInComponentsFromConte
   lazy val linkService = new LinkService(logService, wsClient)
   lazy val applicationController = new controllers.Application(linkService)  
 
-  applicationLifecycle.addStopHook(() => Future.successful(linkService.cleanup)) // <-- stop hook
+  applicationLifecycle.addStopHook(() => Future.successful(linkService.cleanup))
 
   lazy val assets = new controllers.Assets(httpErrorHandler)
   override lazy val router = new Routes(httpErrorHandler, applicationController, assets)
