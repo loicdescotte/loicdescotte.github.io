@@ -8,8 +8,6 @@ tags:
  - Akka Streams
 ---
 
-# Akka Streams integration in Play Framework 2.5
-
 From version 2.5, Play's default stream processing library is Akka Streams. Akka Streams is an implementation of the [Reactive Streams](http://www.reactive-streams.org/) standard.
 With Play 2.4 it was possible to use Akka Streams via bindings to the Play Iteratee lib (see [this post](http://loicdescotte.github.io/posts/play-akka-streams-twitter)).
 Now we don't need this Iteratee bindings anymore, we can use Akka Streams natively in Play controllers. Play 2.5 also comes with Akka Streams 2, which is easier to use and in many cases faster than the first version.
