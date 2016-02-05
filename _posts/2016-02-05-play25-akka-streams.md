@@ -30,8 +30,7 @@ In this example, we will create a fake Twitter service with Play. This service w
   }
 ```
 
-The `tick` method creates a simple source with a 1 second delay between 2 message emissions. We can transform this source to get a Json message per second, related to a keyword using `map`.  
-Finally we limit the feed to 100 elements.
+The `tick` method creates a simple source with a 1 second delay between 2 message emissions. We can transform this source to get a Json message per second, related to a keyword using `map`. Finally we limit the feed to 100 elements.
 
 ## A tweet consumer
 
