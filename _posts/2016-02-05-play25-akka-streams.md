@@ -69,4 +69,4 @@ Finally the sources can be merged using the `flatMapMerge` method and then be tr
 
 Quite easy isn't it?
 
-You can find all the source of this example [here](http://github.com/loicdescotte/touiteur).
+You can find all the sources of this example [here](http://github.com/loicdescotte/touiteur).
