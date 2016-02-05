@@ -22,7 +22,7 @@ In this example, we will create a fake Twitter service with Play. This service w
     Ok.chunked(source.map { tick =>
       val (prefix, author) = prefixAndAuthor
       Json.obj("message" -> s"$prefix $keyword", "author" -> author).toString + "\n"
-    }.limit(100)).as("application/json")
+    }.limit(100))
   }
 
   private def prefixAndAuthor = {
@@ -30,8 +30,8 @@ In this example, we will create a fake Twitter service with Play. This service w
   }
 ```
 
-The `tick` method creates a simple source with a 1 second delay between 2 message emissions. We can transform this source to get a message per second, related to a keyword using `map`.
-Finally we limit the feed to 100 messages and send it as a JSON stream.
+The `tick` method creates a simple source with a 1 second delay between 2 message emissions. We can transform this source to get a Json message per second, related to a keyword using `map`.  
+Finally we limit the feed to 100.
 
 ## A tweet consumer
 
@@ -64,7 +64,7 @@ As the Twitter service may send several messages in a single chunk, we need to s
 We can also imagine that the Twitter service could send chunks with truncated messages. In this case the messages need to be saved in a buffer until we reach a line break.
 Fortunately, the `Framing` object does all the job for us. We just need to provide a separator (line break) and a max frame length for the source elements. This is a great improvement from Akka Streams 1, which was forcing developers to write a custom line parser.
 
-Finally the sources can be merged using the `flatMapMerge` method and then be transformed to the new desired JSON format.  In this case we just add the query in the response to ease filtering on the client side.
+Finally the sources can be merged using the `flatMapMerge` method and then be transformed to the new desired Json format.  In this case we just add the query in the response to ease filtering on the client side.
 
 Quite easy isn't it?
 
