@@ -10,7 +10,7 @@ tags:
 
 ---
 
-Update (February 10, 2016) : Using last Play 2.5 SNAPSHOT to benefit from EventSource helper
+Update (February 10, 2016) : Using latest Play 2.5 SNAPSHOT to benefit from EventSource helper
 
 ---
 
