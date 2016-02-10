@@ -8,9 +8,11 @@ tags:
  - Akka Streams
 ---
 
-------------------
+---
+
 Update (February 10, 2016) : Using last Play 2.5 SNAPSHOT to benefit from EventSource helper
-------------------
+
+---
 
 From version 2.5, Play's default stream processing library is Akka Streams. Akka Streams is an implementation of the [Reactive Streams](http://www.reactive-streams.org/) standard.
 With Play 2.4 it was possible to use Akka Streams via bindings to the Play Iteratee lib (see [this post](http://loicdescotte.github.io/posts/play-akka-streams-twitter)).
