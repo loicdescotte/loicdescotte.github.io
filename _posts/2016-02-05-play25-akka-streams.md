@@ -71,7 +71,7 @@ As the Twitter service may send several messages in a single chunk, we need to s
 We can also imagine that the Twitter service could send chunks with truncated messages. In this case the messages need to be saved in a buffer until we reach a line break.
 Fortunately, the `Framing` object does all the job for us. We just need to provide a separator (line break) and a max frame length for the source elements. This is a great improvement from Akka Streams 1, which was forcing developers to write a custom line parser.
 
-Then the sources can be merged using the `flatMapMerge` method and be transformed to the new desired format. In this case we just add the query in the response to ease filtering on the client side. Finally, `EventSource.flow` method helps us to format the messages into the Server Sent Event format. And the stream can flow!  
+Then the sources can be merged using the `flatMapMerge` method and be transformed into the new desired format. In this case we just add the query in the response to ease filtering on the client side. Finally, `EventSource.flow` method helps us to format the messages into the Server Sent Event format. And the stream can flow!  
 
 Quite easy isn't it?
 
