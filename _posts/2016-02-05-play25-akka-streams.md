@@ -8,6 +8,10 @@ tags:
  - Akka Streams
 ---
 
+------------------
+Update (February 10, 2016) : Using last Play 2.5 SNAPSHOT to benefit from EventSource helper
+------------------
+
 From version 2.5, Play's default stream processing library is Akka Streams. Akka Streams is an implementation of the [Reactive Streams](http://www.reactive-streams.org/) standard.
 With Play 2.4 it was possible to use Akka Streams via bindings to the Play Iteratee lib (see [this post](http://loicdescotte.github.io/posts/play-akka-streams-twitter)).
 Now we don't need this Iteratee bindings anymore, we can use Akka Streams natively in Play controllers. Play 2.5 also comes with Akka Streams 2, which is easier to use and in many cases faster than the first version.
@@ -37,6 +41,10 @@ The `tick` method creates a simple source with a 1 second delay between 2 messag
 Now we need another Web application that will be plugged on our fake Twitter service to make several queries in parallel and mix the results in a single source. This source will be streamed to the browser using Server Sent Events.
 
 ```scala
+case class TweetInfo(searchQuery: String, message: String, author: String) {
+  def toJsonString = Json.stringify(Json.obj("message" -> s"${this.searchQuery} : ${this.message}", "author" -> s"${this.author}"))
+}
+
 def stream(query: String) = Action.async {
   val sourceListFuture = query.split(",").toList.map { query =>
     val futureTwitterResponse = WS.url(s"http://localhost:9000/timeline/$query").stream
@@ -48,11 +56,9 @@ def stream(query: String) = Action.async {
     }
   }
 
-  val sourceFuture = Future.sequence(sourceListFuture).map(Source(_).flatMapMerge(10, identity).map(_.toJson))
+  val sourceFuture = Future.sequence(sourceListFuture).map(Source(_).flatMapMerge(10, identity).map(_.toJsonString))
   sourceFuture.map { source =>
-    //hack for SSE before EventSource builder is integrated in Play
-    val sseSource = Source.single("event: message\n").concat(source.map(tweetInfo => s"data: $tweetInfo\n\n"))
-    Ok.chunked(sseSource).as("text/event-stream")
+    Ok.chunked(source via EventSource.flow)
   }
 }
 ```
@@ -63,7 +69,7 @@ As the Twitter service may send several messages in a single chunk, we need to s
 We can also imagine that the Twitter service could send chunks with truncated messages. In this case the messages need to be saved in a buffer until we reach a line break.
 Fortunately, the `Framing` object does all the job for us. We just need to provide a separator (line break) and a max frame length for the source elements. This is a great improvement from Akka Streams 1, which was forcing developers to write a custom line parser.
 
-Finally the sources can be merged using the `flatMapMerge` method and then be transformed to the new desired Json format.  In this case we just add the query in the response to ease filtering on the client side.
+Then the sources can be merged using the `flatMapMerge` method and be transformed to the new desired format. In this case we just add the query in the response to ease filtering on the client side. Finally, `EventSource.flow` method helps us to format the messages into the Server Sent Event format. And the stream can flow!  
 
 Quite easy isn't it?
 
