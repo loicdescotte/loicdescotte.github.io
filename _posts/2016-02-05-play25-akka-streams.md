@@ -49,7 +49,7 @@ case class TweetInfo(searchQuery: String, message: String, author: String) {
 
 def stream(query: String) = Action.async {
   val sourceListFuture = query.split(",").toList.map { query =>
-    val futureTwitterResponse = WS.url(s"http://localhost:9000/timeline/$query").stream
+    val futureTwitterResponse = WS.url(s"http://localhost:9000/timeline").withQueryString("keyword" -> query).stream
     futureTwitterResponse.map { response =>
       response.body.via(Framing.delimiter(ByteString("\n"), maximumFrameLength = 100, allowTruncation = true).map(_.utf8String)).map { tweet =>
         val json = Json.parse(tweet)
@@ -68,7 +68,7 @@ def stream(query: String) = Action.async {
 
 Play WS API `stream` method returns an Akka Streams Source of Akka ByteString via the `body` value of the response. The response itself is wrapped in a Future.
 As the Twitter service may send several messages in a single chunk, we need to split them on line breaks.
-We can also imagine that the Twitter service could send chunks with truncated messages. In this case the messages need to be saved in a buffer until we reach a line break.
+We can also imagine that the Twitter service could send chunks with incomplete messages. In this case the messages need to be saved in a buffer until we reach a line break.
 Fortunately, the `Framing` object does all the job for us. We just need to provide a separator (line break) and a max frame length for the source elements. This is a great improvement from Akka Streams 1, which was forcing developers to write a custom line parser.
 
 Then the sources can be merged using the `flatMapMerge` method and be transformed into the new desired format. In this case we're just adding the query in the response to ease filtering on the client side. Finally, `EventSource.flow` method helps us to format the messages into the Server Sent Event format. And the stream can flow!  
