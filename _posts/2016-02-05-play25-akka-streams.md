@@ -74,7 +74,7 @@ We can also imagine that the Twitter service could send chunks with incomplete m
 Fortunately, the `Framing` object does all the job for us. We just need to provide a separator (line break) and a max frame length for the source elements. This is a great improvement from Akka Streams 1, which was forcing developers to write a custom line parser.  
 The result of this operation is a new source that can be transformed into the new desired format. In this case we’re just adding the search query in the response to ease filtering on the client side (c.f. TweetInfo case class).  
 
-At this point we have a list of sources, with a stream per search query that can be merged in a single Json stream using the `flatMapMerge` method (and thanks to the TweetInfo implicit Json formatter). In this case we're just adding the search query in the response to ease filtering on the client side. Finally, `EventSource.flow` method helps us to format the messages into the Server Sent Event format. And the stream can flow!  
+At this point we have a list of sources, i.e. a stream per search query that can be merged in a single Json stream using the `flatMapMerge` method (and thanks to the TweetInfo implicit Json formatter). In this case we're just adding the search query in the response to ease filtering on the client side. Finally, `EventSource.flow` method helps us to format the messages into the Server Sent Event format. And the stream can flow!  
 
 Quite easy isn't it?
 
