@@ -9,9 +9,8 @@ tags:
 ---
 
 ---
-
-Update (February 10, 2016) : Using latest Play 2.5 SNAPSHOT to benefit from EventSource helper
-
+Update 1 (February 10, 2016) : Using latest Play 2.5 SNAPSHOT to benefit from EventSource helper
+Update 2 (February 18, 2016) : Upgrade to Play 2.5 RC1 and refactor code (thank you Ahmed Mushtaq for the pull request in the sample app!)
 ---
 
 From version 2.5, Play's default stream processing library is Akka Streams. Akka Streams is an implementation of the [Reactive Streams](http://www.reactive-streams.org/) standard.
@@ -36,7 +35,7 @@ In this example, we will create a fake Twitter service with Play. This service w
   }
 ```
 
-The `tick` method creates a simple source with a 1 second delay between 2 message emissions. We can transform this source to get a message per second, related to a keyword using `map`. Finally we are limiting the feed to 100 elements.
+The `tick` method creates a simple source with 1 second of delay between 2 message emissions. We can transform this source to get a message per second, related to a keyword using `map`. Finally we are limiting the feed to 100 elements.
 
 ## A tweet consumer
 
@@ -49,33 +48,44 @@ object TweetInfo {
   implicit val tweetInfoFormat = Json.format[TweetInfo]
 }
 
-def stream(query: String) = Action.async {
-  val sourceListFuture = query.split(",").toList.map { query =>
-    val futureTwitterResponse = WS.url(s"http://localhost:9000/timeline").withQueryString("keyword" -> query).stream
-    futureTwitterResponse.map { response =>
-      response.body.via(Framing.delimiter(ByteString("\n"), maximumFrameLength = 100, allowTruncation = true).map(_.utf8String)).map { tweet =>
-        val json = Json.parse(tweet)
-        TweetInfo(query, (json \ "message").as[String], (json \ "author").as[String])
-      }
-    }
-  }
-
-  val sourceFuture = Future.sequence(sourceListFuture).map(Source(_).flatMapMerge(10, identity).map(tweet => Json.toJson(tweet)))
-  sourceFuture.map { source =>
-    Ok.chunked(source via EventSource.flow)
-  }
+def mixedStream(queryString: String) = Action {
+  val keywordSources = Source(queryString.split(",").toList)
+  val responses = keywordSources.flatMapMerge(10, queryToSource)
+  Ok.chunked(responses via EventSource.flow)
 }
 ```
 
-Play WS API `stream` method returns an Akka Streams Source of Akka ByteString via the `body` value of the response. The response itself is wrapped in a Future.
+The first step is to call the fake Tweet API for each user query. Then we need to transform the WebService responses into Akka Streams sources.
+The list of sources we get in result can be merged in a single stream thanks to the `flatMapMerge` method.
 
-As the Twitter service may send several messages in a single chunk, we need to split them on line breaks.
+Let's see how to build this sources in detail :
+
+```scala
+private def queryToSource(keyword: String) = {
+  val request = wSClient
+    .url(s"http://localhost:9000/timeline")
+    .withQueryString("keyword" -> keyword)
+
+  streamResponse(request)
+    .via(framing)
+    .map { byteString =>
+      val json = Json.parse(byteString.utf8String)
+      val tweetInfo = TweetInfo(keyword, (json \ "message").as[String], (json \ "author").as[String])
+      Json.toJson(tweetInfo)
+    }
+}
+
+private def streamResponse(request: WSRequest) = Source.fromFuture(request.stream()).flatMapConcat(_.body)
+```
+
+Play WS Client `stream` method returns an Akka Streams Source of Akka ByteString via the `body` value of the response. The response itself is wrapped in a Future.
+We can convert a Future object into a Source using `Source.fromFuture`. As we get a Source of Source of WebService response, we can use `flatMapConcat(_.body)` to keep only the response body in a single source.
+
+The Twitter service may send several messages in a single chunk, so we need to split them on line breaks.
 We can also imagine that the Twitter service could send chunks with incomplete messages. In this case the messages need to be saved in a buffer until we reach a line break.
-Fortunately, the `Framing` object does all the job for us. We just need to provide a separator (line break) and a max frame length for the source elements. This is a great improvement from Akka Streams 1, which was forcing developers to write a custom line parser.  
-The result of this operation is a new source that can be transformed into the new desired format. In this case we’re just adding the search query in the response to ease filtering on the client side (c.f. TweetInfo case class).  
+Fortunately, the `Framing` object does all the job for us. We just need to provide a separator (line break) and a max frame length for the source elements. This is a great improvement from Akka Streams 1, which was forcing developers to write a custom line parser.
+The result of this operation is a new source that can be transformed into the new desired format. In this case we’re just adding the search query in the response to ease filtering on the client side (c.f. TweetInfo case class). Then each source element can be transformed into Json thanks to the TweetInfo implicit Json formatter.
 
-At this point we have a list of sources, i.e. a stream per search query that can be merged in a single Json stream using the `flatMapMerge` method (and thanks to the TweetInfo implicit Json formatter). In this case we're just adding the search query in the response to ease filtering on the client side. Finally, `EventSource.flow` method helps us to format the messages into the Server Sent Event format. And the stream can flow!  
-
-Quite easy isn't it?
+Finally, let's go back to our `mixedStream` action. Play's `EventSource.flow` method helps us to format the messages into the Server Sent Event format... and the stream can flow! Quite easy isn't it?
 
 You can find all the sources of this example (including the frontend code) [here](http://github.com/loicdescotte/touiteur).
