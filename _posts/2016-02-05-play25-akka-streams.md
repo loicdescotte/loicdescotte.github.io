@@ -67,7 +67,7 @@ private def queryToSource(keyword: String) = {
     .withQueryString("keyword" -> keyword)
 
   streamResponse(request)
-    .via(framing)
+    .via(Framing.delimiter(ByteString("\n"), maximumFrameLength = 100, allowTruncation = true))
     .map { byteString =>
       val json = Json.parse(byteString.utf8String)
       val tweetInfo = TweetInfo(keyword, (json \ "message").as[String], (json \ "author").as[String])
