@@ -10,8 +10,8 @@ tags:
 
 ---
 
-Update 1 (February 10, 2016) : Using latest Play 2.5 SNAPSHOT to benefit from EventSource helper  
-Update 2 (February 18, 2016) : Upgrade to Play 2.5 RC1 and refactor code (thank you Ahmed Mushtaq for the pull request in the sample app!)
+ * Update 1 (February 10, 2016) : Using latest Play 2.5 SNAPSHOT to benefit from EventSource helper  
+ * Update 2 (February 18, 2016) : Upgrade to Play 2.5 RC1 and refactor code (thank you Ahmed Mushtaq for the pull request in the sample app!)
 
 ---
 
