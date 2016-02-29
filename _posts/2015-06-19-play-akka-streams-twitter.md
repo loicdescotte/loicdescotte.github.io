@@ -8,6 +8,13 @@ tags:
  - Akka streams
 ---
 
+---
+
+ * Disclamer : Since Play 2.5/Akka Streams 2, things shown in this post can be achieved more easily, for example without relying directly on the actor API. This [this post](
+https://loicdescotte.github.io/posts/play25-akka-streams/) for more information.
+
+---
+
 You may have heard of [Reactive-Streams](http://www.reactive-streams.org/), a specification inspired by the [Reactive Manifesto](http://reactivemanifesto.org/).  
 A lot of big actors are involved in this initiative, like Typesafe, Netflix, Pivotal, RedHat and Twitter.  
 Its goal is to "provide a standard for asynchronous stream processing with non-blocking back pressure".  
@@ -15,7 +22,7 @@ In a few words, back pressure is the ability for a data producer to adapt the da
 
 This article will focus on Akka Streams, which is an implementation of Reactive-Streams that relies on Akka actors and provides an higher level API on top of them.
 
-Play 3 will rely on Akka-Streams under the hood, and it will also allow to benefit from it to to handle data streams reactively, like we are doing today with Play 2 and the Iteratee API.  
+Play 2.5 will rely on Akka-Streams under the hood, and it will also allow to benefit from it to to handle data streams reactively, like we are doing today with Play 2 and the Iteratee API.  
 Akka Streams is still tagged as "experimental", but the 1.0 version is close. With Play 2.4, it's already possible to use it, via Reactive-Streams to Iteratee and Iteratee to Reactive-Streams conversions.
 
 ## MixTweets, updated
