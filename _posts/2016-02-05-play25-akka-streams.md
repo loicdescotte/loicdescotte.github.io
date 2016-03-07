@@ -91,6 +91,6 @@ We can also imagine that the Twitter service could send chunks with incomplete m
 Fortunately, the `Framing` object does all the job for us. We just need to provide a separator (line break) and a max frame length for the source elements. This is a great improvement from Akka Streams 1, which was forcing developers to write a custom line parser.
 The result of this operation is a new source that can be transformed into the new desired format. In this case we’re just adding the search query in the response to ease filtering on the client side (c.f. TweetInfo case class). Then each source element can be transformed into Json thanks to the TweetInfo implicit Json formatter.
 
-Finally, let's go back to our `mixedStream` action. Play's `EventSource.flow` method helps us to format the messages into the Server Sent Event format... and the stream can flow! Quite easy isn't it?
+Finally, let's go back to our `mixedStream` action. Play's `EventSource.flow` method helps us to format the messages into the Server Sent Events format... and the stream can flow! Quite easy isn't it?
 
 You can find all the sources of this example (including the frontend code) [here](http://github.com/loicdescotte/touiteur).
