@@ -6,6 +6,8 @@ tags:
  - Scala
  - Reactive-Streams
  - Akka Streams
+ - Push
+ - Server Sent Events
 ---
 
 ---
@@ -41,7 +43,7 @@ The `tick` method creates a simple source with 1 second of delay between 2 messa
 
 ## A tweet consumer
 
-Now we need another Web application that will be plugged on our fake Twitter service to make several queries in parallel and mix the results in a single source. This source will be streamed to the browser using Server Sent Events.
+Now we need another Web application that will be plugged on our fake Twitter service to make several queries in parallel and mix the results in a single source. This source will be streamed to the browser using Server Sent Events, which is simpler than WebSockets and perfect for pushing data from server to browser.
 
 ```scala
 case class TweetInfo(searchQuery: String, message: String, author: String)
