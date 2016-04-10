@@ -91,8 +91,8 @@ def queueAction = Action {
 ````
 
 
-If you close your browser tab, the source queue will be canceled automatically.
-As we catch the `watchCompletion` event, we can also stop the Akka scheduler. Then you will see the following logs in your console :
+If you close your browser tab, `queueSource` will be canceled automatically.
+As we catch the `watchCompletion` event ont the underlying queue, we can also stop the Akka scheduler. Then you will see the following logs in your console :
 
 ```
 [debug] application - queue source : tack
