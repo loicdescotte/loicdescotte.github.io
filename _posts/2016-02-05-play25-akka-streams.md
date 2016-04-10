@@ -13,8 +13,9 @@ tags:
 
 ---
 
- * Update 1 (February 10, 2016) : Using latest Play 2.5 SNAPSHOT to benefit from EventSource helper  
+ * Update 1 (February 10, 2016) : Using latest Play 2.5 SNAPSHOT to benefit from EventSource helper
  * Update 2 (February 18, 2016) : Upgrade to Play 2.5 RC1 and refactor code (thank you Ahmed Mushtaq for the pull request in the sample app!)
+ * Update 3 (April 10, 2016) : Adding part 2 : Akka Streams, Play Framework and queues
 
 ---
 
@@ -94,3 +95,4 @@ The result of this operation is a new source that can be transformed into the ne
 Finally, let's go back to our `mixedStream` action. Play's `EventSource.flow` method helps us to format the messages into the Server Sent Events format... and the stream can flow! Quite easy isn't it?
 
 You can find all the sources of this example (including the frontend code) [here](http://github.com/loicdescotte/touiteur).
+Now let's continue with [Part 2 - Akka Streams, Play Framework and queues](http://loicdescotte.github.io/posts/play-akka-streams-queue)!
