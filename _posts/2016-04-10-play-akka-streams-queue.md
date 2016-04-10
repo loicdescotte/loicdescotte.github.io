@@ -85,7 +85,13 @@ def queueAction = Action {
       }
   }
 
-  Ok.chunked(queueSource via EventSource.flow)
+  Ok.chunked(
+    queueSource.map{e => 
+      Logger.debug("queue source element : " + e)
+      e
+    } 
+    via EventSource.flow
+  )
 
 }
 ````
