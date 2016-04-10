@@ -94,5 +94,5 @@ The result of this operation is a new source that can be transformed into the ne
 
 Finally, let's go back to our `mixedStream` action. Play's `EventSource.flow` method helps us to format the messages into the Server Sent Events format... and the stream can flow! Quite easy isn't it?
 
-You can find all the sources of this example (including the frontend code) [here](http://github.com/loicdescotte/touiteur).
+You can find all the sources of this example (including the frontend code) [here](http://github.com/loicdescotte/touiteur).  
 Now let's continue with [Part 2 - Akka Streams, Play Framework and queues](http://loicdescotte.github.io/posts/play-akka-streams-queue)!

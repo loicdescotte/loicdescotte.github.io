@@ -35,7 +35,7 @@ The solution is to use `mapMaterializedValue` on the source returned by `Source.
 Here is an helper method to do it (thanks to the Akka team who gave me this hint on github) :
 
 ```scala
-//T is the source type, here String
+ //T is the source type, here String
  //M is the materialization type, here a SourceQueue[String]
  def peekMatValue[T, M](src: Source[T, M]): (Source[T, M], Future[M]) = {
    val p = Promise[M]
