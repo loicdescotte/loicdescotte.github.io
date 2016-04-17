@@ -1,4 +1,5 @@
 ---
+layout: post
 title: Basic validation with Scala
 tags:
  - Validation
