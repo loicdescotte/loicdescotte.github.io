@@ -1,6 +1,6 @@
 ---
 layout: post
-title:Basic validation with Scala
+title: Basic validation with Scala
 tags:
  - Validation
  - Scala
