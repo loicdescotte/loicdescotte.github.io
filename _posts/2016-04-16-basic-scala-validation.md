@@ -45,9 +45,9 @@ val dones = validation.dones //List[Int] : List(1)
 For this example we will just enhance a little the Either API to allow using Right at the default "good" side by default in for comprehension :
 
 ```scala
-implicit class RightEither[E, A](e: Either[E, A]) {
-  def map[B](f: A => B) = e.right.map(f)
-  def flatMap[B](f: A => Either[E, B]) = e.right.flatMap(f)
+implicit class RightEither[L, R](e: Either[L, R]) {
+  def map[R2](f: R => R2) = e.right.map(f)
+  def flatMap[R2](f: R => Either[L, R2]) = e.right.flatMap(f)
 }
 ```
 
