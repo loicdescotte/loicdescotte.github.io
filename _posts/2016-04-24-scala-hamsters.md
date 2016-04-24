@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Scala hamsters
+title: Scala hamsters Beta 1
 tags:
  - Validation
  - Scala
@@ -8,7 +8,8 @@ tags:
  - Beginners
 ---
 
-I've just published a micro library, made for functional programming begginers, with a few helpers for common cases : validation, monad tranformers, and other features soon.
+I've just published Scala hamsters first Beta, with new HLists, Union types, Monad transformers, Validation…
+It's full compatible with functional programming beginners!
 
 You can find it here : [https://github.com/loicdescotte/hamsters](https://github.com/loicdescotte/hamsters)
 
