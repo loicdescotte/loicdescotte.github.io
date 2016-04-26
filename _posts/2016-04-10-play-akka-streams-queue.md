@@ -15,7 +15,7 @@ Now let's see how to use a queue in which we can post new data dynamically. This
 
 This is the common way to use an Akka Streams SourceQueue :
 
-```
+```scala
 val bufferSize = 10
 
 val queue = (bufferSize, OverflowStrategy.fail)
