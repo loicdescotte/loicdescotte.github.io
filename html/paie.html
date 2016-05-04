@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+
+<html lang="fr-FR">
+
+<head>
+
+<meta charset="utf-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="Keywords" content="fiche de paie, nounou, calcul, assistante maternelle, salaire, indemintés, repa, entretien, absences, vacances">
+
+<meta name="Description" content="Well organized and easy to understand Web bulding tutorials with lots of examples of how to use HTML, CSS, JavaScript, SQL, PHP, and XML.">
+</head>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+<style>
+input {
+    border: none;
+    width: 80px;
+    font-size: 14px;
+    padding: 2px;
+}
+
+input:hover {
+    background-color: #eee;
+}
+
+input:focus {
+    background-color: #ccf;
+}
+
+input:not(:focus) {
+    text-align: right;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+td {
+    border: 1px solid #999;
+    padding: 0;
+}
+
+tr:first-child td, td:first-child {
+    background-color: #ccc;
+    padding: 1px 3px;
+    font-weight: bold;
+    text-align: center;
+}
+
+footer {
+    font-size: 80%;
+}
+
+@media print {
+   p,h1,h2,h3,h4,button {
+     display: none;
+   }
+   table,span,input {
+       display: block;
+   }
+}
+
+</style>
+<body>
+
+<div class="container">
+  <h3>Génération de fiche de paie et calcul de salaire pour votre assistante maternelle</h3>
+  <br/>
+  <br/>  
+  <table></table>
+  <br/>
+  <br/>
+  <p>Note: vous pouvez entrer vos propres formules personnalisées dans une cellule, par exemple "=A1+B1"</p>
+  <br/>
+  <p><b>Ce site ne conserve aucune donnée personnele, la feuille de calcul est mémorisée dans votre navigateur.</b></p>
+  <br/>
+  <button class=print>Imprimer cette fiche de paie</button>
+</div>
+
+<script type='text/javascript'>
+var table = document.querySelector("table");
+
+for (var i=0; i<22; i++) {
+    var row = table.insertRow(-1);
+    for (var j=0; j<12; j++) {
+        var letter = String.fromCharCode("A".charCodeAt(0)+j-1);
+        row.insertCell(-1).innerHTML = i&&j ? "<input id='"+ letter+i +"'/>" : i||letter;
+    }
+}
+
+var getCell = function(row, column){
+  return table.rows[row].cells[column];
+};
+
+//insert labels
+getCell(1,1).innerHTML="<span>Prix</span>";
+//insert test data
+var aa = getCell(1,2).querySelector("input");
+var aaValue = "1";
+aa.value= aaValue;
+localStorage[aa.id] = aaValue;
+
+var bb = getCell(2,2).querySelector("input");
+var bbValue = "2";
+bb.value= bbValue;
+localStorage[bb.id] = bbValue;
+
+//insert formulas
+var xx = getCell(2,3).querySelector("input");
+var xxValue = "=B1+B2";
+xx.value= xxValue;
+localStorage[xx.id] = xxValue;
+
+var DATA={}, INPUTS=[].slice.call(document.querySelectorAll("input"));
+INPUTS.forEach(function(elm) {
+    elm.onfocus = function(e) {
+        e.target.value = localStorage[e.target.id] || "";
+    };
+    elm.onkeyup = function(e) {
+        localStorage[e.target.id] = e.target.value;
+        computeAll();
+    };
+    var getter = function() {
+
+        var value = localStorage[elm.id] || "";
+        if (value.charAt(0) == "=") {
+            with (DATA) return eval(value.substring(1));
+        } else { return isNaN(parseFloat(value)) ? value : parseFloat(value); }
+    };
+    Object.defineProperty(DATA, elm.id, {get:getter});
+    Object.defineProperty(DATA, elm.id.toLowerCase(), {get:getter});
+});
+
+(window.computeAll = function() {
+    INPUTS.forEach(function(elm) { try { elm.value = DATA[elm.id]; } catch(e) {} });
+})();
+
+document.querySelector(".print").onclick = function(e){
+window.print();
+}
+</script>
+
+
+</body>
+</html>
