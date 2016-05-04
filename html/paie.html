@@ -68,7 +68,7 @@ footer {
 <div class="container">
   <h3>Génération de fiche de paie et calcul de salaire pour votre assistante maternelle</h3>
   <br/>
-  <br/>  
+  <br/>
   <table></table>
   <br/>
   <br/>
@@ -119,8 +119,19 @@ INPUTS.forEach(function(elm) {
         e.target.value = localStorage[e.target.id] || "";
     };
     elm.onkeyup = function(e) {
-        localStorage[e.target.id] = e.target.value;
-        computeAll();
+        var code = e.which ? e.which : e.keyCode;
+        if (code == 13){
+          localStorage[e.target.id] = e.target.value;
+          computeAll();
+        } else {
+          if (code == 188){
+            e.target.value = e.target.value.replace(',','.');
+          }
+        }
+    };
+    elm.onblur = function(e) {
+      localStorage[e.target.id] = e.target.value;
+      computeAll();
     };
     var getter = function() {
 
