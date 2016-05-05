@@ -114,22 +114,22 @@ for (var i=0; i<22; i++) {
 }
 
 //insert labels
-var labelPrix = document.getElementById('#A1');
+var labelPrix = document.getElementById('A1');
 labelPrix.value="Prix";
 labelPrix.setAttribute("disabled", true);
 //insert test data
-var aa = document.getElementById('#A2').querySelector("input");
+var aa = document.getElementById('A2').querySelector("input");
 var aaValue = "1";
 aa.value= aaValue;
 localStorage[aa.id] = aaValue;
 
-var bb = document.getElementById('#B2').querySelector("input");
+var bb = document.getElementById('B2').querySelector("input");
 var bbValue = "2";
 bb.value= bbValue;
 localStorage[bb.id] = bbValue;
 
 //insert formulas
-var xx = document.getElementById('#B3').querySelector("input");
+var xx = document.getElementById('B3').querySelector("input");
 var xxValue = "=B1+B2";
 xx.value= xxValue;
 localStorage[xx.id] = xxValue;
