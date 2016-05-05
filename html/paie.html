@@ -199,8 +199,7 @@ document.querySelector(".print").onclick = function(e){
 
 document.querySelector(".pdf").onclick = function(e){
   var doc = document.getElementById(documentId);
-
-    //Wait until PDF is ready to print
+    //FIXME
     if (typeof doc.print === 'undefined') {
         setTimeout(function(){printDocument(documentId);}, 1000);
     } else {
@@ -210,6 +209,7 @@ document.querySelector(".pdf").onclick = function(e){
 
 document.querySelector(".clear").onclick = function(e){
   localStorage.clear();
+  //TODO confirmation
   location.reload();
 }
 </script>
