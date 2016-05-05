@@ -115,8 +115,11 @@ for (var i=0; i<22; i++) {
 
 //insert labels
 var labelPrix = document.getElementById('A1');
-labelPrix.value="Prix";
-//labelPrix.setAttribute("disabled", true);
+var prixValue = "1";
+labelPrix.value= prixValue;
+localStorage[labelPrix.id] = prixValue;
+labelPrix.setAttribute("disabled", true);
+
 //insert test data
 var a2 = document.getElementById('A2');
 var a2Value = "1";
