@@ -99,7 +99,16 @@ footer {
   <br/>
   <p><b>Ce site ne conserve aucune donnée personnele, la feuille de calcul est mémorisée dans votre navigateur.</b></p>
   <br/>
-  <button class=print>Imprimer ou enregistrer</button>
+  <button class=print>Enregistrer en pdf</button>&nbsp;
+  <button class=print>Imprimer</button>&nbsp;
+  <button class=print>Réinitialiser les données</button>
+  <embed
+    type="application/pdf"
+    src="paie.pdf"
+    id="pdfDocument"
+    width="100%"
+    height="100%">
+  </embed>
 </div>
 
 <script type='text/javascript'>
@@ -185,7 +194,22 @@ INPUTS.forEach(function(elm) {
 })();
 
 document.querySelector(".print").onclick = function(e){
-window.print();
+  window.print();
+}
+
+document.querySelector(".pdf").onclick = function(e){
+  var doc = document.getElementById(documentId);
+
+    //Wait until PDF is ready to print
+    if (typeof doc.print === 'undefined') {
+        setTimeout(function(){printDocument(documentId);}, 1000);
+    } else {
+        doc.print();
+    }
+}
+
+document.querySelector(".clear").onclick = function(e){
+  localStorage.clear();
 }
 </script>
 
