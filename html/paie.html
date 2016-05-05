@@ -118,18 +118,18 @@ var labelPrix = document.getElementById('A1');
 labelPrix.value="Prix";
 labelPrix.setAttribute("disabled", true);
 //insert test data
-var aa = document.getElementById('A2').querySelector("input");
-var aaValue = "1";
-aa.value= aaValue;
-localStorage[aa.id] = aaValue;
+var a2 = document.getElementById('A2');
+var a2Value = "1";
+a2.value= a2Value;
+localStorage[a2.id] = a2Value;
 
-var bb = document.getElementById('B2').querySelector("input");
-var bbValue = "2";
-bb.value= bbValue;
-localStorage[bb.id] = bbValue;
+var b2 = document.getElementById('B2');
+var b2Value = "2";
+b2.value= b2Value;
+localStorage[b2.id] = b2Value;
 
 //insert formulas
-var xx = document.getElementById('B3').querySelector("input");
+var xx = document.getElementById('B3');
 var xxValue = "=B1+B2";
 xx.value= xxValue;
 localStorage[xx.id] = xxValue;
