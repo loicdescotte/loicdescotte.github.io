@@ -118,7 +118,9 @@ var getCell = function(row, column){
 };
 
 //insert labels
-getCell(1,1).querySelector("input").value="Prix";
+var labelPrix = getCell(1,1).querySelector("input");
+labelPrix.value="Prix";
+labelPrix.setAttribute("disabled", true);
 //insert test data
 var aa = getCell(1,2).querySelector("input");
 var aaValue = "1";
