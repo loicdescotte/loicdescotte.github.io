@@ -190,9 +190,11 @@ document.querySelector(".print").onclick = function(e){
 }
 
 document.querySelector(".clear").onclick = function(e){
-  localStorage.clear();
-  //TODO confirmation
-  location.reload();
+  var r = confirm("Etes vous sûr de vouloir réinitialiser la fiche de paie?");
+  if (r == true) {
+      localStorage.clear();
+      location.reload();
+  }
 }
 </script>
 
