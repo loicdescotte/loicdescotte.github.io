@@ -18,7 +18,7 @@ This is the common way to use an Akka Streams SourceQueue :
 ```scala
 val bufferSize = 10
 
-val queue = (bufferSize, OverflowStrategy.fail)
+val queue = Source.queue[Int](bufferSize, OverflowStrategy.fail)
   .to(Sink.foreach(println))
   .run()
 
