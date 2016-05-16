@@ -8,8 +8,8 @@ tags:
  - Beginners
 ---
 
-I've just published Scala hamsters first Beta, with new HLists, Union types, Monad transformers, Validation…
-It's full compatible with functional programming beginners!
+I've just published Scala hamsters first stable version. It's a simple Scala utility library featuring Lists, Union types, Monad transformers and Validation.  
+Hamsters is fully compatible with functional programming beginners!
 
 You can find it here : [https://github.com/loicdescotte/hamsters](https://github.com/loicdescotte/hamsters)
 
