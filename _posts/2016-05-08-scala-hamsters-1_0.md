@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Scala hamsters Beta 1
+title: Scala hamsters 1.0
 tags:
  - Validation
  - Scala
