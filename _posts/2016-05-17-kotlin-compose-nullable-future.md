@@ -28,7 +28,7 @@ This is how you can compose nullable functions :
 
 This is how you can compose futures (using Java 8 CompletableFuture API):
 
-```kt
+```scala
   fun giveInt(x: Int): CompletableFuture<Int> = CompletableFuture.supplyAsync({ x + 1 })
 
   fun giveInt2(x: Int): CompletableFuture<Int> = CompletableFuture.supplyAsync({ x + 2 })
@@ -40,7 +40,7 @@ This is how you can compose futures (using Java 8 CompletableFuture API):
 
 This is how you can compose futures of nullable types :
 
-```kotlin
+```scala
   fun giveInt(x: Int): CompletableFuture<Int?> = CompletableFuture.supplyAsync({ x + 1 })
 
   fun giveInt2(x: Int): CompletableFuture<Int?> = CompletableFuture.supplyAsync({ x + 2 })
