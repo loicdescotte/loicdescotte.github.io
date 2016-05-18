@@ -47,7 +47,7 @@ This is how you can compose futures of nullable types :
 
   fun combine(x: Int): CompletableFuture<Int?> = giveInt(x).thenCompose({ it?.let { giveInt2(it) } })
 
-  combine(1).get()
+  combine(1).get() //4
 ```
 
 Finally even if it's not possible to use monad transformers as we would do in Scala, if think it is quite simple and readable!
