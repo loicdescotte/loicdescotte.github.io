@@ -13,7 +13,7 @@ In a previous post, we've seen [how to compose Future and Options in Scala](http
 
 This is how you can compose nullable functions :
 
-```kt
+```scala
   fun giveInt(x: Int):Int? = x+1
 
   fun giveInt2(x: Int):Int? = x+2
