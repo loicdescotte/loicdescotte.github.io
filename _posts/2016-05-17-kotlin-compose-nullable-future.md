@@ -22,8 +22,7 @@ This is how you can compose nullable functions :
 
   combine(1) //4
 ```
-
-`let` only applies if the first part is not null. Either a nullable is returned.
+The result of `giveInt` is passed to `giveInt2`. But `let` only applies if the first part is not null. Either a nullable is returned.
 
 
 This is how you can compose futures (using Java 8 CompletableFuture API):
