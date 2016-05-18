@@ -11,7 +11,6 @@ tags:
 
 In a previous post, we've seen [how to compose Future and Options in Scala](http://loicdescotte.github.io/posts/scala-compose-option-future/). Let's try to do the same with Kotlin using nullables types and Java 8 completable futures.
 
-
 This is how you can compose nullable functions :
 
 ```kotlin
@@ -24,16 +23,19 @@ This is how you can compose nullable functions :
   combine(1) //4
 ```
 
-This is how you can compose futures :
+`let` on applies if the first part is not null. Either a nullable is returned.
+
+
+This is how you can compose futures (using Java 8 CompletableFuture API):
 
 ```kotlin
-fun giveInt(x: Int): CompletableFuture<Int> = CompletableFuture.supplyAsync({ x + 1 })
+  fun giveInt(x: Int): CompletableFuture<Int> = CompletableFuture.supplyAsync({ x + 1 })
 
-    fun giveInt2(x: Int): CompletableFuture<Int> = CompletableFuture.supplyAsync({ x + 2 })
+  fun giveInt2(x: Int): CompletableFuture<Int> = CompletableFuture.supplyAsync({ x + 2 })
 
-    fun combine(x: Int): CompletableFuture<Int> =  giveInt(x).thenCompose({ giveInt2(it) })
+  fun combine(x: Int): CompletableFuture<Int> =  giveInt(x).thenCompose({ giveInt2(it) })
 
-    combine(1).get() //4
+  combine(1).get() //4
 ```
 
 This is how you can compose futures of nullable types :
@@ -48,6 +50,6 @@ This is how you can compose futures of nullable types :
   combine(1).get()
 ```
 
-See also Kotlin async API.
+Finally even if it's not possible to use monad transformers as we would do in Scala, if think it is quite simple and readable!
 
-## Bonus : How to flatten a List of options (or nullables) in Scala, Java 8 and Kotlin
+This may be even simpler in the future using [Kotlin coroutines](https://github.com/Kotlin/kotlin-coroutines).
