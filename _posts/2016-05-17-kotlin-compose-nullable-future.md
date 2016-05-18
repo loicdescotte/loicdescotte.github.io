@@ -9,7 +9,7 @@ tags:
  - Java 8
 ---
 
-In a previous post, we've seen [how to compose Future and Options in Scala](http://loicdescotte.github.io/posts/scala-compose-option-future/). Let's try to do the same with Kotlin using nullables types and Java 8 completable futures.
+In a previous post, we've seen [how to compose Future and Option in Scala](http://loicdescotte.github.io/posts/scala-compose-option-future/). Let's try to do the same with Kotlin using nullables types and Java 8 completable futures.
 
 This is how you can compose nullable functions :
 
