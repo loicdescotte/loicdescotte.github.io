@@ -18,7 +18,7 @@ This is how you can compose nullable functions :
 
   fun giveInt2(x: Int):Int? = x+2
 
-  fun combine(x: Int): Int? = giveInt(x)?.let { giveInt2(it) }
+  fun combine(x: Int): Int? = giveInt(x)?.let(::giveInt2)
 
   combine(1) //4
 ```
@@ -32,7 +32,7 @@ This is how you can compose futures (using Java 8 CompletableFuture API):
 
   fun giveInt2(x: Int): CompletableFuture<Int> = CompletableFuture.supplyAsync({ x + 2 })
 
-  fun combine(x: Int): CompletableFuture<Int> =  giveInt(x).thenCompose({ giveInt2(it) })
+  fun combine(x: Int): CompletableFuture<Int> =  giveInt(x).thenCompose(::giveInt2)
 
   combine(1).get() //4
 ```
@@ -44,7 +44,7 @@ This is how you can compose futures of nullable types :
 
   fun giveInt2(x: Int): CompletableFuture<Int?> = CompletableFuture.supplyAsync({ x + 2 })
 
-  fun combine(x: Int): CompletableFuture<Int?> = giveInt(x).thenCompose({ it?.let { giveInt2(it) } })
+  fun combine(x: Int): CompletableFuture<Int?> = giveInt(x).thenCompose({ it?.let(::giveInt2) })
 
   combine(1).get() //4
 ```
