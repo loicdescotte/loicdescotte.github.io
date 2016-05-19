@@ -49,6 +49,20 @@ This is how you can compose futures of nullable types :
   combine(1).get() //4
 ```
 
-Finally even if it's not possible to use monad transformers as we would do in Scala, if think it is quite simple and readable!
+And this how we would have done it with Scala and with the [Hamsters](https://github.com/scala-hamsters/hamsters) library : 
 
-This may be even simpler in the future using [Kotlin coroutines](https://github.com/Kotlin/kotlin-coroutines).
+```
+def giveInt(x: Int): Future[Option[Int]] = Future.successful(Some(x+1))
+def giveInt2(x: Int): Future[Option[Int]] = Future.successful(Some(x+2))
+
+def combine(x: Int): Future[Option[Int]] = for {
+  y <- FutureOption(giveInt(x))
+  z <- FutureOption(giveInt2(y))
+} yield z
+
+Await.result(combine(1), 1 second) //Some(4)
+```
+
+Finally even if it's not possible to use monad transformers as we would do in Scala, if think Kotlin is giving out of the box a very simple and readable solution.
+
+And this may be even simpler in the future using [Kotlin coroutines](https://github.com/Kotlin/kotlin-coroutines).
