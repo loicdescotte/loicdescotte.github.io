@@ -51,7 +51,7 @@ This is how you can compose futures of nullable types :
 
 And this how we would have done it with Scala and with the [Hamsters](https://github.com/scala-hamsters/hamsters) library : 
 
-```
+```scala
 def giveInt(x: Int): Future[Option[Int]] = Future.successful(Some(x+1))
 def giveInt2(x: Int): Future[Option[Int]] = Future.successful(Some(x+2))
 
