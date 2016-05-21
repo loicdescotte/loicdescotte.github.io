@@ -53,6 +53,7 @@ And this how we would have done it with Scala and with the [Hamsters](https://gi
 
 ```scala
 def giveInt(x: Int): Future[Option[Int]] = Future.successful(Some(x+1))
+
 def giveInt2(x: Int): Future[Option[Int]] = Future.successful(Some(x+2))
 
 def combine(x: Int): Future[Option[Int]] = for {
