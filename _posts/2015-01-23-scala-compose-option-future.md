@@ -135,8 +135,6 @@ val composedAB3: Future[Option[String]] = (for {
 Since the moment I wrote this post, I've made a small library that provides (among other things) some simple monad transformers : 
 
 {% highlight scala %}
-def foa: Future[Option[String]] = Future(Some("a"))
-def fob(a: String): Future[Option[String]] = Future(Some(a+"b"))
 
 val composedAB: Future[Option[String]] = for {
   a <- FutureOption(foa)
