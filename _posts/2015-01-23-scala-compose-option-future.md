@@ -130,7 +130,7 @@ val composedAB3: Future[Option[String]] = (for {
 
 {% endhighlight %}
 
-## Update : Using a Hamsters monad transformers
+## Update : Using Hamsters monad transformers
 
 Since the moment I written this post, I've made a small library that provides (among other things) some simple monad transformers : 
 
