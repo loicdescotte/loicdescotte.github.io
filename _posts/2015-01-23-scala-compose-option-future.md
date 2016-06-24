@@ -10,7 +10,7 @@ tags:
 
 ---
 
- Update (June 24, 2016) : Examples using [Hamsters lib](https://github.com/scala-hamsters/hamsters)
+ Update (June 24, 2016) : New example using [Hamsters lib](https://github.com/scala-hamsters/hamsters)
 
 ---
 
