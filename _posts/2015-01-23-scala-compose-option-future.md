@@ -112,7 +112,7 @@ Or, with `flatMap` :
 val noSugarComposedAB2 = FutureO(foa).flatMap(a => FutureO(fob(a))).future
 {% endhighlight %}
 
-### Using a Scalaz monad transformer
+## Using a Scalaz monad transformer
 
 Finally, if you want to generalize this kind of usage, you should try Scalaz monad transformers, which work for a larger kind of types than options and futures.
 
@@ -130,7 +130,7 @@ val composedAB3: Future[Option[String]] = (for {
 
 {% endhighlight %}
 
-### Update : Using a Hamsters monad transformers
+## Update : Using a Hamsters monad transformers
 
 Since the moment I written this post, I've made a small library that provides (among other things) some simple monad transformers : 
 
