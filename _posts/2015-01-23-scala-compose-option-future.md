@@ -8,6 +8,12 @@ tags:
  - Composition
 ---
 
+---
+
+ Update (June 24, 2016) : Examples using [Hamsters lib](https://github.com/scala-hamsters/hamsters)
+
+---
+
 In Scala, it's easy to compose options :
 
 {% highlight scala %}
@@ -123,3 +129,19 @@ val composedAB3: Future[Option[String]] = (for {
 }yield ab).run
 
 {% endhighlight %}
+
+### Update : Using a Hamsters monad transformers
+
+Since the moment I written this post, I've made a small library that provides (among other things) some simple monad transformers : 
+
+{% highlight scala %}
+def foa: Future[Option[String]] = Future(Some("a"))
+def fob(a: String): Future[Option[String]] = Future(Some(a+"b"))
+
+val composedAB: Future[Option[String]] = for {
+  a <- FutureOption(foa)
+  ab <- FutureOption(fob(a))
+} yield ab
+{% endhighlight %}
+
+You can find more information about Hamsters [here](https://github.com/scala-hamsters/hamsters).
