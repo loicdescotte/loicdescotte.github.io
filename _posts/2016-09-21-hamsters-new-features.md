@@ -22,7 +22,7 @@ fromCatchable(compute(0)) //KO("/ by zero")
 fromCatchable(compute(0), (t: Throwable) => t.getClass.getSimpleName) //KO("ArithmeticException")
 ```
 
-To see how to use the OK/KO monad, see the [Readme file](https://github.com/scala-hamsters/hamsters/blob/master/README.md).
+To see how to use the OK/KO monad and Validation helpers, see the [Readme file](https://github.com/scala-hamsters/hamsters/blob/master/README.md).
 
 Another new feature allows to ask for a specifc type and retrieve an option on an Union type :
 
