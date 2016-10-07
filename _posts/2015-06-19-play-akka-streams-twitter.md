@@ -10,7 +10,7 @@ tags:
 
 ---
 
- * Disclamer : Since Play 2.5/Akka Streams 2, things shown in this post can be achieved more easily, for example without relying directly on the actor API. This [this post](
+ * Disclaimer : Since Play 2.5/Akka Streams 2, things shown in this post can be achieved more easily, for example without relying directly on the actor API. This [this post](
 https://loicdescotte.github.io/posts/play25-akka-streams/) for more information.
 
 ---
