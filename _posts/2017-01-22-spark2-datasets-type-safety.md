@@ -137,7 +137,7 @@ As you can see on the last line, if you provide a bad column name, you will get 
 Another problem with regular datasets is that they can produce null values, for example using left outer joins :
 
 ```scala
-    departments.joinWith(people, departments("id") === people("deptId"), "left_outer").show
+departments.joinWith(people, departments("id") === people("deptId"), "left_outer").show
 ```
 
 The output is :
