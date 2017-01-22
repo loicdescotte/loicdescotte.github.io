@@ -8,7 +8,7 @@ tags:
  - Frameless
 ---
 
-Spark 2.0 has introduced the Datasets API (in a stable version). Datasets promise is to add type-safety to dataframes, that are a more SQL oriented API. I used to rely on the lower level RDD API (distributed Spark collections) on some parts of my code when I wanted more type-safety but it lacks some of the dataframe optimizations (for example on groupBy and aggregations operations). The recommended way is now to use datasets everywhere (except if you're doing something very specific and if you need to use the low level RDD funcstions). Let's see how it looks.
+[Spark](http://spark.apache.org/) 2.0 has introduced the Datasets API (in a stable version). Datasets promise is to add type-safety to dataframes, that are a more SQL oriented API. I used to rely on the lower level RDD API (distributed Spark collections) on some parts of my code when I wanted more type-safety but it lacks some of the dataframe optimizations (for example on groupBy and aggregations operations). The recommended way is now to use datasets everywhere (except if you're doing something very specific and if you need to use the low level RDD funcstions). Let's see how it looks.
 
 This is the classical word count using RDD :
 
