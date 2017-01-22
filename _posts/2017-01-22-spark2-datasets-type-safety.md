@@ -12,12 +12,12 @@
 
   This is the classical word count using RDD :
 
-    ```scala
-    val textFile = sc.textFile("hdfs://...")
-    val counts = textFile.flatMap(line => line.split(" "))
-                 .map(word => (word.toLowerCase, 1)) // put 1 with each word instance
-                 .reduceByKey((accumulator, current) => accumulator+current) // add all words, grouped by value (by key)
-    ```
+  ```scala
+  val textFile = sc.textFile("hdfs://...")
+  val counts = textFile.flatMap(line => line.split(" "))
+               .map(word => (word.toLowerCase, 1)) // put 1 with each word instance
+               .reduceByKey((accumulator, current) => accumulator+current) // add all words, grouped by value (by key)
+  ```
 
   And the word count with dataframes :
 
