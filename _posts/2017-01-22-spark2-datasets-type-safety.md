@@ -116,15 +116,15 @@ Yes, that can be disappointing... but, there is a library named [Frameless](http
 import frameless.TypedDataset
 
 val departments = TypedDataset.create(Seq(
-Department(1, "rh"),
-Department(2, "it"),
-Department(3, "marketing")
+  Department(1, "rh"),
+  Department(2, "it"),
+  Department(3, "marketing")
 ))
 
 val people = TypedDataset.create(Seq(
-Person("jane", 28, "female", 2000, 2),
-Person("bob", 31, "male", 2000, 1),
-//...
+  Person("jane", 28, "female", 2000, 2),
+  Person("bob", 31, "male", 2000, 1),
+  //...
 ))
 
 val joined = people.join(departments, people('deptId), departments('id))
@@ -160,7 +160,7 @@ The output is :
 With Frameless, you won't have this problem as it gives you Options :
 
 ```scala
-    val leftJoined: TypedDataset[(Department, Option[Person])] = departments.joinLeft(people, departments('id), people('deptId))
+val leftJoined: TypedDataset[(Department, Option[Person])] = departments.joinLeft(people, departments('id), people('deptId))
 ```
 
 Frameless is still described as a "proof of concept" and does not cover all dataset operations, but I think it's an interesting library to follow!
