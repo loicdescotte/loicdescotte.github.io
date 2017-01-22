@@ -8,7 +8,7 @@ tags:
  - Frameless
 ---
 
-Spark 2.0 has introduced the Datasets API (in a stable version). Datasets promise is to add type-safety to dataframes, that are a more SQL oriented API. I used to rely on the lower level RDD API (distributed Spark collections) on some parts of my code when I wanted more type-safety but it lacks some of the dataframe optimizations (for example on groupBy and aggregations operations). The recommended way is now to use datasets everywhere (except if you're doing something very specific and if you need to use the low level RDD functions). Let's see how it looks.
+Spark 2.0 has introduced the Datasets API (in a stable version). Datasets promise is to add type-safety to dataframes, that are a more SQL oriented API. I used to rely on the lower level RDD API (distributed Spark collections) on some parts of my code when I wanted more type-safety but it lacks some of the dataframe optimizations (for example on groupBy and aggregations operations). The recommended way is now to use datasets everywhere (except if you're doing something very specific and if you need to use the low level RDD funcstions). Let's see how it looks.
 
 This is the classical word count using RDD :
 
@@ -144,17 +144,17 @@ The output is :
 
 ```
 //    +-------------+--------------------+
-   //    |           _1|                  _2|
-   //    +-------------+--------------------+
-   //    |       [1,rh]|[linda,37,female,...|
-   //    |       [1,rh]|[john,45,male,300...|
-   //    |       [1,rh]|[bob,35,male,2200,1]|
-   //    |       [1,rh]|[bob,31,male,2000,1]|
-   //    |       [2,it]|[joe,40,male,3000,2]|
-   //    |       [2,it]|[jane,28,female,2...|
-   //    |[3,marketing]|                null| <--- WARNING : null
-   //      +-------------+--------------------+
-   //
+//    |           _1|                  _2|
+//    +-------------+--------------------+
+//    |       [1,rh]|[linda,37,female,...|
+//    |       [1,rh]|[john,45,male,300...|
+//    |       [1,rh]|[bob,35,male,2200,1]|
+//    |       [1,rh]|[bob,31,male,2000,1]|
+//    |       [2,it]|[joe,40,male,3000,2]|
+//    |       [2,it]|[jane,28,female,2...|
+//    |[3,marketing]|                null| <--- WARNING : null
+//      +-------------+--------------------+
+//
 ```
 
 With Frameless, you won't have this problem as it gives you Options :
