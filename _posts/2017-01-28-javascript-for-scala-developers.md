@@ -102,7 +102,7 @@ function* idMaker(index = 0, max=10){
     if(index < max)
       yield* idMaker(index+1);
 }
-var gen = idMaker();
+let gen = idMaker();
 
 console.log(gen.next().value); // 0
 console.log(gen.next().value); // 1
