@@ -8,9 +8,9 @@ tags:
  - Typescript
 ---
 
-Disclaimer : this post is not about ScalaJS, but about the JavaScript (+ Typescript) language.
-As you may know, the last published Javascript standard version is ECMAScript 2016 (or ECMAScript 7, or ES7) standard. Since ES6 (the previous standard, published in 2015), Js has a lot new syntaxic possibilities. Many of this features will make feel Scala developers at home, at least a lot more than previous JS versions.
-
+Disclaimer : this post is not about ScalaJS, but about the JavaScript language (+ Typescript).
+As you may know, the last published JavaScript standard is ECMAScript 2016 (or ECMAScript 7, or ES7). Since ES6 (the previous standard, published in 2015), JS has a lot new syntactic possibilities. Many of this features will make Scala developers feel at home, at least a lot more than previous JS versions.
+Important note : it is possible to target browsers that don't fully support ES6 or ES7 using the [Babel compiler](https://babeljs.io/).
 
 ## Basic examples
 
@@ -26,7 +26,7 @@ JS :
 ```javascript
 let x = 1
 ```
-Note : `let` is aimed to replace JS `var`, as it defines block scoped variables (link).
+Note : `let` is aimed at replacing JS `var`, as it defines [block scoped](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/block) variables.
 
 ### Define a constant (a value)
 
@@ -41,15 +41,15 @@ JS :
 const x = 1
 ```
 
-Both of this values are not reassignable. In JS you will have an "invalid assignment" error if you try to redefine const.
+Both of this values are not reassignable. In JS you will have an "invalid assignment" error if you try to redefine a const.
 
 Note : like `let`, `const` is block scoped.
 
-### functions
+### Functions
 
 ```javascript
 
-// old school JS function
+// old school JS functions
 const f = function(x) {
   return x +1
 };
@@ -58,12 +58,12 @@ const f = function(x) {
 const f = (x => x +1);
 ```
 
-The second syntax is closer to Scala syntax, and is nice when you need to pass a function argument to another function.
+The second syntax is closer to Scala, and is nice when you need to pass a function argument to another function.
 
 
 ### Classes
 
-Since ES6, it is possible to defines classes in Javascript.
+Since ES6, it is possible to define classes in JavaScript.
 
 ```javascript
 class Point {
@@ -80,6 +80,41 @@ class Point {
 
 ```
 
+### Default parameters
+
+```javascript
+function multiply(a, b = 1) {
+  return a * b;
+}
+
+multiply(5, 2); // 10
+multiply(5, 1); // 5
+multiply(5);    // 5
+```
+
+### Generators
+
+Generators are functions that can produce a sequence of values :
+
+```javascript
+function* idMaker(index = 0, max=10){
+    yield index;
+    if(index < max)
+      yield* idMaker(index+1);
+}
+var gen = idMaker();
+
+console.log(gen.next().value); // 0
+console.log(gen.next().value); // 1
+console.log(gen.next().value); // 2
+```
+
+Generator function are prefixed with a `*`.
+`yield` may recall you Scala for comprehension. This keyword is used to produce an element in the generator.
+`yield*` is used to call another generator.
+
+Note : you call also get values as an array with this syntax :
+
 ### Destructuring
 
 ```javascript
@@ -88,16 +123,41 @@ class Point {
 let { x, y } = new Point(1,2);
 ```
 
-Note : unlike Scala, JS asks you to use the same parameter names in the left expression as in your object
+Note : unlike Scala, JS asks you to use the same parameter names in the left expression as in your object.
 
+#### Spread operator
 
-Note 2 : you can also destructure arrays and iterables
+This operator can be used to structure and destructure arrays and other iterables.
 
-### imports
+```javascript
+let [...values] = idMaker();
+console.log(values); //0 to 10
+
+let [head, ...tail] = values;
+console.log(head); //0
+console.log(tail); //1 to 10
+```
+
+### Rest operator
+
+```javascript
+let f = function(a, b, ...rest) {
+  // ...
+}
+```
+This operator works like Scala varargs.
+`parameters` is retrieved as an Array object.
+
+Usage :
+
+```javascript
+f("a","b", 1 ,2 ,3) //1, 2, 3 will be in the rest array
+```
+
+### Modules and imports
 
 In lib.js :
 ```javascript
-//------ li.js ------
 export function f(x) {
     return x+1;
 };
@@ -113,43 +173,7 @@ import { f, g } from 'lib';
 const a = f(1);
 ```
 
-### for-in
-
-```javascript
-const object = {a:1, b:2, c:3};
-
-for (var prop in obj) {
-  console.log("obj." + prop + " = " + obj[prop]);
-}
-```
-
-
-### Default parameters
-
-```javascript
-function multiply(a, b = 1) {
-  return a * b;
-}
-
-multiply(5, 2); // 10
-multiply(5, 1); // 5
-multiply(5);    // 5
-```
-
-### varargs
-
-```javascript
-function(a, b, ...parameters) {
-  // ...
-}
-```
-
-`parameters` is an array
-
-usage :
-
 ## Promises and futures
-
 
 ```javascript
 //kind of map
@@ -171,8 +195,10 @@ Promise.resolve("Success")
 
 ## Where are my types ?
 
-Typescript intro
-Default angular 2 language
+Typescript is a typed superset of JavaScript, that can be compiled and transformed (transpiled) to JS.
+It is the language that has been used to write the Angular framework (since Angular 2), and it's the recommended language to develop Angular applications as well.
+
+Let's see how it looks :
 
 ```javascript
 let result: Promise<string> = Promise.resolve("Success")
@@ -183,25 +209,28 @@ let result2: Promise<string>  = Promise.resolve("Success")
 .then((value) => Promise.resolve("result " + value + " Success 2"));
 ```
 
+You can see that I've added some type definitions to my result variable.
 
-You can notice that there is an autoflatten (explain as the this is still Promise<string> .
+Note: You can notice that there is an automatic flatten of JS Promises, as my result2 il a `Promise<string>` and not a `Promise<Promise<string>>. This is not specific to the typescript language (pure JS promises are also flatten).
 
+### Type aliases with Typescript
 
-Typescript compatible with JS syntax (sur ensemble)
+Typescript type aliases look like Scala aliases :
 
-Note : Babel for both ES 2015 and Typescript
+```javascript
+type Name = string;
+type NameResolver = () => string;
+```
 
 ## Immutable data
 
-We have const to define values, but
+We have const to define values, but it is possible to get further with [Immutable.js](https://facebook.github.io/immutable-js/) collections.
 
-Immutable js
-
-React and Redux, Angular 2
+[React](https://facebook.github.io/react/), [Redux](http://redux.js.org/) and [Angular](https://angular.io/) are frameworks that rely a lot on immutability.
 
 ### ES proposal : rest/spread properties
 
-[This proposal](https://github.com/sebmarkbage/ecmascript-rest-spread) would be very conveniant to copy objects.
+[This proposal](https://github.com/sebmarkbage/ecmascript-rest-spread) would be very convenient to copy objects.
 
 ```scala
 case class Person(name: String, age: Int)
@@ -212,26 +241,28 @@ val john = bob.copy(name="john")
 
 ```javascript
 const bob = {name: "bob", age: 30};
-var obj1 = {...bob, name: "john", address: "25 5th street NYC"}; // copy bob with name updated and address added
+var obj1 = {...bob, name: "john", address: "25 5th street NYC"}; // copy bob with updated name and address added
 ```
 
-Ant it can already be used with Babel!
+And it can already be used [with Babel](https://babeljs.io/docs/plugins/transform-object-rest-spread/)!
 
 ## More advanced examples
 
-### extensions methods
+### Extensions methods
+
+With JS you can add methods on any class via its prototype (the concept behind JS object oriented programming):
 
 ```javascript
 
-let sum = (x, y) => x.sum(y);
+let add = (x, y) => x.sum(y);
 
 //extension
 Number.prototype.sum = function (x) { return this + x };
 
-console.log(sum(1, 2)); //3
+console.log(add(1, 2)); //3
 ```
 
-With typescript (explain) :
+With typescript you can declare that a function needs an object with a specific method (or several methods), using an interface :
 
 ```javascript
 
@@ -239,20 +270,16 @@ interface CanSum {
     sum(x: CanSum): Number;
 }
 
-let sum = (x: CanSum, y: CanSum) => x.sum(y);
+let add = (x: CanSum, y: CanSum) => x.sum(y);
 
 //extension
 Number.prototype.sum = function (x) { return this + x };
 
-console.log(sum(1, 2)); //3
+console.log(add(1, 2)); //3
 ```
 
-(kind of) typeclasses
+Note : interfaces are implicitly implemented if an object defines all methods of the interface (kind of Duck Typing).
 
-/*not recursive*/
-extension method + structural/duck typing
+With extension methods and duck typing, you can emulate Scala implicit classes and be close to type classes, but without the recursive power of implicit resolution of type class instances. For example, if I need a class P to be serializable to a format X, I can add a 'serialize' method on it instead of defining an implicit XSerializer[P]. But, if P contains other types that need to be serialized, serializers won't be discovered implicitly and recursively. You will have to define methods on each type.
 
- type alias
-
-
- imutable collections
+That's all for today :)
