@@ -278,8 +278,8 @@ Number.prototype.sum = function (x) { return this + x };
 console.log(add(1, 2)); //3
 ```
 
-Note : interface are implicitly implemented if an object define all methods of the interface (kind of Duck Typing).
+Note : interface are implicitly implemented if an object define all methods of the interface (it is called structural subtyping).
 
-With extension methods and duck typing, you can emulate Scala implicit classes and be close to type classes, but without the recursive power of implicit resolution of type class instances. For example, if I need a class P to be serializable to a format X, I can add a 'serialize' method on it instead of defining an implicit XSerializer[P]. But, if P contains other types that need to be serialized, serializers won't be discoverd implictly and recursively. You will have to define methods on each type.
+With extension methods and structural subtyping, you can emulate Scala implicit classes and be close to type classes, but without the recursive power of implicit resolution of type class instances. For example, if I need a class P to be serializable to a format X, I can add a 'serialize' method on it instead of defining an implicit XSerializer[P], and P will be see as implementing a `CanBeSerialized` interface. But, if P contains other types that need to be serialized, serializers won't be discoverd implictly and recursively. You will have to define methods on each type.
 
 That's all for today :)
