@@ -8,8 +8,8 @@ tags:
  - Typescript
 ---
 
-Disclaimer : this post is not about ScalaJS, but about the JavaScript language (+ Typescript).
-As you may know, the last published JavaScript standard is ECMAScript 2016 (or ECMAScript 7, or ES7). Since ES6 (the previous standard, published in 2015), JS has a lot new syntactic possibilities. Many of this features will make Scala developers feel at home, at least a lot more than previous JS versions.
+<!-- Disclaimer : this post is not about ScalaJS, but about the JavaScript language (+ Typescript). -->
+As you may know, the last published Javascript standard is ECMAScript 2016 (or ECMAScript 7, or ES7). Since ES6 (the previous standard, published in 2015), JS has a lot new syntaxic possibilities. Many of this features will make Scala developers feel at home, at least a lot more than previous JS versions.
 Important note : it is possible to target browsers that don't fully support ES6 or ES7 using the [Babel compiler](https://babeljs.io/).
 
 ## Basic examples
@@ -63,7 +63,7 @@ The second syntax is closer to Scala, and is nice when you need to pass a functi
 
 ### Classes
 
-Since ES6, it is possible to define classes in JavaScript.
+Since ES6, it is possible to define classes in Javascript.
 
 ```javascript
 class Point {
@@ -127,7 +127,7 @@ Note : unlike Scala, JS asks you to use the same parameter names in the left exp
 
 #### Spread operator
 
-This operator can be used to structure and destructure arrays and other iterables.
+This operator can be used to structure and destructure arrays.
 
 ```javascript
 let [...values] = idMaker();
@@ -146,7 +146,7 @@ let f = function(a, b, ...rest) {
 }
 ```
 This operator works like Scala varargs.
-`parameters` is retrieved as an Array object.
+`parameters` is retreived as an Array object.
 
 Usage :
 
@@ -226,11 +226,11 @@ type NameResolver = () => string;
 
 We have const to define values, but it is possible to get further with [Immutable.js](https://facebook.github.io/immutable-js/) collections.
 
-[React](https://facebook.github.io/react/), [Redux](http://redux.js.org/) and [Angular](https://angular.io/) are frameworks that rely a lot on immutability.
+[React](https://facebook.github.io/react/), [Redux](http://redux.js.org/) and [Angular](https://angular.io/) are frameworks that rely a lot on immutabilty.
 
 ### ES proposal : rest/spread properties
 
-[This proposal](https://github.com/sebmarkbage/ecmascript-rest-spread) would be very convenient to copy objects.
+[This proposal](https://github.com/sebmarkbage/ecmascript-rest-spread) would be very conveniant to copy objects.
 
 ```scala
 case class Person(name: String, age: Int)
@@ -241,7 +241,7 @@ val john = bob.copy(name="john")
 
 ```javascript
 const bob = {name: "bob", age: 30};
-var obj1 = {...bob, name: "john", address: "25 5th street NYC"}; // copy bob with updated name and address added
+const obj1 = {...bob, name: "john", address: "25 5th street NYC"}; // copy bob with updated name and address added
 ```
 
 And it can already be used [with Babel](https://babeljs.io/docs/plugins/transform-object-rest-spread/)!
@@ -262,7 +262,7 @@ Number.prototype.sum = function (x) { return this + x };
 console.log(add(1, 2)); //3
 ```
 
-With typescript you can declare that a function needs an object with a specific method (or several methods), using an interface :
+With typescript you can declare that a function need an object with a specific method (or several methods), using an interface :
 
 ```javascript
 
@@ -278,8 +278,8 @@ Number.prototype.sum = function (x) { return this + x };
 console.log(add(1, 2)); //3
 ```
 
-Note : interfaces are implicitly implemented if an object defines all methods of the interface (kind of Duck Typing).
+Note : interface are implicitly implemented if an object define all methods of the interface (kind of Duck Typing).
 
-With extension methods and duck typing, you can emulate Scala implicit classes and be close to type classes, but without the recursive power of implicit resolution of type class instances. For example, if I need a class P to be serializable to a format X, I can add a 'serialize' method on it instead of defining an implicit XSerializer[P]. But, if P contains other types that need to be serialized, serializers won't be discovered implicitly and recursively. You will have to define methods on each type.
+With extension methods and duck typing, you can emulate Scala implicit classes and be close to type classes, but without the recursive power of implicit resolution of type class instances. For example, if I need a class P to be serializable to a format X, I can add a 'serialize' method on it instead of defining an implicit XSerializer[P]. But, if P contains other types that need to be serialized, serializers won't be discoverd implictly and recursively. You will have to define methods on each type.
 
 That's all for today :)
