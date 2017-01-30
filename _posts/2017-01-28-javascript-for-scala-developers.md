@@ -231,12 +231,14 @@ We have const to define values, but it is possible to get further with [Immutabl
 [This proposal](https://github.com/sebmarkbage/ecmascript-rest-spread) would be very convenient to copy objects.
 
 Object copy in Scala (using case classes) :
+
 ```scala
 case class Person(name: String, age: Int)
 
 val bob = Person("bob", 30)
 val john = bob.copy(name="john")
 ```
+
 JS :
 ```javascript
 const bob = {name: "bob", age: 30};
