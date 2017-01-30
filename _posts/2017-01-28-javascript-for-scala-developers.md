@@ -18,11 +18,13 @@ Important note : it is possible to target browsers that don't fully support ES6 
 ### Define a variable
 
 Scala :
+
 ```scala
 var x = 1
 ```
 
 JS :
+
 ```javascript
 let x = 1
 ```
@@ -31,11 +33,13 @@ Note : `let` is aimed at replacing JS `var`, as it defines [block scoped](https:
 ### Define a constant (a value)
 
 Scala :
+
 ```scala
 val x = 1
 ```
 
 JS :
+
 ```javascript
 const x = 1
 ```
