@@ -240,6 +240,7 @@ val john = bob.copy(name="john")
 ```
 
 JS :
+
 ```javascript
 const bob = {name: "bob", age: 30};
 const obj1 = {...bob, name: "john", address: "25 5th street NYC"}; // copy bob with updated name and address added
