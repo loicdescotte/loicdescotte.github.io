@@ -259,7 +259,6 @@ And it can already be used [with Babel](https://babeljs.io/docs/plugins/transfor
 With JS you can add methods on any class via its prototype (the concept behind JS object oriented programming):
 
 ```javascript
-
 let add = (x, y) => x.sum(y);
 
 //extension
@@ -271,7 +270,6 @@ console.log(add(1, 2)); //3
 With TypeScript you can declare that a function needs an object with a specific method (or several methods), using an interface :
 
 ```javascript
-
 interface CanSum {
     sum(x: CanSum): Number;
 }
