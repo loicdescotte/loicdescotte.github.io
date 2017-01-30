@@ -279,6 +279,9 @@ console.log(add(1, 2)); //3
 
 Note : interfaces are implicitly implemented if an object defines all methods of the interface (it is called structural subtyping).
 
-With extension methods and structural subtyping, you can emulate Scala implicit classes and be close to type classes, but without the recursive power of implicit resolution of type class instances. For example, if I need a class P to be serializable to a format X, I can add a `serialize` method on it instead of defining an implicit XSerializer[P], and P will be see as implementing a `CanBeSerialized` interface. But, if P contains other types that need to be serialized, serializers won't be discovered implicitly and recursively. You will have to define methods on each type.
+With extension methods and structural subtyping, you can emulate Scala implicit classes and be close to type classes, but without the recursive power of implicit resolution of type class instances. For example, if I need a class P to be serializable to a format X, I can add a `serializeToX` method on it instead of defining an implicit XSerializer[P], and P could be seen as implementing a `CanBeSerialized` interface. But, if P contains other types that need to be serialized, serializers won't be discovered implicitly and recursively. You will have to define methods on each type.
 
-That's all for today :)
+## Other functional goodness
+
+If you miss functional abstractions like Option, Either and even Free monad, take a look at [Monet.js](https://cwmyers.github.io/monet.js/), an amazing functional JS library.
+As types are really important for this kind of library (Maybe/Option monad for instance is not very useful without types), you can use Monet with its [TypeScript bindings](https://github.com/cwmyers/monet.js/pull/48).
