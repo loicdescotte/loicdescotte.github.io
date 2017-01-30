@@ -5,7 +5,7 @@ tags:
  - Scala
  - JavaScript
  - ECMAScript
- - Typescript
+ - TypeScript
 ---
 
 Disclaimer : this post is not about [Scala.js](https://www.scala-js.org/), but about the JavaScript language (+ Typescript).
