@@ -158,6 +158,7 @@ f("a","b", 1 ,2 ,3) //1, 2, 3 will be in the rest array
 ### Modules and imports
 
 In lib.js :
+
 ```javascript
 export function f(x) {
     return x+1;
