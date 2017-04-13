@@ -132,6 +132,8 @@ Finally we can initialize our components and build our application in a simple H
 dom.render(document.body, render)
 ```
 
+In conclusion, I think that it's pretty easy to build and assemble reactive UI components with Binding.scala. It's also nice (and more powerful) to be able to use Scala to iterate over data or filter data, rather than HTML tags.
+
 You can run the full example [here](https://scalafiddle.io/sf/9f4Tp47/1).
 
 You can also compare this example with [this similar application](https://codepen.io/loicd/pen/RKJryq) written in JavaScript with React.js. The main difference is that React is using a virtual dom while Binding.scala is not.
