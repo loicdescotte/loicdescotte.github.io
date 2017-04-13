@@ -11,9 +11,9 @@ tags:
 
 Binding.scala is a UI library for Scala.js, which is quite similar to React.js.
 
-Let's see how to build a simple list of elements, with a search box and add/remove features.
+Let's see how use this library to build a simple list of elements, with a search box and add/remove features.
 
-Binding.scala allows to mix XML with scala code to dynamically generate HTML code. Let's crite a first version of an item list component :
+Binding.scala allows to mix XML with Scala code to dynamically generate HTML code on the browser side. Let's create a first version of an item list component :
 
 ```scala
 @dom def itemList(items: Vars[String]) = {
@@ -21,7 +21,7 @@ Binding.scala allows to mix XML with scala code to dynamically generate HTML cod
     <ol>{
       for (item <- items) yield
         <li>
-          { item }          
+          { item }         
         </li>
     }</ol>
   </section>
@@ -38,7 +38,7 @@ Now let's add a delete button to remove items :
     <ol>{
       for (item <- items) yield
         <li>
-          { item }          
+          { item }         
           <button onclick={ event: Event => items.get -= item }>x</button>
         </li>
     }</ol>
@@ -75,8 +75,7 @@ It's also quite easy to add a search box :
 
 Using a simple `if` in items rendering, we can bind a filter to the search box value.
 
-Now we need to ba able to add new components. When the UI becomes more complex, it's better to split it into several sub-components.
-So we will create a distinct add component.
+Now we would like to be able to add new components. When the UI becomes more complex, it's better to split it into several sub-components, so we will create a distinct add component :
 
 ```scala
 @dom def add(items: Vars[String]) = {
@@ -95,7 +94,7 @@ So we will create a distinct add component.
 ```
 
 To ensure communication between our two components, we use items Vars as a parameter.
-Now wen can include tge add component into our list component :
+Now wen can include the add component into our list component :
 
 ```scala
 @dom def itemList(items: Vars[String]) = {
@@ -119,7 +118,7 @@ Now wen can include tge add component into our list component :
 }
 ```
 
-Now let's initialize our components and build our application in a simple HTML page :
+Finally we can initialize our components and build our application in a simple HTML page :
 
 ```scala
 @dom def render() = {
@@ -135,5 +134,5 @@ dom.render(document.body, render)
 
 You can run the full example [here](https://scalafiddle.io/sf/9f4Tp47/1).
 
-You can compare this example with [this similar application](https://codepen.io/loicd/pen/RKJryq) written in JavaScript with React.js. The main difference in the Binding.scala is that React is using a virtual dom while Binding.js is not.
-The more direct consequence is the use of Var and Vars type to handle states and data lifecycles in Binding.scala, while React only allows to updatethe state of a component itself to allow virtual dom to update its rendering.
+You can also compare this example with [this similar application](https://codepen.io/loicd/pen/RKJryq) written in JavaScript with React.js. The main difference is that React is using a virtual dom while Binding.scala is not.
+The more direct consequence is the use of Var and Vars types to handle states and data lifecycles in Binding.scala, while React only allows to update the state of a component itself to allow virtual dom to update its rendering.
