@@ -158,6 +158,7 @@ f("a","b", 1 ,2 ,3) //1, 2, 3 will be in the rest array
 ### Modules and imports
 
 In lib.js :
+
 ```javascript
 export function f(x) {
     return x+1;
@@ -226,7 +227,7 @@ type NameResolver = () => string;
 
 ## Immutable data
 
-We have const to define values, but it is possible to get further with [Immutable.js](https://facebook.github.io/immutable-js/) collections.
+We have const to define values, but it is possible to get further with [Immutable.js](https://facebook.github.io/immutable-js/) collections and records.
 
 [React](https://facebook.github.io/react/), [Redux](http://redux.js.org/) and [Angular](https://angular.io/) are frameworks that rely a lot on immutability.
 
