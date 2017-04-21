@@ -8,7 +8,7 @@ tags:
  - JavaScript
 ---
 
-Binding.scala is a UI library for Scala.js, that is quite similar to React.js.
+[Binding.scala](https://github.com/ThoughtWorksInc/Binding.scala) is a UI library for Scala.js, that is quite similar to React.js.
 
 Let's see how to use this library to build a simple list of elements, with a search box and add/remove features.
 
