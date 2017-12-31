@@ -14,4 +14,4 @@ I've just published minimal demo application to show how to build a purely funct
 To learn more about the benefits of this approach, you can read the Readme file.
 I've used Typelevel libraries to build this application : http4s, Doobie, CatsEffect and Circe.
 
-You can find the project here : https://github.com/loicdescotte/pureWebappSample
+You can find the project here : [https://github.com/loicdescotte/pureWebappSample](https://github.com/loicdescotte/pureWebappSample)
