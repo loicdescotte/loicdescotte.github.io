@@ -17,4 +17,4 @@ You can see the video here (in french) : [https://www.youtube.com/watch?v=_SaD28
 
 The last day of the conference, several persons have made great contributions to the library during an OSS workshop organized by the [Scala center](https://scala.epfl.ch/), and we've been able to release the 2.0 version just after that.  
 
-A week ago, 2.4.0 has been released with a new feature, [MapN](https://github.com/scala-hamsters/hamsters/blob/master/docs/mapN.md). 
+A week ago, 2.4.0 has been released with a new feature, [mapN](https://github.com/scala-hamsters/hamsters/blob/master/docs/mapN.md). 
