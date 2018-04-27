@@ -1,0 +1,18 @@
+---
+layout: layout
+title: "Talks"
+---
+
+<!-- You can edit this whole page, remove it, or use it as basis for any non-post pages you have. -->
+<section class="content">
+  <h1>Talks</h1>
+
+  <p>
+  	<ul>
+      <li><b>Introduction à la programmation fonctionnelle et à Scala</b> at Tech Week (04/23/2018) - Video coming soon</li>
+      <li><a href="https://www.youtube.com/watch?v=_SaD28-1ds4">Hamsters : Une mini lib d'utilitaires Scala" at ScalaIO (11/02/2017)</a></li>
+      <li><b>Stateless Web Architecture With Play Framework</b> at Lyon Java User Group (11/22/2011)</li>
+    </ul>
+  </p>
+ 
+</section>
