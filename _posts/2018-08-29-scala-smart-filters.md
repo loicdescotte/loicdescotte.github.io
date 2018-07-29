@@ -32,7 +32,6 @@ def filterByField[T](selectField: Item => T, predicates: Set[String])(items: Lis
 With the pipe operator, it's now really easy to chain filters in a very readable way :
 
 ```scala
-case class Item(name: String, value: String)
 val items: List[Item] = ???
 
 val filteredItems = items |>
