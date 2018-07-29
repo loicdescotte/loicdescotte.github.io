@@ -41,7 +41,7 @@ val filteredItems = items |>
 ```
 Here is an implementation for `|>` (found on [Reddit](https://www.reddit.com/r/scala/comments/480nfm/operator_in_scala/d0got47/)) : 
 
-```
+```scala
 implicit class AnyEx[T](val v: T) extends AnyVal {
   def |>[U](f: T ⇒ U): U = f(v)
 }
