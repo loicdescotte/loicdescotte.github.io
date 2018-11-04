@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Lightbend VS Typelevel at ScalaIO : code samples and slides
+title: Lightbend VS Typelevel at ScalaIO - code samples and slides
 tags:
  - Functional Programming
  - Scala
