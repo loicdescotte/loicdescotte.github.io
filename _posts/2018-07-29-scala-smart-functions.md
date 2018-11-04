@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Smart filters in Scala using function currying and pipe operator
+title: Smart function application in Scala using function currying and pipe operator
 tags:
  - Functional Programming
  - Scala
@@ -29,7 +29,7 @@ def filterByField[T](selectField: Item => T, predicates: Set[String])(items: Lis
 }
 ```
 
-With the pipe operator, it's now really easy to chain filters in a very readable way :
+With the pipe operator, it's now really easy to chain such functions in a very readable way :
 
 ```scala
 val items: List[Item] = ???
