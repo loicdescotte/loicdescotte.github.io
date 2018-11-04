@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Smart function application in Scala using function currying and pipe operator
+title: Smart function application in Scala using currying and pipe operator
 tags:
  - Functional Programming
  - Scala
