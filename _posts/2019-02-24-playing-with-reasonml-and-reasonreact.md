@@ -1,6 +1,6 @@
 ---
 layout: post
-title: PLaying with ReasonML and ReasonReact
+title: Playing with ReasonML and ReasonReact
 tags:
  - Functional Programming
  - ReasonML
