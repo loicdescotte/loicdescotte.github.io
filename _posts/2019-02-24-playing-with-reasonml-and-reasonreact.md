@@ -14,3 +14,5 @@ A good way to play with this language is to try [ReasonReact](https://reasonml.g
 You can find a small example I did [here](https://repl.it/@Loic_D/reasonReactLearn-List) (basically a CRUD).
 
 As you can see, there is a lot of nice things for a Scala developer, like pattern matching or the Option type.
+
+This example can be compared with the [similar example I've done using Binding.scala](http://loicdescotte.github.io/posts/binding-scalajs/) or [with React.js](https://codepen.io/loicd/pen/RKJryq).
