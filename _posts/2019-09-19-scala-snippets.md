@@ -14,7 +14,7 @@ I write this snippets as memory aid, but maybe it can be useful for someone else
 
 ## Accumulate errors with Either and Cats 
 
-Based on Cats documentation but with Error ADT
+Based on Cats documentation but with Error ADT and NonEmptyChain
 
 <script src="https://gist.github.com/loicdescotte/52aac795c74dfca1cd622d6736abe906.js"></script>
 
