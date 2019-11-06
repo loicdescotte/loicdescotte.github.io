@@ -10,6 +10,12 @@ tags:
  - Queue
 ---
 
+---
+Update (2019/11/06) : `Source.preMaterialize` can replace peekMatValue.  
+See the scaladoc for this method : 
+> Materializes this Source, immediately returning (1) its materialized value, and (2) a new Source that can be used to consume elements from the newly materialized Source.
+---
+
 In the previous post, we've seen how to stream, transform and combine data using Akka Streams on Play Framework.
 Now let's see how to use a queue in which we can post new data dynamically. This can be very useful if you want to plug your application on a third party API that is sending events periodically and that is not using Akka Streams or Reactive Streams to emit data.
 
