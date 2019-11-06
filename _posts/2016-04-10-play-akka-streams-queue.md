@@ -11,9 +11,11 @@ tags:
 ---
 
 ---
+
 Update (2019/11/06) : `Source.preMaterialize` can replace peekMatValue.  
-See the scaladoc for this method : 
+See the [scaladoc for this method](https://doc.akka.io/api/akka/current/akka/stream/scaladsl/Source.html#preMaterialize()(implicitmaterializer:akka.stream.Materializer):(Mat,Source.this.ReprMat[Out,akka.NotUsed])) : 
 > Materializes this Source, immediately returning (1) its materialized value, and (2) a new Source that can be used to consume elements from the newly materialized Source.
+
 ---
 
 In the previous post, we've seen how to stream, transform and combine data using Akka Streams on Play Framework.
