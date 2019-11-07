@@ -15,6 +15,8 @@ I write this snippets as memory aid, but maybe it can be useful for someone else
 
 ## Change delimiter in a ZIO Stream
 
+Example, group/split by lines : 
+
 <script src="https://gist.github.com/loicdescotte/1551b102c7baecb77b3a0b94b512f965.js"></script>
 
 ## Accumulate errors with Either and Cats 
