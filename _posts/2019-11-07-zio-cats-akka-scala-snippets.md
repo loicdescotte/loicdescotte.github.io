@@ -33,3 +33,7 @@ Based on Cats documentation but with Error ADT and NonEmptyChain
 
 <script src="https://gist.github.com/loicdescotte/e1d236001fadc7a2d1fae88098a2c5b5.js"></script>
 
+## Akka Streams and Play Framework : add elements to a source dynamically, using a queue
+
+<script src="https://gist.github.com/loicdescotte/5f3ed7a56b8d3fa8eb2982e9e97dcb36.js"></script>
+
