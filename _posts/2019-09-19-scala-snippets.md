@@ -1,9 +1,10 @@
 ---
 layout: post
-title: Scala snippets (Cats, Slinky, Akka Streams)
+title: Scala snippets (ZIO, Cats, Slinky, Akka Streams)
 tags:
  - Functional Programming
  - Scala
+ - ZIO
  - Akka Streams
  - React
  - Slinky
@@ -11,6 +12,10 @@ tags:
 ---
 
 I write this snippets as memory aid, but maybe it can be useful for someone else :)
+
+## Change delimiter in a ZIO Stream
+
+<script src="https://gist.github.com/loicdescotte/1551b102c7baecb77b3a0b94b512f965.js"></script>
 
 ## Accumulate errors with Either and Cats 
 
