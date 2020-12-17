@@ -22,11 +22,13 @@ It is possible to override the number of datanodes and other settings using a va
 
 ## Spark
 
-Gradiant is also providing Spark images : [https://hub.docker.com/r/gradiant/spark](https://hub.docker.com/r/gradiant/spark)
+Gradiant is also providing Spark images : [https://hub.docker.com/r/gradiant/spark](https://hub.docker.com/r/gradiant/spark).
 
 ## Submit apps
 
-You can use a local Spark installation to run `spark-submit`, or use it directly from the Docker image as suggested in the Gradiant image [README file](https://github.com/Gradiant/dockerized-spark).
+You can use a local Spark installation to run `spark-submit`, or use it directly from the Docker image as suggested in the Gradiant image [README file](https://github.com/Gradiant/dockerized-spark).  
+
+Example : 
 
 ```
 spark-submit \
