@@ -1,6 +1,6 @@
 ---
 layout: post
-title: ZIO HTTP app example
+title: ZIO HTTP basic app example
 tags:
  - Scala
  - ZIO
