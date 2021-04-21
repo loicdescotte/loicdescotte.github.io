@@ -24,4 +24,4 @@ for {
 } yield(a, b, c, d)
 ```
 
-As a result, `m(1)` result will be cached (only be computed 1 time).
+With this code, `m(1)` result will only be computed 1 time.
