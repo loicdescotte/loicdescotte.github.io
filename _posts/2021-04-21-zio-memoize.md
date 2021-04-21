@@ -9,7 +9,7 @@ tags:
 ## ZIO tip : How to memoize the result of an effectful computation : 
 
 ZIO values are lazy and referentially transparent. So a `IO[E,A]` will be computed each time it needs to be evaluated.  
-It is a very intersting property in functional programming, but sometimes, for long and cachable computations, it can be useful to memoize a computation. It can be done using `ZIO.memoize`.
+It is a very intersting property in functional programming, but sometimes for long and cachable computations, it can be useful to memoize a result. It can be done using `ZIO.memoize`.
 
 Here is an example : 
 
