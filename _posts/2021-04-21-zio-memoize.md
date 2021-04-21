@@ -1,12 +1,12 @@
 ---
 layout: post
-title: ZIO HTTP basic app example
+title: Memoization with ZIO
 tags:
  - Scala
  - ZIO
 ---
 
-## ZIO tip : How memoize the result of an effectful computation : 
+## ZIO tip : How to memoize the result of an effectful computation : 
 
 ZIO values are lazy and referentially transparent. So a `IO[E,A]` will be computed each time it needs to be evaluated.  
 It is a very intersting property in functional programming, but sometimes, for long and cachable computations, it can be useful to memoize a computation. It can be done using `ZIO.memoize`.
@@ -14,7 +14,7 @@ It is a very intersting property in functional programming, but sometimes, for l
 Here is an example : 
 
 ```scala
-val compute = (x: Int) => ???
+val compute: Int => UIO[Int] = (x: Int) => ???
 for {
       m <- ZIO.memoize(compute)
       a <- m(1)
