@@ -48,12 +48,12 @@ In Java we will use the stream API, which is a bit more verbose but still workin
 Stream::flatMap will remove all the undefined elements and remove (like Scala's flatten) the Optional wrapper.
 
 ```java
-  List<Optional<String>> l = List.of(Optional.of("A"), Optional.empty(), Optional.of("B"));
+List<Optional<String>> l = List.of(Optional.of("A"), Optional.empty(), Optional.of("B"));
      
-       var result = Optional.of(
-                l.stream()
-               .flatMap(Optional::stream)
-               .collect(Collectors.joining( "," ))
-       ).filter(Predicate.not(String::isEmpty));
+var result = Optional.of(
+         l.stream()
+        .flatMap(Optional::stream)
+        .collect(Collectors.joining( "," ))
+).filter(Predicate.not(String::isEmpty));
 
 ```
