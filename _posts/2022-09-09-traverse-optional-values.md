@@ -16,14 +16,9 @@ Let's study a real life, quite simple problem :
 We have a list of optional values, and we want to produce an optional single output, made from present values (if there is any).
 We will also join values using a separator character.
 
-Exemple 1 : 
-
-Using a `List(Some(A), None, Some(B))` should produce `Some(a,b)`.
+Exemple 1 : Using a `List(Some(A), None, Some(B))` should produce `Some(a,b)`.
   
-Exemple 2 : 
-
-Using `List(None)` should produce `None`.
-  
+Exemple 2 : Using `List(None)` should produce `None`.  
 
 ## Scala version
 
