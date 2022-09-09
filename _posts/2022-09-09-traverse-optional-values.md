@@ -22,15 +22,16 @@ We can use the `flip` method from ZIO-prelude (or the sequence method from Cats)
 
 ```scala
 import zio.prelude._
-val l: List[Option[String]] = List(Some("A"), None, Some("B"))
-val lf: Option[List[String]] = l.filter(_.isDefined).flip // <- Option(List(A,B))
-lf.map(_.mkString(",")) // <- Some(A,B)
+val list: List[Option[String]] = List(Some("A"), None, Some("B"))
+val flippedList: Option[List[String]] = list.filter(_.isDefined).flip // <- Option(List(A,B))
+flippedList.map(_.mkString(",")) // <- Some(A,B)
 ```
 
-Note that if we just wanted to produce a List, we could have done this to remove the Option wrapper and undefined values : 
+Note that if we just wanted to produce a String (that may be empty), we could have done this to remove the Option wrapper and undefined values : 
 
 ```scala
-List(Some("A"), None, Some("B")).flatten // <- List(A, B)
+val flattenList = List(Some("A"), None, Some("B")).flatten // <- List(A, B)
+flattenList.mkString(",")
 ```
 
 ## Kotlin version
@@ -38,8 +39,8 @@ List(Some("A"), None, Some("B")).flatten // <- List(A, B)
 In Kotlin, we usually just use nullable types to replace Option. 
 
 ```kotlin
-val l = listOf("a", null, "b")
-val result = l.filterNotNull().joinToString(separator=",").ifBlank { null }
+val list = listOf("a", null, "b")
+val result = list.filterNotNull().joinToString(separator=",").ifBlank { null }
 ```
 
 ## Java version
@@ -48,10 +49,10 @@ In Java we will use the stream API, which is a bit more verbose but still workin
 Stream::flatMap will remove all the undefined elements and remove (like Scala's flatten) the Optional wrapper.
 
 ```java
-List<Optional<String>> l = List.of(Optional.of("A"), Optional.empty(), Optional.of("B"));
+List<Optional<String>> list = List.of(Optional.of("A"), Optional.empty(), Optional.of("B"));
      
 var result = Optional.of(
-         l.stream()
+         list.stream()
         .flatMap(Optional::stream)
         .collect(Collectors.joining( "," ))
 ).filter(Predicate.not(String::isEmpty));
