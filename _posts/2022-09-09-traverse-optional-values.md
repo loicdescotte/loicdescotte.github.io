@@ -3,6 +3,9 @@ layout: post
 title: How to traverse optional values in Scala, Kotlin and Java
 tags:
  - Scala
+ - Kotlin
+ - Java
+ - Stream
  - Option
  - FP
  - ZIO
