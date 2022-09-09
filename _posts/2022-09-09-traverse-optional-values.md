@@ -15,7 +15,7 @@ We will also join values using a separator character.
 
 ## Scala version
 
-We can use the `flip` method from ZIO prelude (or the sequence method from Cats) to turn a List[Option[String]] into a Option[List[String]].
+We can use the `flip` method from ZIO-prelude (or the sequence method from Cats) to turn a `List[Option[String]]` into a `Option[List[String]]`.
 
 ```scala
 import zio.prelude._
