@@ -46,7 +46,7 @@ val result = list.filterNotNull().joinToString(separator=",").ifBlank { null }
 ## Java version
 
 In Java we will use the stream API, which is a bit more verbose but still working fine.
-Stream::flatMap will remove all the undefined elements and remove (like Scala's flatten) the Optional wrapper.
+Stream::flatMap will remove all the undefined elements and remove the Optional wrapper (like Scala's flatten).
 
 ```java
 List<Optional<String>> list = List.of(Optional.of("A"), Optional.empty(), Optional.of("B"));
