@@ -25,9 +25,8 @@ Exemple 2 : Using `List(None)` should produce `None`.
 We can use the `flip` method from ZIO-prelude (or the sequence method from Cats) to turn a `List[Option[String]]` into a `Option[List[String]]`.
 
 ```scala
-import zio.prelude._
-val list: List[Option[String]] = List(Some("A"), None, Some("B"))
-val flippedList: Option[List[String]] = list.filter(_.isDefined).flip // <- Option(List(A,B))
+val list = List(Some("A"), None, Some("B"))
+val flippedList = list.filter(_.isDefined).flip // <- Option(List(A,B))
 flippedList.map(_.mkString(",")) // <- Some(A,B)
 ```
 
