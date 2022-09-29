@@ -86,7 +86,7 @@ println(
 
 ## More powerful functions
 
-Finally, we can write methods that require a type with some given instances to work make operations using the augmented capabilities of this type : 
+Finally, we can write methods that require a type with some given instances to work, so we can make operations using the augmented capabilities of this type : 
 
 ```scala
 def addAll[A: Addable](l: List[A]) = l.reduceLeft(_.add(_))
