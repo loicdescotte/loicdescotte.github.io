@@ -70,7 +70,7 @@ Without changing the Color type, we can add new capabilities to it :
 given Addable[Color] with
   extension (c1: Color) def add(c2: Color) = 
 
-   // dump color addition example
+   // dumb color addition example
    (c1, c2) match {
      case (Color.Red, Color.Green) => Color.Yellow
      case (Color.Red, Color.Blue) => Color.Purple
