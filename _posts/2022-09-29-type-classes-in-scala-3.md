@@ -40,10 +40,10 @@ Then we can use the extension method, directly on any integer or string :
 
 ```scala
 println(
-  "Hello".add("how are you?")
+  "Hello".add("How are you?")
 )
 
-// This prints: Hello . how are you?
+// This prints: Hello . How are you?
 ```
 
 We can add this capability to any data type, without changing the type directly. 
