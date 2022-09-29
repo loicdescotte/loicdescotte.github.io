@@ -55,12 +55,12 @@ For example, if we have a Color type, defined like that :
 
 ```scala
   enum Color :
-  case Red 
-  case Green
-  case Blue
-  case Purple
-  case Yellow
-  case Unknown
+    case Red 
+    case Green
+    case Blue
+    case Purple
+    case Yellow
+    case Unknown
 ```
 
 Without changing the Color type, we can add new capabilities to it :
