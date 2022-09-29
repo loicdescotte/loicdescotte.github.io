@@ -86,9 +86,15 @@ println(
 
 ## More powerful functions
 
-Finally, we can write methods that require a type with some given instances to work, so we can make operations using the augmented capabilities of this type : 
+Finally, we can write methods that require a type with some given instances to work, so we can make operations using the augmented capabilities of this type.
+
+For example, we can write a `addAll` method, that will take any list of A, if there an given instance of Addable[A], and make the sum of all the A.
 
 ```scala
+
+def addAll[A: Addable](l: List[A]) = l.reduceLeft(((total, current) => total.add(current)))
+
+// or simply :
 def addAll[A: Addable](l: List[A]) = l.reduceLeft(_.add(_))
 
 println(addAll(List("Coucou", "comment", "ça", "va")))
@@ -96,4 +102,4 @@ println(addAll(List("Coucou", "comment", "ça", "va")))
 // This prints : Coucou . comment . ça . va
 ```
 
-
+Note : this is exactly how the sum method of the Scala List type works.
