@@ -22,7 +22,7 @@ trait Addable[A]:
   extension (a1: A) def add(a2: A): A
 ```
 
-The `extension` keyword means that we will augment the capabilties of a type A with an add method, that take another A to produce a sum (also of type A).
+The `extension` keyword means that we will augment the capabilties of a type A with an add method, that takes another A to produce a sum (also of type A).
 
 ### Instances
 
