@@ -47,7 +47,7 @@ println(
 ```
 
 We can add this capability to any data type, without changing the type directly. 
-If you know Domain Driven Design (DDD) you know it is important to be able to keep the domain pure. Type class are very useful for this in a lot of cases, like JSON serialization for example.
+If you know Domain Driven Design (DDD) you know it is important to be able to keep the domain pure. Type classes are very useful for this in a lot of cases, like JSON serialization for example.
 
 It is also possible to add given instances to data type you can't change (from libs/external modules for example)
 
