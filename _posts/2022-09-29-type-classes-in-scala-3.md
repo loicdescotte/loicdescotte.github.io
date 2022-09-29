@@ -26,7 +26,7 @@ The `extension` keyword means that we will augment the capabilties of a type A w
 
 ### Instances
 
-We also need instances to make use this type class with concrete types. We will start to define instance to add integers and strings : 
+We also need instances to use this type class with concrete types. We will start to define instance to add integers and strings : 
 
 ```scala
 given Addable[Int] with
