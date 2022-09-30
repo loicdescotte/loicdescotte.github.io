@@ -89,7 +89,7 @@ println(
 
 Finally, we can write methods that require a type with some given instances to work, so we can make operations using the augmented capabilities of this type.
 
-For example, we can write a `addAll` method, that will take any list of A, if there an given instance of Addable[A], and make the sum of all the A.
+For example, we can write a `addAll` method, that will take any list of A, if there a given instance of Addable[A], and make the sum of all the A.
 
 ```scala
 
@@ -102,5 +102,7 @@ println(addAll(List("Coucou", "comment", "ça", "va")))
    
 // This prints : Coucou . comment . ça . va
 ```
+
+`A: Addable` means that an instance of Addable[A] must be defined.  
 
 Note : this is exactly how the sum method of the Scala List type works.
