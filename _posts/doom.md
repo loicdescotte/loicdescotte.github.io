@@ -1,0 +1,15 @@
+---
+layout: post
+title: All We Leave Behind - my doom-death metal band
+tags:
+ - Music
+ - Doom metal
+---
+
+For once I'm not going to talk to you about code but about music. I play guitar in a doom metal band called All We Leave Behind.
+
+Here is a small video extract of our last gig :
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/X1ETzyiLw9I" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+You can also follow us on Instagram at this address to be informed about new track releases or concert dates : [All We Leave Behind Official](https://www.instagram.com/allweleavebehind.official)
