@@ -22,11 +22,13 @@ case class SoftwareVersionWithIntName(
                             // ...
                           )
 
-implicit val softwareVersionDecoder = DeriveJsonDecoder.gen[SoftwareVersion].orElse(
-  DeriveJsonDecoder.gen[SoftwareVersionWithIntName].map(decoded =>
-    SoftwareVersion(decoded.name.toString)
+object Decoders{
+  implicit val softwareVersionDecoder = DeriveJsonDecoder.gen[SoftwareVersion].orElse(
+    DeriveJsonDecoder.gen[SoftwareVersionWithIntName].map(decoded =>
+      SoftwareVersion(decoded.name.toString)
+    )
   )
-)
+}
 ```
 
 It is working but if there is a lot of changing fields, it may lead to a lot of cases to manage.
