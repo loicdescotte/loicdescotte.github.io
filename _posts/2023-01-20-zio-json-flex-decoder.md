@@ -36,7 +36,7 @@ It is working but if there is a lot of changing fields, it may lead to a lot of 
 To make it work at any level with the minimum amount of code, you can hack the String decoder itself : 
 
 ```scala
-implicit val flexStringDecoder: JsonDecoder[String] = JsonDecoder[String].orElse(
+implicit val flexStringDecoder = JsonDecoder[String].orElse(
   JsonDecoder[Int].map(decoded => decoded.toString)
 )
 ```
