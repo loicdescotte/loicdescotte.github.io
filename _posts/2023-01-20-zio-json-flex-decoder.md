@@ -1,14 +1,12 @@
 
 ---
 layout: post
-title: All We Leave Behind (my doom metal band)
+title: How to define a flex String decoder with ZIO JSON
 tags:
  - JSON
  - Scala
  - ZIO
 ---
-
-# How to define a flex String decoder with ZIO JSON
 
 I am using ZIO JSON to decode responses from a Web service and I've faced an issue : some objects have fields that can sometimes be strings and sometime be integers.
 
