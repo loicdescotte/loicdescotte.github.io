@@ -40,6 +40,6 @@ implicit val flexStringDecoder: JsonDecoder[String] = JsonDecoder[String].orElse
   JsonDecoder[Int].map(decoded => decoded.toString)
 )
 ```
-And voilà! 
+Use it with caution!
 
 The same trick should also work with Circe.
