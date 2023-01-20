@@ -35,8 +35,8 @@ To make it work at any level with the minimum amount of code, you can hack the S
 
 ```scala
 implicit val flexStringDecoder: JsonDecoder[String] = JsonDecoder[String].orElse(
-    JsonDecoder[Int].map(decoded => decoded.toString)
-  )
+  JsonDecoder[Int].map(decoded => decoded.toString)
+)
 ```
 And voilà! 
 
