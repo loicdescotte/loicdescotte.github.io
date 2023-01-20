@@ -3,8 +3,9 @@
 layout: post
 title: All We Leave Behind (my doom metal band)
 tags:
- - Music
- - Doom metal
+ - JSON
+ - Scala
+ - ZIO
 ---
 
 # How to define a flex String decoder with ZIO JSON
