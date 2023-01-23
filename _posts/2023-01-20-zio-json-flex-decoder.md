@@ -1,6 +1,6 @@
 ---
 layout: post
-title: How to define a flex String decoder with ZIO JSON
+title: How to define a flexible String decoder with ZIO JSON
 tags:
  - JSON
  - Scala
