@@ -19,6 +19,7 @@ For each employee I want departement info, but I don't want to query multiple ti
 
 <script src="https://gist.github.com/loicdescotte/1cc5f2a00506138a64efe3534214f6d7.js"></script>
 
+
 ## How to write a generic micro service with Scala 3 and ZIO
 
 Here, I want to write a service that would be able to read, transform and write any type of data, as soon as the data types and the transformers are defined.
