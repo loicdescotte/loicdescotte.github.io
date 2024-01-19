@@ -14,7 +14,7 @@ To start this new year, let's see some ZIO tips snippets!
 
 ## How to cache queries with ZIO and ZQuery
 
-<script src="https://gist.github.com/loicdescotte/8ab10c13b7c63920ec5637b5c695368b.js"></script>
+<script src="https://gist.github.com/loicdescotte/1cc5f2a00506138a64efe3534214f6d7.js"></script>
 
 ## How to write a generic micro service with Scala 3 and ZIO
 
