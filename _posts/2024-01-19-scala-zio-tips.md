@@ -26,6 +26,6 @@ Here, I want to write a service that would be able to read, transform and write 
 
 <script src="https://gist.github.com/loicdescotte/8ab10c13b7c63920ec5637b5c695368b.js"></script>
 
-To learn more about the transformer pattern, you can read [this post](./type-classes-in-scala-3/) about type classes.
+To learn more about the transformer pattern, you can read [this post](https://loicdescotte.github.io/posts/type-classes-in-scala-3/) about type classes.
 
 Happy new year everyone!
