@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Faire évoluer des agents pour un jeu de plateforme avec un algorithme génétique en Scala 3
+title: Evolving Platform Game Agents with a Genetic Algorithm in Scala 3
 tags:
  - Scala
  - Scala 3
@@ -10,44 +10,44 @@ tags:
  - Java2D
 ---
 
-# Faire évoluer des agents pour un jeu de plateforme avec un algorithme génétique en Scala 3
+# Evolving Platform Game Agents with a Genetic Algorithm in Scala 3
 
 ## Introduction
 
-Ce projet explore une idée simple mais fascinante : plutôt que de programmer manuellement l'intelligence d'un agent joueur, on la fait émerger par sélection naturelle.
+This project explores a simple but fascinating idea: rather than manually programming a player agent's intelligence, we let it emerge through natural selection.
 
-Concrètement, une population de 50 agents tente de traverser un niveau de plateforme généré procéduralement. Chaque agent est piloté par un réseau de neurones dont les paramètres (poids et biais) constituent son "génome". Les agents qui progressent le plus loin survivent, se reproduisent et transmettent leurs gènes à la génération suivante. Ceux qui tombent dans les trous ou se font toucher par un ennemi sont éliminés.
+Concretely, a population of 50 agents attempts to traverse a procedurally generated platform level. Each agent is driven by a neural network whose parameters (weights and biases) constitute its "genome". Agents that progress the furthest survive, reproduce, and pass their genes to the next generation. Those that fall into holes or get hit by an enemy are eliminated.
 
-Au bout de quelques générations, des comportements émergent : les agents apprennent à sauter au bon moment, à esquiver les ennemis, à ajuster leur trajectoire en fonction des obstacles. Aucune règle explicite ne leur enseigne ces comportements — tout vient de la pression de sélection.
+After a few generations, behaviors emerge: agents learn to jump at the right moment, dodge enemies, and adjust their trajectory based on obstacles. No explicit rules teach them these behaviors — everything comes from selection pressure.
 
-L'ensemble est écrit en **Scala 3**, s'appuie sur **Java2D** pour le rendu et fonctionne entièrement en local (pas de GPU, pas de framework ML). L'accent est mis sur la pureté fonctionnelle : pas d'état mutable partagé, pas d'effets de bord cachés.
+The whole thing is written in **Scala 3**, uses **Java2D** for rendering, and runs entirely locally (no GPU, no ML framework). The emphasis is on functional purity: no shared mutable state, no hidden side effects.
 
 ---
 
-## Modèle de données
+## Data Model
 
-### Approche purement fonctionnelle
+### Purely Functional Approach
 
-Toute la logique du jeu est **pure et immuable**. Chaque frame produit un nouveau `GameState` plutôt que de modifier l'ancien. L'aléatoire est passé explicitement comme paramètre — jamais via un état global.
+All game logic is **pure and immutable**. Each frame produces a new `GameState` rather than modifying the old one. Randomness is passed explicitly as a parameter — never via global state.
 
-Cette contrainte a des avantages concrets : on peut rejouer n'importe quelle frame, comparer deux états, ou évaluer 50 individus en parallèle sans risque d'interférence.
+This constraint has concrete benefits: you can replay any frame, compare two states, or evaluate 50 individuals in parallel without risk of interference.
 
-### Système de coordonnées
+### Coordinate System
 
 ```
-(0,0) ──────────────────────► X  (positif vers la droite)
+(0,0) ──────────────────────► X  (positive rightward)
   │
-  │   [tuiles] [joueur] [ennemis]
+  │   [tiles] [player] [enemies]
   │
   ▼
-  Y  (positif vers le bas — convention écran Java2D)
+  Y  (positive downward — Java2D screen convention)
 ```
 
-L'axe Y pointe **vers le bas**, ce qui est la convention habituelle de Java2D. Un saut correspond donc à une vélocité Y **négative**.
+The Y axis points **downward**, which is the standard Java2D convention. A jump therefore corresponds to a **negative** Y velocity.
 
-### Types principaux
+### Main Types
 
-**`Vec2`** — vecteur 2D pour positions et vitesses, en pixels :
+**`Vec2`** — 2D vector for positions and velocities, in pixels:
 
 ```scala
 case class Vec2(x: Double, y: Double):
@@ -56,33 +56,33 @@ case class Vec2(x: Double, y: Double):
   def *(s: Double): Vec2 = Vec2(x * s, y * s)
 ```
 
-**`Tile`** — ADT à deux cas représentant une cellule de la grille du monde :
+**`Tile`** — two-case ADT representing a cell in the world grid:
 
 ```scala
 enum Tile:
-  case Air    // espace vide, traversable
-  case Ground // sol ou plateforme solide
+  case Air    // empty space, traversable
+  case Ground // solid floor or platform
 ```
 
-**`World`** — grille immuable de tuiles, indexée par `tiles(col)(row)` :
+**`World`** — immutable tile grid, indexed by `tiles(col)(row)`:
 
 ```scala
 case class World(tiles: Vector[Vector[Tile]], width: Int, height: Int)
 ```
 
-**`Player`** — état du joueur à un instant donné :
+**`Player`** — player state at a given instant:
 
 ```scala
 case class Player(
-  position: Vec2,    // coin supérieur-gauche de la hitbox (pixels)
-  velocity: Vec2,    // vitesse courante (pixels/frame)
-  onGround: Boolean, // posé sur une surface solide
-  alive:    Boolean, // faux si mort (trou ou ennemi)
-  maxX:     Double   // position X maximale atteinte — mesure la progression
+  position: Vec2,    // top-left corner of the hitbox (pixels)
+  velocity: Vec2,    // current velocity (pixels/frame)
+  onGround: Boolean, // resting on a solid surface
+  alive:    Boolean, // false if dead (hole or enemy)
+  maxX:     Double   // maximum X position reached — measures progress
 )
 ```
 
-**`Enemy`** — ennemi patrouillant entre deux bornes fixes :
+**`Enemy`** — enemy patrolling between two fixed bounds:
 
 ```scala
 case class Enemy(
@@ -94,15 +94,15 @@ case class Enemy(
 )
 ```
 
-**`Actions`** — sorties du réseau de neurones, décodées en booléens :
+**`Actions`** — neural network outputs, decoded as booleans:
 
 ```scala
 case class Actions(moveLeft: Boolean, moveRight: Boolean, jump: Boolean)
 ```
 
-Plusieurs actions peuvent être actives simultanément (par exemple `moveRight + jump`).
+Multiple actions can be active simultaneously (e.g. `moveRight + jump`).
 
-**`GameState`** — l'état complet du jeu, transmis frame après frame :
+**`GameState`** — the complete game state, passed frame by frame:
 
 ```scala
 case class GameState(
@@ -114,7 +114,7 @@ case class GameState(
 )
 ```
 
-La fonction de fitness est définie directement sur `GameState` :
+The fitness function is defined directly on `GameState`:
 
 ```scala
 def fitness: Double =
@@ -125,45 +125,45 @@ def fitness: Double =
 
 ---
 
-## Réseau de neurones
+## Neural Network
 
 ### Architecture
 
-Le réseau est un perceptron multicouche feedforward à deux couches :
+The network is a two-layer feedforward multilayer perceptron:
 
 ```
-Capteurs (11 entrées)
+Sensors (11 inputs)
      ↓
-Couche cachée : 16 neurones, activation ReLU
+Hidden layer: 16 neurons, ReLU activation
      ↓
-Couche de sortie : 3 neurones, activation Sigmoid
+Output layer: 3 neurons, Sigmoid activation
      ↓
-Actions : moveLeft | moveRight | jump
+Actions: moveLeft | moveRight | jump
 ```
 
-Chaque neurone calcule `activation(Σ(entrée_i × poids_i) + biais)`. La propagation avant est une opération **pure** — aucun état modifié.
+Each neuron computes `activation(Σ(input_i × weight_i) + bias)`. Forward propagation is a **pure** operation — no state modified.
 
-### Génome : une séquence plate de 243 nombres réels
+### Genome: a flat sequence of 243 real numbers
 
-Chaque individu est représenté par un `Genome`, soit un `Vector[Double]` de 243 valeurs. Ces gènes encodent tous les paramètres du réseau dans l'ordre suivant :
+Each individual is represented by a `Genome`, i.e. a `Vector[Double]` of 243 values. These genes encode all network parameters in the following order:
 
-| Segment | Contenu | Taille |
+| Segment | Content | Size |
 |---|---|---|
-| 1 | Poids couche 1 (11 × 16 connexions) | 176 |
-| 2 | Biais couche 1 (16 neurones) | 16 |
-| 3 | Poids couche 2 (16 × 3 connexions) | 48 |
-| 4 | Biais couche 2 (3 neurones) | 3 |
+| 1 | Layer 1 weights (11 × 16 connections) | 176 |
+| 2 | Layer 1 biases (16 neurons) | 16 |
+| 3 | Layer 2 weights (16 × 3 connections) | 48 |
+| 4 | Layer 2 biases (3 neurons) | 3 |
 | **Total** | | **243** |
 
-Cette représentation plate permet d'appliquer croisement et mutation de façon uniforme, sans connaître la structure interne du réseau.
+This flat representation allows crossover and mutation to be applied uniformly, without knowledge of the network's internal structure.
 
 ### `Genome.decode()`
 
-La fonction `decode` reconstruit un `Network` depuis un `Genome` et une `NetworkConfig`. Elle parcourt les gènes séquentiellement : pour chaque couche, elle lit d'abord les `inSize × outSize` poids, puis les `outSize` biais.
+The `decode` function reconstructs a `Network` from a `Genome` and a `NetworkConfig`. It traverses the genes sequentially: for each layer, it reads the `inSize × outSize` weights first, then the `outSize` biases.
 
 ```scala
-Genome (243 gènes)
-  └─ Genome.decode() ──► Network (poids + biais)
+Genome (243 genes)
+  └─ Genome.decode() ──► Network (weights + biases)
                               │
 GameState ──► Agent.observe() ──► [11 floats] ──► Network.forward() ──► [3 floats]
                                                                               │
@@ -174,29 +174,29 @@ GameState ──► Agent.observe() ──► [11 floats] ──► Network.forw
 
 ---
 
-## Capteurs : les 11 entrées du réseau
+## Sensors: the 11 network inputs
 
-A chaque frame, `Agent.observe()` transforme l'état brut du jeu en un vecteur de 11 valeurs numériques normalisées que le réseau peut traiter.
+Each frame, `Agent.observe()` transforms the raw game state into a vector of 11 normalized numerical values that the network can process.
 
-| Index | Feature | Plage | Description |
+| Index | Feature | Range | Description |
 |---|---|---|---|
-| 0 | Sol présent à 1 tuile devant | 0 ou 1 | Détecte les bords de trous immédiats |
-| 1 | Sol présent à 2 tuiles devant | 0 ou 1 | |
-| 2 | Sol présent à 3 tuiles devant | 0 ou 1 | |
-| 3 | Sol présent à 4 tuiles devant | 0 ou 1 | |
-| 4 | Distance au prochain trou | [0, 1] | Normalisée sur 8 tuiles ; 0 = sauter maintenant, 1 = aucun trou en vue |
-| 5 | Distance horizontale ennemi devant | [0, 1] | Normalisée sur 12 tuiles ; 1 = aucun ennemi |
-| 6 | Distance verticale ennemi devant | [-1, 1] | Normalisée sur 4 tuiles ; négatif = ennemi en hauteur |
-| 7 | Vitesse verticale du joueur | [-1, 1] | Normalisée par `MaxFallSpeed` ; négatif = monte |
-| 8 | Joueur au sol | 0 ou 1 | Flag `onGround` |
-| 9 | Clearance verticale devant | [0, 1] | 0 = plafond collé, 1 = hauteur de saut complète libre |
-| 10 | Direction de l'ennemi | -1, 0 ou +1 | +1 = approche, -1 = s'éloigne, 0 = aucun ennemi |
+| 0 | Ground present 1 tile ahead | 0 or 1 | Detects immediate hole edges |
+| 1 | Ground present 2 tiles ahead | 0 or 1 | |
+| 2 | Ground present 3 tiles ahead | 0 or 1 | |
+| 3 | Ground present 4 tiles ahead | 0 or 1 | |
+| 4 | Distance to next hole | [0, 1] | Normalized over 8 tiles; 0 = jump now, 1 = no hole in sight |
+| 5 | Horizontal distance to enemy ahead | [0, 1] | Normalized over 12 tiles; 1 = no enemy |
+| 6 | Vertical distance to enemy ahead | [-1, 1] | Normalized over 4 tiles; negative = enemy above |
+| 7 | Player vertical velocity | [-1, 1] | Normalized by `MaxFallSpeed`; negative = rising |
+| 8 | Player on ground | 0 or 1 | `onGround` flag |
+| 9 | Vertical clearance ahead | [0, 1] | 0 = ceiling right above, 1 = full jump height free |
+| 10 | Enemy direction | -1, 0 or +1 | +1 = approaching, -1 = moving away, 0 = no enemy |
 
-Les capteurs 0 à 3 forment un "regard" sur le sol : ils permettent au réseau de détecter un trou avant d'y tomber. Le capteur 4 affine ce signal avec une précision pixel. Le capteur 9 évite que l'agent saute sous un plafond bas — une information absente de la première version du projet, dont l'ajout a nettement amélioré les comportements en zone de plateformes.
+Sensors 0 to 3 form a "ground scan": they allow the network to detect a hole before falling into it. Sensor 4 refines this signal with pixel precision. Sensor 9 prevents the agent from jumping into a low ceiling — information absent from the first version of the project, whose addition noticeably improved behavior in platform areas.
 
 ### Actions
 
-Les 3 sorties Sigmoid du réseau produisent des valeurs dans [0, 1]. Un seuil à 0.5 les convertit en booléens :
+The 3 Sigmoid outputs of the network produce values in [0, 1]. A threshold of 0.5 converts them to booleans:
 
 ```
 outputs(0) > 0.5  →  moveLeft  = true
@@ -206,71 +206,71 @@ outputs(2) > 0.5  →  jump      = true
 
 ---
 
-## Algorithme génétique
+## Genetic Algorithm
 
-### Représentation
+### Representation
 
-Chaque individu est une paire `(Genome, fitness)`. Le génome est un `Vector[Double]` de 243 valeurs — un encodage direct de tous les poids et biais du réseau. L'évaluation consiste à décoder le génome en réseau, faire jouer l'agent jusqu'à sa mort ou le timeout de 2500 frames, et noter le score obtenu.
+Each individual is a `(Genome, fitness)` pair. The genome is a `Vector[Double]` of 243 values — a direct encoding of all network weights and biases. Evaluation consists of decoding the genome into a network, running the agent until death or a 2500-frame timeout, and recording the score.
 
-### Population initiale : des agents volontairement mauvais
+### Initial population: intentionally bad agents
 
-La génération 0 est peuplée d'individus "naïfs" construits via `Genome.naive()`. L'idée est de démarrer avec des comportements idiots mais différenciés, pour que la sélection ait matière à travailler dès les premiers croisements.
+Generation 0 is populated with "naive" individuals built via `Genome.naive()`. The idea is to start with stupid but differentiated behaviors, so that selection has material to work with from the very first crossovers.
 
-Trois archétypes sont générés aléatoirement :
+Three archetypes are generated randomly:
 
-- **Fonceur (50%)** : biais de sortie orientés pour spammer `moveRight` et bloquer `jump`. L'agent court à droite et tombe invariablement dans le premier trou. C'est le comportement le plus "visible" en génération 0.
-- **Sauteur maladroit (25%)** : `moveRight` encouragé, `jump` permanent. L'agent avance en sautant en continu — il loupe les atterrissages et saute là où il ne faut pas.
-- **Erratique (25%)** : poids très saturés (σ=3.0), comportement chaotique. Il oscille, recule, ou reste sur place.
+- **Rusher (50%)**: output biases oriented to spam `moveRight` and suppress `jump`. The agent runs right and invariably falls into the first hole. This is the most "visible" behavior in generation 0.
+- **Clumsy jumper (25%)**: `moveRight` encouraged, `jump` permanent. The agent moves forward while jumping continuously — it misses landings and jumps at the wrong moments.
+- **Erratic (25%)**: heavily saturated weights (σ=3.0), chaotic behavior. It oscillates, retreats, or stands still.
 
-Dans tous les cas, les poids généraux sont à σ=1.5 (contre σ=0.5 pour un réseau aléatoire classique), ce qui sature les activations et empêche le réseau de traiter correctement les capteurs. L'évolution doit donc apprendre à la fois à calibrer les poids et à construire des stratégies de saut.
+In all cases, the general weights use σ=1.5 (vs σ=0.5 for a standard random network), which saturates activations and prevents the network from correctly processing sensor inputs. Evolution must therefore learn both to calibrate weights and to build jumping strategies.
 
-### Fonction de fitness
+### Fitness function
 
 ```
 fitness = maxX / TileSize + (1 - frame / MaxFrames)
 ```
 
-La composante principale est la **distance en tuiles** atteinte. Le **bonus de vitesse** vaut 1.0 si l'agent finit instantanément, 0.0 s'il atteint le timeout de 2500 frames. Deux agents atteignant la même distance sont donc départagés par leur rapidité. MaxFrames correspond à environ 42 secondes à 60 fps.
+The main component is the **distance in tiles** reached. The **speed bonus** is 1.0 if the agent finishes instantly, 0.0 if it hits the 2500-frame timeout. Two agents reaching the same distance are therefore ranked by speed. MaxFrames corresponds to approximately 42 seconds at 60 fps.
 
-### Sélection par tournoi (k=3)
+### Tournament selection (k=3)
 
-On tire 3 individus aléatoirement dans la population et on conserve le meilleur. Cette opération est répétée pour choisir chaque parent. La pression de sélection est modérée : un individu faible a toujours une probabilité non nulle d'être sélectionné s'il tombe sur deux adversaires encore plus faibles.
+3 individuals are drawn randomly from the population and the best is kept. This operation is repeated to select each parent. Selection pressure is moderate: a weak individual always has a non-zero probability of being selected if it faces two even weaker opponents.
 
-### Croisement BLX-α (α=0.3)
+### BLX-α crossover (α=0.3)
 
-Chaque gène de l'enfant est une interpolation aléatoire des deux gènes parentaux, légèrement extrapolée au-delà de leur intervalle :
+Each child gene is a random interpolation of the two parental genes, slightly extrapolated beyond their interval:
 
 ```
 lo  = min(g1, g2) - α × |g2 - g1|
 hi  = max(g1, g2) + α × |g2 - g1|
-gene_enfant = lo + u × (hi - lo),  u ~ Uniforme[0, 1]
+child_gene = lo + u × (hi - lo),  u ~ Uniform[0, 1]
 ```
 
-Avec α=0.3, l'enfant peut légèrement dépasser les valeurs parentales. Ce croisement préserve mieux la cohérence inter-couches du réseau qu'un crossover à point unique, où une coupure dans le milieu du génome peut rompre des dépendances entre poids de couches adjacentes.
+With α=0.3, the child can slightly exceed parental values. This crossover preserves network inter-layer coherence better than single-point crossover, where a cut in the middle of the genome can break dependencies between weights of adjacent layers.
 
-### Mutation gaussienne
+### Gaussian mutation
 
-Chaque gène a une probabilité de 10% d'être perturbé par un bruit gaussien N(0, σ=0.4). Cela introduit de la diversité sans détruire les bonnes solutions.
+Each gene has a 10% probability of being perturbed by Gaussian noise N(0, σ=0.4). This introduces diversity without destroying good solutions.
 
-### Elitisme
+### Elitism
 
-Les 5 meilleurs individus de chaque génération passent **inchangés** à la suivante. Cela garantit que les meilleures solutions ne sont jamais perdues par la mutation.
+The 5 best individuals of each generation pass **unchanged** to the next. This guarantees that the best solutions are never lost to mutation.
 
-### Détection de stagnation
+### Stagnation detection
 
-Si la meilleure fitness reste identique pendant 8 générations consécutives, le taux de mutation passe de 10% à 15% et σ de 0.4 à 0.55. Le message suivant est logué :
+If the best fitness remains identical for 8 consecutive generations, the mutation rate increases from 10% to 15% and σ from 0.4 to 0.55. The following message is logged:
 
 ```
-[GEN 14] Stagnation détectée — mutation boostée (rate=0.15, strength=0.55)
+[GEN 14] Stagnation detected — mutation boosted (rate=0.15, strength=0.55)
 ```
 
-Ce mécanisme permet d'échapper aux optima locaux sans augmenter la mutation de façon permanente.
+This mechanism allows escaping local optima without permanently increasing mutation.
 
 ---
 
-## Boucle de simulation
+## Simulation Loop
 
-La simulation est une machine d'état à deux phases, représentée par l'ADT `SimState` :
+The simulation is a two-phase state machine, represented by the `SimState` ADT:
 
 ```scala
 enum SimState:
@@ -278,34 +278,34 @@ enum SimState:
   case Showcasing(population, gameState, network, framesDone)
 ```
 
-### Phase 1 : Evaluating
+### Phase 1: Evaluating
 
-Aucun rendu. 8 individus sont évalués par tick Swing. Pour chaque individu, on décode son génome en réseau, puis on boucle sur `Engine.step()` jusqu'à `state.over`, en appelant `Agent.act()` à chaque itération. Cette boucle prend moins de 2 ms par individu sur un CPU moderne — les 50 individus d'une génération sont traités en une fraction de seconde.
+No rendering. 8 individuals are evaluated per Swing tick. For each individual, its genome is decoded into a network, then `Engine.step()` is looped until `state.over`, calling `Agent.act()` at each iteration. This loop takes less than 2 ms per individual on a modern CPU — all 50 individuals of a generation are processed in a fraction of a second.
 
-Une fois tous les individus évalués, les fitness sont calculées, la population est triée, et la simulation passe en phase Showcasing.
+Once all individuals are evaluated, fitness scores are computed, the population is sorted, and the simulation moves to the Showcasing phase.
 
-### Phase 2 : Showcasing
+### Phase 2: Showcasing
 
-Le meilleur individu de la génération joue en temps réel à 60 fps, pendant au maximum 2500 frames. Le rendu Java2D est actif : on peut observer le comportement évolué, voir le personnage sauter les trous, esquiver les ennemis, accélérer vers la droite.
+The best individual of the generation plays in real time at 60 fps, for a maximum of 2500 frames. Java2D rendering is active: you can observe the evolved behavior, watch the character jump over holes, dodge enemies, and accelerate rightward.
 
-A la fin du showcase (mort ou timeout), `Evolution.evolve()` est appelé pour produire la génération suivante, et le cycle recommence en phase Evaluating.
+At the end of the showcase (death or timeout), `Evolution.evolve()` is called to produce the next generation, and the cycle restarts in the Evaluating phase.
 
-Il est aussi possible de passer le showcase manuellement via `skipShowcase()`, ce qui déclenche immédiatement l'évolution.
+It is also possible to skip the showcase manually via `skipShowcase()`, which immediately triggers evolution.
 
 ---
 
-## Génération du monde
+## World Generation
 
-Le niveau est généré **une seule fois** au démarrage avec la graine fixe `42L`. Tous les individus de toutes les générations jouent sur le même niveau, ce qui garantit une comparaison de fitness équitable.
+The level is generated **once** at startup with the fixed seed `42L`. All individuals across all generations play on the same level, which guarantees a fair fitness comparison.
 
-La génération se déroule en quatre passes :
+Generation proceeds in four passes:
 
-**Passe 1 — Sol de base :** les rangées `FloorRow` et `FloorRow+1` sont remplies de `Ground` sur toute la largeur du monde (150 tuiles).
+**Pass 1 — Base floor:** rows `FloorRow` and `FloorRow+1` are filled with `Ground` across the full world width (150 tiles).
 
-**Passe 2 — Trous :** de gauche à droite, des trous de 2 à 3 tuiles de large sont creusés avec une probabilité croissante (de 20% à 40% selon la progression dans le niveau). Un espacement minimum de 5 à 10 tuiles solides sépare deux trous. Les trous font toujours 2 ou 3 tuiles — suffisamment franchissables avec un bon timing de saut.
+**Pass 2 — Holes:** from left to right, holes 2 to 3 tiles wide are dug with increasing probability (from 20% to 40% depending on progress through the level). A minimum spacing of 5 to 10 solid tiles separates two holes. Holes are always 2 or 3 tiles wide — crossable with good jump timing.
 
-**Passe 3 — Plateformes flottantes :** des plateformes de 4 à 7 tuiles de large sont placées 3 à 5 tuiles au-dessus du sol. Une passe de réparation rebouche ensuite les trous qui se trouvent sous une plateforme basse, pour éviter des configurations impossibles à traverser.
+**Pass 3 — Floating platforms:** platforms 4 to 7 tiles wide are placed 3 to 5 tiles above the floor. A repair pass then fills holes located beneath a low platform, to avoid impossible configurations.
 
-**Passe 4 — Ennemis :** des ennemis sont placés sur les segments de sol d'au moins 6 tuiles (avec 80% de probabilité) et sur les plateformes d'au moins 4 tuiles (70%). Chaque ennemi patrouille en aller-retour dans les bornes de son segment.
+**Pass 4 — Enemies:** enemies are placed on floor segments of at least 6 tiles (with 80% probability) and on platforms of at least 4 tiles (70%). Each enemy patrols back and forth within its segment bounds.
 
-Ce monde fixe, combiné à la fitness basée sur la distance, crée une pression évolutive claire et reproductible : chaque génération est évaluée contre exactement le même obstacle.
+This fixed world, combined with the distance-based fitness, creates a clear and reproducible evolutionary pressure: each generation is evaluated against exactly the same obstacle.
