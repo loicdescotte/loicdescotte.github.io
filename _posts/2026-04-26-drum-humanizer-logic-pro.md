@@ -68,12 +68,12 @@ They are reset to zero in the `Reset()` function (covered later), so the alterna
 var PluginParameters = [
   { name: "Velocity Random", type: "lin", minValue: 0, maxValue: 30, defaultValue: 12, unit: "±" },
   { name: "Timing Random",   type: "lin", minValue: 0, maxValue: 30, defaultValue: 10, unit: "ticks" },
-  { name: "Boost Temps Forts",  type: "lin", minValue: 0, maxValue: 30, defaultValue: 15, unit: "vel" },
-  { name: "Boost Temps Faibles", type: "lin", minValue: 0, maxValue: 15, defaultValue: 5,  unit: "vel" },
-  { name: "Hihat Accent Fort",  type: "lin", minValue: 60, maxValue: 127, defaultValue: 95, unit: "vel" },
-  { name: "Hihat Accent Faible", type: "lin", minValue: 20, maxValue: 90, defaultValue: 60, unit: "vel" },
-  { name: "Ride Accent Fort",   type: "lin", minValue: 60, maxValue: 127, defaultValue: 90, unit: "vel" },
-  { name: "Ride Accent Faible", type: "lin", minValue: 20, maxValue: 90, defaultValue: 55, unit: "vel" }
+  { name: "Strong Beat Boost",  type: "lin", minValue: 0, maxValue: 30, defaultValue: 15, unit: "vel" },
+  { name: "Weak Beat Cut", type: "lin", minValue: 0, maxValue: 15, defaultValue: 5,  unit: "vel" },
+  { name: "Hihat Strong Accent",  type: "lin", minValue: 60, maxValue: 127, defaultValue: 95, unit: "vel" },
+  { name: "Hihat Weak Accent", type: "lin", minValue: 20, maxValue: 90, defaultValue: 60, unit: "vel" },
+  { name: "Ride Strong Accent",   type: "lin", minValue: 60, maxValue: 127, defaultValue: 90, unit: "vel" },
+  { name: "Ride Weak Accent", type: "lin", minValue: 20, maxValue: 90, defaultValue: 55, unit: "vel" }
 ];
 ```
 
@@ -85,12 +85,12 @@ Here is what each parameter controls:
 |---|---|---|
 | `Velocity Random` | Random ± variation applied to all non-hihat/ride notes | 8–15 |
 | `Timing Random` | Maximum timing offset in milliseconds | 5–15 |
-| `Boost Temps Forts` | Velocity added on beats 1 and 3 | 12–20 |
-| `Boost Temps Faibles` | Velocity subtracted on beats 2 and 4 | 3–8 |
-| `Hihat Accent Fort` | Target velocity for strong hi-hat strokes | 85–100 |
-| `Hihat Accent Faible` | Target velocity for weak hi-hat strokes | 50–70 |
-| `Ride Accent Fort` | Target velocity for strong ride strokes | 80–95 |
-| `Ride Accent Faible` | Target velocity for weak ride strokes | 45–65 |
+| `Strong Beat Boost` | Velocity added on beats 1 and 3 | 12–20 |
+| `Weak Beat Cut` | Velocity subtracted on beats 2 and 4 | 3–8 |
+| `Hihat Strong Accent` | Target velocity for strong hi-hat strokes | 85–100 |
+| `Hihat Weak Accent` | Target velocity for weak hi-hat strokes | 50–70 |
+| `Ride Strong Accent` | Target velocity for strong ride strokes | 80–95 |
+| `Ride Weak Accent` | Target velocity for weak ride strokes | 45–65 |
 
 ---
 
@@ -128,10 +128,10 @@ function getBeatBoost(beatPos) {
   var ticksPerBar  = ticksPerBeat * 4;
   var posInBar     = (beatPos * 960) % ticksPerBar;
 
-  if (posInBar < ticksPerBeat)          return GetParameter("Boost Temps Forts");
-  else if (posInBar < ticksPerBeat * 2) return -GetParameter("Boost Temps Faibles");
-  else if (posInBar < ticksPerBeat * 3) return Math.round(GetParameter("Boost Temps Forts") * 0.6);
-  else                                  return -GetParameter("Boost Temps Faibles");
+  if (posInBar < ticksPerBeat)          return GetParameter("Strong Beat Boost");
+  else if (posInBar < ticksPerBeat * 2) return -GetParameter("Weak Beat Cut");
+  else if (posInBar < ticksPerBeat * 3) return Math.round(GetParameter("Strong Beat Boost") * 0.6);
+  else                                  return -GetParameter("Weak Beat Cut");
 }
 ```
 
@@ -156,8 +156,8 @@ function processHihat(event) {
   hihatCounter++;
 
   var baseVel   = isAccent
-    ? GetParameter("Hihat Accent Fort")
-    : GetParameter("Hihat Accent Faible");
+    ? GetParameter("Hihat Strong Accent")
+    : GetParameter("Hihat Weak Accent");
 
   var velRandom = randomize(GetParameter("Velocity Random") * 0.5);
   event.velocity = clampVelocity(baseVel + velRandom);
@@ -251,12 +251,12 @@ var rideCounter  = 0;
 var PluginParameters = [
   { name: "Velocity Random",    type: "lin", minValue: 0,  maxValue: 30,  numberOfSteps: 30, defaultValue: 12, unit: "±" },
   { name: "Timing Random",      type: "lin", minValue: 0,  maxValue: 30,  numberOfSteps: 30, defaultValue: 10, unit: "ticks" },
-  { name: "Boost Temps Forts",  type: "lin", minValue: 0,  maxValue: 30,  numberOfSteps: 30, defaultValue: 15, unit: "vel" },
-  { name: "Boost Temps Faibles",type: "lin", minValue: 0,  maxValue: 15,  numberOfSteps: 15, defaultValue: 5,  unit: "vel" },
-  { name: "Hihat Accent Fort",  type: "lin", minValue: 60, maxValue: 127, numberOfSteps: 67, defaultValue: 95, unit: "vel" },
-  { name: "Hihat Accent Faible",type: "lin", minValue: 20, maxValue: 90,  numberOfSteps: 70, defaultValue: 60, unit: "vel" },
-  { name: "Ride Accent Fort",   type: "lin", minValue: 60, maxValue: 127, numberOfSteps: 67, defaultValue: 90, unit: "vel" },
-  { name: "Ride Accent Faible", type: "lin", minValue: 20, maxValue: 90,  numberOfSteps: 70, defaultValue: 55, unit: "vel" }
+  { name: "Strong Beat Boost",  type: "lin", minValue: 0,  maxValue: 30,  numberOfSteps: 30, defaultValue: 15, unit: "vel" },
+  { name: "Weak Beat Cut",type: "lin", minValue: 0,  maxValue: 15,  numberOfSteps: 15, defaultValue: 5,  unit: "vel" },
+  { name: "Hihat Strong Accent",  type: "lin", minValue: 60, maxValue: 127, numberOfSteps: 67, defaultValue: 95, unit: "vel" },
+  { name: "Hihat Weak Accent",type: "lin", minValue: 20, maxValue: 90,  numberOfSteps: 70, defaultValue: 60, unit: "vel" },
+  { name: "Ride Strong Accent",   type: "lin", minValue: 60, maxValue: 127, numberOfSteps: 67, defaultValue: 90, unit: "vel" },
+  { name: "Ride Weak Accent", type: "lin", minValue: 20, maxValue: 90,  numberOfSteps: 70, defaultValue: 55, unit: "vel" }
 ];
 
 function randomize(range) {
@@ -272,16 +272,16 @@ function getBeatBoost(beatPos) {
   var ticksPerBar  = ticksPerBeat * 4;
   var posInBar     = (beatPos * 960) % ticksPerBar;
 
-  if (posInBar < ticksPerBeat)          return GetParameter("Boost Temps Forts");
-  else if (posInBar < ticksPerBeat * 2) return -GetParameter("Boost Temps Faibles");
-  else if (posInBar < ticksPerBeat * 3) return Math.round(GetParameter("Boost Temps Forts") * 0.6);
-  else                                  return -GetParameter("Boost Temps Faibles");
+  if (posInBar < ticksPerBeat)          return GetParameter("Strong Beat Boost");
+  else if (posInBar < ticksPerBeat * 2) return -GetParameter("Weak Beat Cut");
+  else if (posInBar < ticksPerBeat * 3) return Math.round(GetParameter("Strong Beat Boost") * 0.6);
+  else                                  return -GetParameter("Weak Beat Cut");
 }
 
 function processHihat(event) {
   var isAccent = (hihatCounter % 2 === 0);
   hihatCounter++;
-  var baseVel  = isAccent ? GetParameter("Hihat Accent Fort") : GetParameter("Hihat Accent Faible");
+  var baseVel  = isAccent ? GetParameter("Hihat Strong Accent") : GetParameter("Hihat Weak Accent");
   event.velocity = clampVelocity(baseVel + randomize(GetParameter("Velocity Random") * 0.5));
   return event;
 }
@@ -289,7 +289,7 @@ function processHihat(event) {
 function processRide(event) {
   var isAccent = (rideCounter % 2 === 0);
   rideCounter++;
-  var baseVel  = isAccent ? GetParameter("Ride Accent Fort") : GetParameter("Ride Accent Faible");
+  var baseVel  = isAccent ? GetParameter("Ride Strong Accent") : GetParameter("Ride Weak Accent");
   event.velocity = clampVelocity(baseVel + randomize(GetParameter("Velocity Random") * 0.5));
   return event;
 }
