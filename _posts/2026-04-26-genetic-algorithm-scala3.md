@@ -288,6 +288,8 @@ Once all individuals are evaluated, fitness scores are computed, the population 
 
 The best individual of the generation plays in real time at 60 fps, for a maximum of 2500 frames. Java2D rendering is active: you can observe the evolved behavior, watch the character jump over holes, dodge enemies, and accelerate rightward.
 
+![Genetic algorithm — agent showcasing in the Java2D renderer](/images/genetic-sc.png)
+
 At the end of the showcase (death or timeout), `Evolution.evolve()` is called to produce the next generation, and the cycle restarts in the Evaluating phase.
 
 It is also possible to skip the showcase manually via `skipShowcase()`, which immediately triggers evolution.

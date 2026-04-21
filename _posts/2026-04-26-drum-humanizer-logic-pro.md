@@ -17,6 +17,10 @@ MIDI drums can sound stiff and mechanical, and doing it all manually is tedious 
 
 When you program a drum beat in a DAW, the result is often too perfect — every hit lands exactly on the grid, every velocity is the same. Real drummers don't play like that. They accent certain beats, ghost others, rush slightly here, drag slightly there. This script replicates all of this behavior in real time, non-destructively, with a handful of adjustable parameters.
 
+![Logic Pro Scripter — drum humanizer parameters (UI in French)](/images/logic-sc.png)
+
+> Note: the screenshot shows French parameter names — I named them in French in my local version to match my French Logic Pro interface. The code in this post uses English names for clarity.
+
 ---
 
 ## What the Script Does
