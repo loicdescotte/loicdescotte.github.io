@@ -15,7 +15,7 @@ tags:
 This project explores the following idea: rather than manually programming a player agent's intelligence, we let it emerge through natural selection.
 You can find the code [here on Github](https://github.com/loicdescotte/genetic-platformer).
 
-Concretely, a population of 50 agents attempts to traverse a procedurally generated platform level. Each agent is driven by a neural network whose parameters (weights and biases) constitute its "genome". Agents that progress the furthest survive, reproduce, and pass their genes to the next generation. Those that fall into holes or get hit by an enemy are eliminated.
+Concretely, a population of 100 agents attempts to traverse a procedurally generated platform level. Each agent is driven by a neural network whose parameters (weights and biases) constitute its "genome". Agents that progress the furthest survive, reproduce, and pass their genes to the next generation. Those that fall into holes or get hit by an enemy are eliminated.
 
 After a few generations, behaviors emerge: agents learn to jump at the right moment, dodge enemies, and adjust their trajectory based on obstacles. No explicit rules teach them these behaviors — everything comes from selection pressure.
 
@@ -29,7 +29,7 @@ The whole thing is written in **Scala 3**, uses **Java2D** for rendering, and ru
 
 All game logic is **pure and immutable**. Each frame produces a new `GameState` rather than modifying the old one. Randomness is passed explicitly as a parameter — never via global state.
 
-This constraint has concrete benefits: you can replay any frame, compare two states, or evaluate 50 individuals in parallel without risk of interference.
+This constraint has concrete benefits: you can replay any frame, compare two states, or evaluate 100 individuals in parallel without risk of interference.
 
 ### Coordinate System
 
@@ -279,7 +279,7 @@ enum SimState:
 
 ### Phase 1: Evaluating
 
-No rendering. 8 individuals are evaluated per Swing tick. For each individual, its genome is decoded into a network, then `Engine.step()` is looped until `state.over`, calling `Agent.act()` at each iteration. This loop takes less than 2 ms per individual on a modern CPU — all 50 individuals of a generation are processed in a fraction of a second.
+No rendering. 8 individuals are evaluated per Swing tick. For each individual, its genome is decoded into a network, then `Engine.step()` is looped until `state.over`, calling `Agent.act()` at each iteration. This loop takes less than 2 ms per individual on a modern CPU — all 100 individuals of a generation are processed in a fraction of a second.
 
 Once all individuals are evaluated, fitness scores are computed, the population is sorted, and the simulation moves to the Showcasing phase.
 
