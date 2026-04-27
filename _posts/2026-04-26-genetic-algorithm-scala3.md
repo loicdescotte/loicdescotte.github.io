@@ -10,8 +10,6 @@ tags:
  - Java2D
 ---
 
-# Evolving Platform Game Agents with a Genetic Algorithm in Scala 3
-
 ## Introduction
 
 This project explores the following idea: rather than manually programming a player agent's intelligence, we let it emerge through natural selection.

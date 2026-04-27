@@ -9,8 +9,6 @@ tags:
  - Scripter
 ---
 
-# Humanizing MIDI Drums in Logic Pro with Scripter
-
 MIDI drums can sound stiff and mechanical, and doing it all manually is tedious and time-consuming. So I wrote a Logic Pro Scripter script (with the help of Claude AI) to handle the humanization automatically, and I'm sharing it here in full detail. 
 
 Disclaimer : this is an experiment, I don't have enough perspective yet to tell if it does the job musically speaking, but I wanted to at least share the technical aspect of it. I occasionally work on **[Dabula](https://dabula-music.bandcamp.com/album/dabula)** — my post-rock/doom/stoner project. I will definitely test this technique for the next album.
