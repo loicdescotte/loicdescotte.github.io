@@ -11,9 +11,9 @@ tags:
 
 # Humanizing MIDI Drums in Logic Pro with Scripter
 
-Music is one of my main hobbies, and I occasionally work on **[Dabula](https://dabula-music.bandcamp.com/album/dabula)** — a post-rock/doom/stoner project for which I handle everything from composition to recording and audio production. 
+MIDI drums can sound stiff and mechanical, and doing it all manually is tedious and time-consuming. So I wrote a Logic Pro Scripter script (with the help of Claude AI) to handle the humanization automatically, and I'm sharing it here in full detail. 
 
-MIDI drums can sound stiff and mechanical, and doing it all manually is tedious and time-consuming. So I wrote a Logic Pro Scripter script (with the help of Claude AI) to handle the humanization automatically, and I'm sharing it here in full detail. Disclaimer : this is an experiment, I don't have enough perspective yet to tell if it does the job musically speaking, but I wanted to at least share the technical aspect of it.
+Disclaimer : this is an experiment, I don't have enough perspective yet to tell if it does the job musically speaking, but I wanted to at least share the technical aspect of it. I occasionally work on **[Dabula](https://dabula-music.bandcamp.com/album/dabula)** — my post-rock/doom/stoner project. I will definitely test this technique for the next album.
 
 When you program a drum beat in a DAW, the result is often too perfect — every hit lands exactly on the grid, every velocity is the same. Real drummers don't play like that. They accent certain beats, ghost others, rush slightly here, drag slightly there. This script replicates all of this behavior in real time, non-destructively, with a handful of adjustable parameters.
 
