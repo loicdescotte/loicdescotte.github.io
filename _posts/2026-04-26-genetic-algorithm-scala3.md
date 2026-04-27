@@ -14,7 +14,8 @@ tags:
 
 ## Introduction
 
-This project explores a simple but fascinating idea: rather than manually programming a player agent's intelligence, we let it emerge through natural selection.
+This project explores the following idea: rather than manually programming a player agent's intelligence, we let it emerge through natural selection.
+You can find the code [here on Github](https://github.com/loicdescotte/genetic-platformer).
 
 Concretely, a population of 50 agents attempts to traverse a procedurally generated platform level. Each agent is driven by a neural network whose parameters (weights and biases) constitute its "genome". Agents that progress the furthest survive, reproduce, and pass their genes to the next generation. Those that fall into holes or get hit by an enemy are eliminated.
 
