@@ -12,7 +12,7 @@ tags:
 
 After a long wait, I'm happy to announce that [Hamsters](https://github.com/scala-hamsters/hamsters), the mini Scala utility library, has been ported to **Scala 3**!
 
-The new **4.0.0** release is built for Scala 3 (3.3.x LTS) and cross-compiled for the JVM and Scala.js. The goal of the library hasn't changed: provide a small, focused set of functional utilities that stay approachable, even for people who are just getting started with functional programming.
+The new **4.0.0** release is built for Scala 3 (3.3.x LTS) and cross-compiled for the JVM and Scala.js. The goal of the library hasn't changed: provide a lightweight library with a small, focused set of functional utilities that stay approachable, even for people who are just getting started with functional programming.
 
 To add it to your project:
 
