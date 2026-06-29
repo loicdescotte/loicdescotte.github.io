@@ -61,9 +61,9 @@ fromCatchable(compute(0)) // Invalid("/ by zero")
 
 You can also extract just the successes or just the failures from a set of validations with `Validation.successes` and `Validation.failures`.
 
-### Monad transformers
+### Future composition
 
-Composing `Future[Option[_]]` or `Future[Either[_, _]]` in a for-comprehension is painful by hand. Hamsters gives you `FutureOption` and `FutureEither` to flatten the layers:
+Composing `Future[Option[_]]` or `Future[Either[_, _]]` in a for-comprehension is painful by hand. Hamsters gives you `FutureOption`, `FutureTry` and `FutureEither` to flatten the layers:
 
 ```scala
 import io.github.hamsters.FutureEither
@@ -80,7 +80,7 @@ val composedAB: Future[Either[String, Int]] = for {
 
 ## And more
 
-Beyond validation and monad transformers, the library also ships:
+Beyond validation and transformers, the library also ships:
 
 - `mapN` to combine multiple values
 - Lenses
